@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////
 
-#include <iostream>
-#include <fstream>
-#include <vector>
 #include <cmath>
+#include <fstream>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -14,50 +14,46 @@ const float LENGTH = 1.0;
 
 /////////////////////////////////////////////////////////
 
-struct X
-{
+struct X {
   float x;
   float y;
-  void print( std::ostream& o = std::cout ) {
-    o << x << " " << y << "\n";
-  }
+  void print(std::ostream& o = std::cout) { o << x << " " << y << "\n"; }
 };
 
 /////////////////////////////////////////////////////////
 
-int main( int argc , char ** argv )
-{
+int main(int argc, char** argv) {
   X coords[SIZE][SIZE];
   float dx = 0, dy = 0;
   int ctr = 0;
   ofstream coordfile("coords");
-  for ( int ii=0; ii<SIZE; ++ii ) {
-    for ( int jj=0; jj<SIZE; ++jj ) {
+  for (int ii = 0; ii < SIZE; ++ii) {
+    for (int jj = 0; jj < SIZE; ++jj) {
       X x;
       x.x = dx;
       x.y = dy;
       coords[ii][jj] = x;
-      coordfile << ctr << " "; x.print(coordfile);
+      coordfile << ctr << " ";
+      x.print(coordfile);
       dy += LENGTH;
-      ++ctr;      
+      ++ctr;
     }
     dy = 0.0;
     dx += LENGTH;
   }
   coordfile.close();
 
-  X * x1 = &coords[0][0];
-  X * x2 = &coords[0][0];
+  X* x1 = &coords[0][0];
+  X* x2 = &coords[0][0];
   ofstream edges("edges.ncol");
-  for ( int ii=0; ii<SIZE*SIZE; ++ii ) {
-    for ( int jj=ii+1; jj<SIZE*SIZE; ++jj ) { 
-      X& xx1 = *(x1+ii);
-      X& xx2 = *(x1+jj);
+  for (int ii = 0; ii < SIZE * SIZE; ++ii) {
+    for (int jj = ii + 1; jj < SIZE * SIZE; ++jj) {
+      X& xx1 = *(x1 + ii);
+      X& xx2 = *(x1 + jj);
       dx = xx1.x - xx2.x;
       dy = xx1.y - xx2.y;
-      float d = sqrt( dx*dx + dy*dy );
-      if ( d < (LENGTH + .1*LENGTH) )
-	edges << ii << " " << jj << '\n';
+      float d = sqrt(dx * dx + dy * dy);
+      if (d < (LENGTH + .1 * LENGTH)) edges << ii << " " << jj << '\n';
     }
   }
   edges.close();
