@@ -3,5 +3,13 @@
         "Apthread",
         "Jama",
         "manip"
-    ]
+    ],
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2, ColumnLimit: 80}",
+    "files.associations": {
+        "calcFuncs.C": "cpp",
+        "lglayout.C": "cpp",
+        "lglbreakup.C": "cpp",
+        "lglfileconvert.C": "cpp",
+        "lglrebuild.C": "cpp"
+    }
 }
