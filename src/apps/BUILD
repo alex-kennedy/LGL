@@ -2,7 +2,7 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_binary(
     name = "lglbreakup",
-    srcs = ["lglbreakup.C"],
+    srcs = ["lglbreakup.cc"],
     deps = [
         "//include",
     ],
@@ -10,7 +10,7 @@ cc_binary(
 
 cc_binary(
     name = "lglayout",
-    srcs = ["lglayout.C"],
+    srcs = ["lglayout.cc"],
     deps = [
         "//include",
         "//include:calcFuncs",
@@ -19,7 +19,7 @@ cc_binary(
 
 cc_binary(
     name = "lglrebuild",
-    srcs = ["lglrebuild.C"],
+    srcs = ["lglrebuild.cc"],
     deps = [
         "//include",
         "//include:calcFuncs",
@@ -28,7 +28,7 @@ cc_binary(
 
 cc_binary(
     name = "lglfileconvert",
-    srcs = ["lglfileconvert.C"],
+    srcs = ["lglfileconvert.cc"],
     deps = [
         "//include",
     ],

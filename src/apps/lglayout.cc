@@ -33,16 +33,12 @@
 #include "include/configs.h"
 #include "include/particleInteractionHandler.hpp"
 
-//#include <boost/timer.hpp>
-
 using namespace std;
 using namespace boost;
 
 void displayUsage(char **argv);
 
 int main(int argc, char **argv) try {
-  //  boost::timer start_time;
-
   // There is just one input arg,
   // a file name with all the connections.
   if (argc == 1) {
@@ -383,8 +379,6 @@ int main(int argc, char **argv) try {
     }
   }
 
-  // boost::timer simulation_time_begin;
-
   beginSimulation(threads, cutOffPrecision, timer, threadArgs, chaperone,
                   totalLevels, givenCoords, placementDistance, placementRadius,
                   placeLeafsClose, isSilent);
@@ -395,12 +389,8 @@ int main(int argc, char **argv) try {
                   totalLevels, true, placementDistance, placementRadius,
                   placeLeafsClose, isSilent);
 
-  // boost::timer simulation_time_end;
-
   chaperone.posOutFile(outfile);
   chaperone.writeOutFiles();
-
-  // boost::timer stop_time;
 
   // This will output the most important parameters in order to
   // make this layout more reproducible
