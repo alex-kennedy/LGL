@@ -1,6 +1,7 @@
 # Development
 .DS_Store
 .vscode
+test_output
 
 # Bazel outputs
 bazel-*
