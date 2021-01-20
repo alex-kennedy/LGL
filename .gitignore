@@ -1,6 +1,5 @@
 # Development
 .DS_Store
-.devcontainer
 .vscode
 
 # Bazel outputs
