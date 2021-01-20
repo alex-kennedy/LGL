@@ -5,13 +5,13 @@
 #include <iostream>
 #include <vector>
 
-#include "fixedVec.h"
-#include "grid.hpp"
-#include "gridSchedual.hpp"
-#include "particle.hpp"
-#include "particleContainerChaperone.hpp"
-#include "voxel.hpp"
-#include "voxelInteractionHandler.hpp"
+#include "include/fixedVec.hpp"
+#include "include/grid.hpp"
+#include "include/gridSchedual.hpp"
+#include "include/particle.hpp"
+#include "include/particleContainerChaperone.hpp"
+#include "include/voxel.hpp"
+#include "include/voxelInteractionHandler.hpp"
 
 /////////////////////////////////////////////////////////
 

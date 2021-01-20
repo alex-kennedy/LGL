@@ -29,9 +29,9 @@
 #include <iomanip>
 #include <iostream>
 
-#include "calcFuncs.h"
-#include "configs.h"
-#include "particleInteractionHandler.hpp"
+#include "include/calcFuncs.h"
+#include "include/configs.h"
+#include "include/particleInteractionHandler.hpp"
 
 //#include <boost/timer.hpp>
 

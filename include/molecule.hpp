@@ -244,7 +244,7 @@ Molecule readMoleculeFromCoordFile(const char* file,
     tok_beg = tokens.begin();
     tok_end = tokens.end();
     if (dimension == 0) {
-      dimension = distance(tok_beg, tok_end) - 1;
+      dimension = std::distance(tok_beg, tok_end) - 1;
       Molecule mm(dimension, std::string(file));
       m = mm;
     }

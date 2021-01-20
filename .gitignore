@@ -3,6 +3,9 @@
 .devcontainer
 .vscode
 
+# Bazel outputs
+bazel-*
+
 tags
 tagsfile
 *.o
