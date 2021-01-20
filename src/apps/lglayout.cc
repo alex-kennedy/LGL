@@ -29,9 +29,9 @@
 #include <iomanip>
 #include <iostream>
 
-#include "include/calcFuncs.h"
-#include "include/configs.h"
-#include "include/particleInteractionHandler.hpp"
+#include "src/configs.h"
+#include "src/geometry/particleInteractionHandler.hpp"
+#include "src/utils/calcFuncs.h"
 
 using namespace std;
 using namespace boost;
@@ -435,7 +435,8 @@ int main(int argc, char **argv) try {
     // double elapsed = start_time.elapsed() - stop_time.elapsed();
     // log << "Total Run Seconds: " << elapsed << '\n';
     // elapsed = simulation_time_begin.elapsed() -
-    // simulation_time_end.elapsed(); log << "Simulation Seconds: " << elapsed <<
+    // simulation_time_end.elapsed(); log << "Simulation Seconds: " << elapsed
+    // <<
     // '\n'
     log << "Place Leafs Close: " << placeLeafsClose << '\n' << '\n';
   }

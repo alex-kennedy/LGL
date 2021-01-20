@@ -8,22 +8,22 @@
 #include <set>
 #include <vector>
 
-#include "aPthread.hpp"
-#include "graph.hpp"
-#include "grid.hpp"
-#include "gridSchedual.hpp"
-#include "particle.hpp"
-#include "particleContainer.hpp"
-#include "particleContainerChaperone.hpp"
-#include "particleStats.hpp"
-#include "timeKeeper.hpp"
-#include "voxel.hpp"
-#include "voxelInteractionHandler.hpp"
+#include "src/geometry/grid.hpp"
+#include "src/geometry/gridSchedual.hpp"
+#include "src/geometry/particle.hpp"
+#include "src/geometry/particleContainer.hpp"
+#include "src/geometry/particleContainerChaperone.hpp"
+#include "src/geometry/particleStats.hpp"
+#include "src/geometry/voxel.hpp"
+#include "src/geometry/voxelInteractionHandler.hpp"
+#include "src/graph/graph.hpp"
+#include "src/threading/aPthread.hpp"
+#include "src/utils/timeKeeper.hpp"
 
 //------------------------------------------------------
 
 typedef float prec_t;
-const unsigned int DIMENSION = 3;
+const unsigned int DIMENSION = 2;
 
 //------------------------------------------------------
 

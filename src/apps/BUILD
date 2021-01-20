@@ -4,7 +4,8 @@ cc_binary(
     name = "lglbreakup",
     srcs = ["lglbreakup.cc"],
     deps = [
-        "//include",
+        "//src:configs",
+        "//src/utils",
     ],
 )
 
@@ -12,8 +13,9 @@ cc_binary(
     name = "lglayout",
     srcs = ["lglayout.cc"],
     deps = [
-        "//include",
-        "//include:calcFuncs",
+        "//src:configs",
+        "//src/geometry",
+        "//src/utils",
     ],
 )
 
@@ -21,8 +23,8 @@ cc_binary(
     name = "lglrebuild",
     srcs = ["lglrebuild.cc"],
     deps = [
-        "//include",
-        "//include:calcFuncs",
+        "//src/geometry",
+        "//src/utils",
     ],
 )
 
@@ -30,6 +32,8 @@ cc_binary(
     name = "lglfileconvert",
     srcs = ["lglfileconvert.cc"],
     deps = [
-        "//include",
+        "//src:configs",
+        "//src/geometry",
+        "//src/utils",
     ],
 )

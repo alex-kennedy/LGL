@@ -28,9 +28,9 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "configs.h"
 #include "particle.hpp"
 #include "particleStats.hpp"
+#include "src/configs.h"
 
 //---------------------------------------------
 

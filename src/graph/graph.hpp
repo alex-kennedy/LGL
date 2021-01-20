@@ -38,8 +38,8 @@
 #include <string>
 #include <vector>
 
-#include "fixedVecOperations.hpp"
-#include "mutualMap.hpp"
+#include "src/geometry/fixedVecOperations.hpp"
+#include "src/graph/mutualMap.hpp"
 
 //--------------------------------------------------
 

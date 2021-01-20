@@ -16,9 +16,9 @@
 #include <iostream>
 #include <vector>
 
-#include "configs.h"
-#include "fixedVecOperations.hpp"
-#include "sphere.hpp"
+#include "src/configs.h"
+#include "src/geometry/fixedVecOperations.hpp"
+#include "src/geometry/sphere.hpp"
 
 //------------------------------------------------
 

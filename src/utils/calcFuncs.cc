@@ -18,14 +18,15 @@
 //  MA 02111-1307 USA
 //
 
+#include "src/utils/calcFuncs.h"
+
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include "calcFuncs.h"
-#include "particleInteractionHandler.hpp"
-#include "thread_pool.hpp"
+#include "src/geometry/particleInteractionHandler.hpp"
+#include "src/threading/thread_pool.hpp"
 
 using namespace boost;
 

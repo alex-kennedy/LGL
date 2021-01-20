@@ -3,8 +3,8 @@
 #include <iomanip>
 #include <iostream>
 
-#include "include/configs.h"
-#include "include/graph.hpp"
+#include "src/configs.h"
+#include "src/graph/graph.hpp"
 
 using namespace std;
 
