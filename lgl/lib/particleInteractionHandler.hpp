@@ -30,7 +30,7 @@
 
 #include "particle.hpp"
 #include "particleStats.hpp"
-#include "src/configs.h"
+#include "configs.h"
 
 //---------------------------------------------
 

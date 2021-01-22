@@ -26,10 +26,10 @@
 #include <cstring>
 #include <iostream>
 
-#include "src/geometry/edLookupTable.hpp"
-#include "src/geometry/molecule.hpp"
-#include "src/geometry/sphere.hpp"
-#include "src/utils/calcFuncs.h"
+#include "lgl/lib/calcFuncs.h"
+#include "lgl/lib/edLookupTable.hpp"
+#include "lgl/lib/molecule.hpp"
+#include "lgl/lib/sphere.hpp"
 
 ///////////////////////////////////////////////////////////
 

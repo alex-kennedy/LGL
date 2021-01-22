@@ -34,8 +34,7 @@
 
 #include "fixedVecOperations.hpp"
 
-// namespace lgl {
-// namespace geometry {
+//--------------------------------------
 
 template <typename Particle>
 class Molecule {
@@ -310,8 +309,5 @@ bool isMoleculeRoughlyInSphere(const Molecule& m, const Sphere& s) {
 }
 
 //--------------------------------------
-
-// }  // namespace geometry
-// }  // namespace lgl
 
 #endif

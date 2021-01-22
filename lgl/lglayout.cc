@@ -29,9 +29,9 @@
 #include <iomanip>
 #include <iostream>
 
-#include "src/configs.h"
-#include "src/geometry/particleInteractionHandler.hpp"
-#include "src/utils/calcFuncs.h"
+#include "lgl/lib/calcFuncs.h"
+#include "lgl/lib/configs.h"
+#include "lgl/lib/particleInteractionHandler.hpp"
 
 using namespace std;
 using namespace boost;

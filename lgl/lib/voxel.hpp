@@ -24,8 +24,8 @@
 #include <iostream>
 #include <unordered_set>
 
+#include "aPthread.hpp"
 #include "cube.hpp"
-#include "src/threading/aPthread.hpp"
 
 //------------------------------------------------------------
 // A voxel IS a cube with occupants inside.

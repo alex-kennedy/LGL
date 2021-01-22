@@ -29,8 +29,8 @@
 #include <iostream>
 #include <vector>
 
-#include "src/configs.h"
-#include "src/graph/graph.hpp"
+#include "lgl/lib/configs.h"
+#include "lgl/lib/graph.hpp"
 
 using namespace std;
 

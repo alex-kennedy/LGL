@@ -28,9 +28,9 @@
 #include <iostream>
 #include <string>
 
+#include "aPthread.hpp"
 #include "fixedVec.hpp"
 #include "fixedVecOperations.hpp"
-#include "src/threading/aPthread.hpp"
 
 //----------------------------------------------------
 
