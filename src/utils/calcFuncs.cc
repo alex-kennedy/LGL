@@ -377,7 +377,7 @@ void layerNPlacement(NodeContainer& nodes, Grid_t& grid, out_graph& g,
       // The real placement distance is a function of the number of vertices
       // to place, if the graph is not a tree
       prec_t scalef = placementFormula(placementDistance, vertices2place,
-                                       NodeContainer::dimension);
+                                       NodeContainer::n_dimensions_);
 
       // Put placement distance at 0
       if (!hasChildren && placeLeafsClose) {

@@ -37,7 +37,7 @@ class ParticleContainer {
   typedef ParticleContainer<Particle> PC_;
 
  public:
-  enum { dimension = Particle::dimension };
+  static const Dimension n_dimensions_ = Particle::n_dimensions_;
   typedef Particle particle_type;
   typedef typename particle_type::precision precision;
   using container_type = std::vector<Particle>;

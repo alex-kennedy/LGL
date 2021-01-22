@@ -53,7 +53,7 @@ class ParticleContainerChaperone {
   typedef ParticleContainerChaperone<Particle> PCC_;
 
  public:
-  enum { dimension = Particle::dimension };
+  static const Dimension n_dimensions_ = Particle::n_dimensions_;
   typedef Particle particle_type;
   typedef typename particle_type::vec_type vec_type;
   typedef typename particle_type::precision precision;
@@ -156,7 +156,7 @@ class ParticleContainerChaperone {
       if (id2check != "" && id2check != id) {
         for (size_type ii = 0; ii < pc_.size(); ++ii) {
           if (pc_.ids[ii] == id) {
-            for (size_type jj = 0; jj < dimension; ++jj) {
+            for (size_type jj = 0; jj < n_dimensions_; ++jj) {
               streams_in[_X_FILE__] >> pos_[jj];
             }
             pc_[ii].X(pos_);
@@ -166,11 +166,11 @@ class ParticleContainerChaperone {
         // Warn that `id` found in initial coordinates file is not found in the
         // main input file? That could be too noisy in some use cases...
         float ignored;
-        for (size_type ii = 0; ii < dimension; ++ii)
+        for (size_type ii = 0; ii < n_dimensions_; ++ii)
           streams_in[_X_FILE__] >> ignored;
         return false;
       }
-      for (size_type ii = 0; ii < dimension; ++ii) {
+      for (size_type ii = 0; ii < n_dimensions_; ++ii) {
         streams_in[_X_FILE__] >> pos_[ii];
       }
       p.X(pos_);
@@ -195,7 +195,7 @@ class ParticleContainerChaperone {
       if (id2check != "" && id2check != id) {
         PCC_::orderingError(file_in[_V_FILE__]);
       }
-      for (size_type ii = 0; ii < dimension; ++ii) {
+      for (size_type ii = 0; ii < n_dimensions_; ++ii) {
         streams_in[_V_FILE__] >> vel_[ii];
       }
       p.V(vel_);
@@ -220,7 +220,7 @@ class ParticleContainerChaperone {
   }
 
   vec_type& randomVec(vec_type& v, precision range) {
-    for (unsigned int jj = 0; jj < dimension; ++jj) {
+    for (unsigned int jj = 0; jj < n_dimensions_; ++jj) {
       v[jj] = static_cast<precision>(std::rand() / (RAND_MAX + 1.0)) * range;
     }
     return v;
@@ -346,7 +346,7 @@ class ParticleContainerChaperone {
   }
 
   static std::istream& readPos(std::istream& is, vec_type& pos) {
-    for (size_type ii = 0; ii < dimension; ++ii) is >> pos[ii];
+    for (size_type ii = 0; ii < n_dimensions_; ++ii) is >> pos[ii];
     return is;
   }
 };

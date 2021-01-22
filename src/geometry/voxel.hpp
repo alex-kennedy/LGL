@@ -34,11 +34,12 @@
 //------------------------------------------------------------
 
 template <typename Occupant>
-class Voxel : public Cube<typename Occupant::precision, Occupant::dimension> {
+class Voxel
+    : public Cube<typename Occupant::precision, Occupant::n_dimensions_> {
  private:
   typedef typename std::unordered_set<Occupant*> OL_;
   typedef Voxel<Occupant> Voxel_;
-  typedef Cube<typename Occupant::precision, Occupant::dimension> Cube_;
+  typedef Cube<typename Occupant::precision, Occupant::n_dimensions_> Cube_;
 
  public:
   typedef typename OL_::size_type size_type;

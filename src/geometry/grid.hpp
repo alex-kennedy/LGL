@@ -26,6 +26,7 @@
 #include <iostream>
 
 #include "fixedVec.hpp"
+#include "particle.hpp"
 #include "voxel.hpp"
 
 //------------------------------------------------------------
@@ -44,7 +45,7 @@ class Grid : public Amutex {
   friend class GridIter<Grid<Occupant> >;
 
  public:
-  enum { dimension = Occupant::dimension };
+  static const Dimension n_dimensions_ = Occupant::n_dimensions_;
   typedef Occupant occupant_type;
   typedef unsigned int size_type;
   typedef typename Occupant::precision precision;
@@ -54,7 +55,7 @@ class Grid : public Amutex {
 
  private:
   typedef Grid<Occupant> Grid_;
-  typedef FixedVec<long, dimension> Vec_l;
+  typedef FixedVec<long, n_dimensions_> Vec_l;
 
  protected:
   precision voxelLength;  // The length of each voxel
@@ -72,7 +73,7 @@ class Grid : public Amutex {
     precision vr = voxelLength * .5;
     // Init the mins in all dimensions and initialize
     // for the smallest value.
-    for (size_type ii = 0; ii < dimension; ++ii) {
+    for (size_type ii = 0; ii < n_dimensions_; ++ii) {
       xyzMin[ii] = mins[ii] + vr;
       xyz[ii] = xyzMin[ii];
     }
@@ -88,7 +89,7 @@ class Grid : public Amutex {
       }
       ctr += voxPerEdge[0];
       xyz[0] = xyzMin[0];
-      for (size_type d = 1; d < dimension; ++d) {
+      for (size_type d = 1; d < n_dimensions_; ++d) {
         // Check for a wall or edge in all higher dimensions
         if (ctr % voxPerDim[d] == 0) {
           xyz[d] += voxelLength;
@@ -117,7 +118,7 @@ class Grid : public Amutex {
   // and calls a couple of other init methods.
   void initGrid() {
     // This sets the number of voxels in each dimension
-    for (size_type ii = 0; ii < dimension; ++ii) {
+    for (size_type ii = 0; ii < n_dimensions_; ++ii) {
       precision ctr = mins[ii] - voxelLength;  // Add some pad
       mins[ii] = ctr;
       voxPerEdge[ii] = (unsigned int)ceil((maxs[ii] - ctr) / voxelLength);
@@ -128,7 +129,7 @@ class Grid : public Amutex {
     // in each dimension.
     size_type count = 1;
     voxPerDim[0] = count;
-    for (size_type ii = 1; ii < dimension; ++ii) {
+    for (size_type ii = 1; ii < n_dimensions_; ++ii) {
       count *= voxPerEdge[ii - 1];
       voxPerDim[ii] = count;
     }
@@ -140,7 +141,7 @@ class Grid : public Amutex {
   // point would be in. The current
   voxel_type* getVoxelFromPosition(const vec_type& x) const {
     Vec_l coord;
-    for (size_type d = 0; d < dimension; ++d) {
+    for (size_type d = 0; d < n_dimensions_; ++d) {
       coord[d] = static_cast<long>((x[d] - mins[d]) / voxelLength);
     }
     // This converts dimension to 1D
@@ -182,7 +183,7 @@ class Grid : public Amutex {
   size_type voxelsPerEdge(size_type ii) const { return voxPerEdge[ii]; }
 
   bool checkInclusion(const vec_type& p) const {
-    for (size_type d = 0; d < dimension; ++d) {
+    for (size_type d = 0; d < n_dimensions_; ++d) {
       if (p[d] < mins[d] || p[d] > maxs[d]) return false;
     }
     return true;
@@ -225,13 +226,13 @@ const unsigned int iterMax3D = 14;
 template <typename Grid>
 class GridIter {
  public:
-  enum { dimension = Grid::dimension };
+  static const Dimension n_dimensions_ = Grid::n_dimensions_;
   typedef typename Grid::occupant_type occupant_type;
   typedef typename Grid::voxel_type voxel_type;
   typedef GridIter<Grid> iterator;
   typedef typename Grid::size_type size_type;
   typedef typename Grid::vec_type vec_type;
-  typedef FixedVec<long, dimension> Vec_l;
+  typedef FixedVec<long, n_dimensions_> Vec_l;
 
  protected:
   int iterID;
@@ -260,11 +261,11 @@ class GridIter {
     currentNbhr = 0;
     startingPoint = 0;
     voxPerDim = 0;
-    if (dimension == 1)
+    if (n_dimensions_ == 1)
       iterMax = NbhrVoxelPositions::iterMax1D;
-    else if (dimension == 2)
+    else if (n_dimensions_ == 2)
       iterMax = NbhrVoxelPositions::iterMax2D;
-    else if (dimension == 3)
+    else if (n_dimensions_ == 3)
       iterMax = NbhrVoxelPositions::iterMax3D;
     else {
       cerr << "!! GridIter Can only handle dimensions 1-3 !!\n";
@@ -375,10 +376,10 @@ class GridIter {
     ++currentVoxel[0];
     ++current_;
     ++neighbor_;
-    for (size_type ii = 0; ii < dimension; ++ii) {
+    for (size_type ii = 0; ii < n_dimensions_; ++ii) {
       if (currentVoxel[ii] == dimensions[ii]) {
         currentVoxel[ii] = 0;
-        if ((ii + 1) != dimension) {
+        if ((ii + 1) != n_dimensions_) {
           ++currentVoxel[ii + 1];
         }
       } else {
@@ -405,10 +406,10 @@ class GridIter {
     --currentVoxel[0];
     --current_;
     --neighbor_;
-    for (size_type ii = 0; ii < dimension; ++ii) {
+    for (size_type ii = 0; ii < n_dimensions_; ++ii) {
       if (currentVoxel[ii] == 0) {
         currentVoxel[ii] = dimensions[ii] - 1;
-        if ((ii + 1) != dimension) {
+        if ((ii + 1) != n_dimensions_) {
           --currentVoxel[ii + 1];
         }
       } else {
@@ -438,13 +439,13 @@ class GridIter {
   bool incNbhr() {
     bool gotOne = 0;
     while (neighborCtr < iterMax && !gotOne) {
-      for (unsigned int ii = 0; ii < dimension; ++ii) {
+      for (unsigned int ii = 0; ii < n_dimensions_; ++ii) {
         currentNbhr[ii] =
             currentVoxel[ii] + NbhrVoxelPositions::off_[ii][neighborCtr];
         // This does a boundary check
         if (currentNbhr[ii] == dimensions[ii] || currentNbhr[ii] == -1) {
           break;
-        } else if (ii == dimension - 1) {
+        } else if (ii == n_dimensions_ - 1) {
           gotOne = 1;
           ++neighborCtr;
         }

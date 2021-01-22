@@ -60,7 +60,7 @@ class Graph {
   typedef typename boost::adjacency_list<
       boost::setS, boost::vecS, boost::undirectedS,
       boost::property<boost::vertex_name_t, int>,
-      boost::property<boost::edge_weight_t, Weight> >
+      boost::property<boost::edge_weight_t, Weight>>
       boost_graph;
   typedef typename boost_graph::edge_descriptor edge_descriptor;
   typedef typename boost_graph::vertex_descriptor vertex_descriptor;
@@ -758,7 +758,7 @@ void readLGL(Graph& g, const char* file, typename Graph::weight_type cutoff) {
   using namespace boost;
   typedef typename Graph::boost_graph BG;
   typedef typename Graph::vertex_index_map VIM;
-  typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+  typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
   typename Graph::weight_type
       w{};  // value-initializing to avoid non-legit warning on line 804: ‘w’
             // may be used uninitialized in this function
@@ -929,7 +929,7 @@ void readLGL_weightMin(Graph& g, const char* file,
   using namespace boost;
   typedef typename Graph::boost_graph BG;
   typedef typename Graph::vertex_index_map VIM;
-  typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+  typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
   typename Graph::weight_type w;
 
   std::ifstream in(file);

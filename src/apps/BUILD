@@ -2,7 +2,9 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_binary(
     name = "lglbreakup",
-    srcs = ["lglbreakup.cc"],
+    srcs = [
+        "lglbreakup.cc",
+    ],
     deps = [
         "//src:configs",
         "//src/utils",

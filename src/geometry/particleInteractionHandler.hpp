@@ -40,7 +40,7 @@ class ParticleInteractionHandler {
   typedef ParticleInteractionHandler<Particle> PIH_;
 
  public:
-  enum { dimension = Particle::dimension };
+  static const Dimension n_dimensions_ = Particle::n_dimensions_;
   typedef Particle particle_type;
   typedef typename particle_type::precision precision;
   typedef typename particle_type::vec_type vec_type;
@@ -55,28 +55,34 @@ class ParticleInteractionHandler {
   EllipseFactors ellipseFactors_;
   int id_;
 
-#if 0  // unused function, if becomes used in the future it needs to change to
-       // account for Particle::F()[ii] being atomic
+#if 0  // unused function, if becomes used in the future it needs to change
+  // to account for Particle::F()[ii] being atomic
   // This encourages pass throughs by giving a boost to whatever
   // direction particles were going in the first place
-  void handleCollision( Particle& p1, Particle& p2 ) const {
+  void handleCollision(Particle& p1, Particle& p2) const {
     const vec_type& f1 = p1.F();
     const vec_type& f2 = p2.F();
     const precision mag1 = p1.F().magnitude();
     precision mag1m1 = 0;
-    if ( mag1 > .01 ) { mag1m1 = 1.0/mag1; }
-    else { mag1m1=.1; }
+    if (mag1 > .01) {
+      mag1m1 = 1.0 / mag1;
+    } else {
+      mag1m1 = .1;
+    }
     const precision mag2 = p2.F().magnitude();
     precision mag2m1 = 0;
-    if ( mag2 > .01 ) { mag2m1 = 1.0/mag2; }
-    else { mag2m1=.1; }
+    if (mag2 > .01) {
+      mag2m1 = 1.0 / mag2;
+    } else {
+      mag2m1 = .1;
+    }
 
     vec_type f1_;
-    vec_type f2_;    
+    vec_type f2_;
 
-    for ( unsigned int ii=0; ii<dimension; ++ii ){
-      f1_[ii] = -.1*(f1[ii] * mag1m1);
-      f2_[ii] = -.1*(f2[ii] * mag2m1);
+    for (unsigned int ii = 0; ii < n_dimensions_; ++ii) {
+      f1_[ii] = -.1 * (f1[ii] * mag1m1);
+      f2_[ii] = -.1 * (f2[ii] * mag2m1);
     }
 
     p1.lock();
@@ -131,7 +137,7 @@ class ParticleInteractionHandler {
 
   void enforceFLimit(Particle& p1) const {
     p1.lock();
-    for (unsigned int d = 0; d < dimension; ++d) {
+    for (unsigned int d = 0; d < n_dimensions_; ++d) {
       if (p1.f[d] > forceConstraint_) {
         p1.f[d] = forceConstraint_;
       } else if (p1.f[d] < -1.0 * forceConstraint_) {
@@ -150,7 +156,7 @@ class ParticleInteractionHandler {
     typename Particle::vec_type noise;
     constexpr precision divisor = RAND_MAX + 1.0;
     constexpr int rand_half = (RAND_MAX + 1u) / 2;
-    for (unsigned d = 0; d < dimension; ++d) {
+    for (unsigned d = 0; d < n_dimensions_; ++d) {
       if (std::rand() < rand_half) factor = -factor;
       noise[d] = factor * (((precision)std::rand()) / divisor);
     }
@@ -166,8 +172,8 @@ class ParticleInteractionHandler {
                                        EllipseFactors::value_type(1)))
       ellipseFactors_.clear();  // just an optimization
     if (ellipseFactors_.empty()) return;
-    if (ellipseFactors_.size() < dimension)
-      ellipseFactors_.resize(dimension, ellipseFactors_.back());
+    if (ellipseFactors_.size() < n_dimensions_)
+      ellipseFactors_.resize(n_dimensions_, ellipseFactors_.back());
   }
 
   void interaction(Particle& p1, Particle& p2) const {
@@ -201,10 +207,10 @@ class ParticleInteractionHandler {
     vec_type f_;
     vec_type fm1_;
 
-    for (unsigned int ii = 0; ii < dimension; ++ii) {
+    for (unsigned int ii = 0; ii < n_dimensions_; ++ii) {
       precision dx = (x1[ii] - x2[ii]);
 #if 0  // results in a bad image for "the internet"
-      if ( dx > eqDistance_ ) dx = 1.0 / dx;
+      if (dx > eqDistance_) dx = 1.0 / dx;
 #endif
       precision f = dx * scale;
       f_[ii] = f;
@@ -245,7 +251,7 @@ class ParticleInteractionHandler {
   }
 
   void integrateFirstOrder(Particle& p1, precision t) const {
-    for (unsigned int ii = 0; ii < dimension; ++ii) {
+    for (unsigned int ii = 0; ii < n_dimensions_; ++ii) {
       precision finc = p1.f[ii] * t;
       if (finc < 0) {
         finc = -min<precision>((precision).05, abs(finc));

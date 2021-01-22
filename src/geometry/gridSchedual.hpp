@@ -27,6 +27,7 @@
 #include <iostream>
 
 #include "grid.hpp"
+#include "particle.hpp"
 #include "voxel.hpp"
 
 //---------------------------------------------------------------------------
@@ -34,11 +35,11 @@
 template <typename Grid>
 class GridSchedual_MTS {
  public:
-  enum { dimension = Grid::dimension };
+  static const Dimension n_dimensions_ = Grid::n_dimensions_;
   typedef long size_type;
 
  private:
-  typedef FixedVec<long, dimension> Vec_l;
+  typedef FixedVec<long, n_dimensions_> Vec_l;
   typedef typename Grid::iterator iterator;
   typedef typename Grid::voxel_type voxel_type;
   typedef GridSchedual_MTS<Grid> GS_;
@@ -122,7 +123,7 @@ class GridSchedual_MTS {
   void printVoxelList(std::ostream& o = std::cout) const {
     if (voxelList != 0) {
       o << "VoxelList:\tDimensions: ";
-      for (size_type ii = 0; ii < dimension; ++ii)
+      for (size_type ii = 0; ii < n_dimensions_; ++ii)
         o << grid->voxelsPerEdge(ii) << '\t';
       o << '\n';
       for (size_type ii = 0; ii < gridSize; ++ii) {
