@@ -26,6 +26,7 @@
 #include <cstring>
 #include <iostream>
 
+#include "lgl/lib/configs.h"
 #include "lgl/lib/calcFuncs.h"
 #include "lgl/lib/edLookupTable.hpp"
 #include "lgl/lib/molecule.hpp"
@@ -35,7 +36,7 @@
 
 typedef float prec_t;
 typedef Sphere<prec_t> particle;
-typedef Molecule<particle> Mol;
+typedef Molecule<Dimension::k2Dimensions> Mol;
 typedef Mol::vec_type vec_type;
 typedef std::vector<Mol> Molecules;
 typedef Mol::size_type size_type;

@@ -29,8 +29,7 @@ typedef float FloatType;
 
 //------------------------------------------------------
 
-typedef Particle<FloatType, Dimension::k2Dimensions> Node;
-typedef Particle<FloatType, Dimension::k3Dimensions> Node3D;
+typedef Particle<Dimension::k2Dimensions> Node;
 typedef ParticleContainer<Node> NodeContainer;
 typedef Grid<Node> Grid_t;
 typedef FixedVec<FloatType, Dimension::k2Dimensions> FixedVec_p;

@@ -26,6 +26,7 @@
 #include <cassert>
 #include <iostream>
 
+#include "configs.h"
 #include "grid.hpp"
 #include "particle.hpp"
 #include "voxel.hpp"

@@ -33,19 +33,19 @@
 #include <vector>
 
 #include "fixedVecOperations.hpp"
+#include "sphere.hpp"
 
 //--------------------------------------
 
-template <typename Particle>
+template <Dimension NDimensions>
 class Molecule {
  public:
-  typedef Particle particle_type;
-  typedef typename particle_type::precision precision;
+  typedef Sphere<FloatType> particle_type;
   typedef typename std::vector<particle_type> particle_holder;
   typedef typename particle_holder::size_type size_type;
   typedef typename particle_holder::iterator iterator;
   typedef typename particle_holder::const_iterator const_iterator;
-  typedef typename std::vector<precision> vec_type;
+  typedef typename std::vector<FloatType> vec_type;
 
  private:
   particle_holder particles;
@@ -72,8 +72,8 @@ class Molecule {
     const vec_type& v = s.location();
     // s.print();
     for (size_type ii = 0; ii < dimension(); ++ii) {
-      precision upper = v[ii] + s.radius();
-      precision lower = v[ii] - s.radius();
+      FloatType upper = v[ii] + s.radius();
+      FloatType lower = v[ii] - s.radius();
       if (lower < mins[ii]) {
         mins[ii] = lower;
       }
@@ -92,7 +92,7 @@ class Molecule {
   // CONSTRUCTORS
   Molecule(size_type d = 2) { init(d); }
   Molecule(size_type d, const std::string& i) : id(i) { init(d); }
-  Molecule(const Molecule<particle_type>& m) { operator=(m); }
+  Molecule(const Molecule<NDimensions>& m) { operator=(m); }
 
   // ACCESSORS
   const particle_holder& atoms() const { return particles; }
@@ -109,7 +109,7 @@ class Molecule {
   const vec_type& max() const { return maxs; }
   const vec_type& min() const { return mins; }
 
-  bool inRange(const Molecule<particle_type>& m) const {
+  bool inRange(const Molecule<NDimensions>& m) const {
     // Look for overlap in maxs and mins
     const vec_type& mins2 = m.min();
     const vec_type& maxs2 = m.max();
@@ -161,9 +161,9 @@ class Molecule {
   void print(std::ostream& o = std::cout) const {
     o << "Molecule " << id << '\n';
     o << "Mins: ";
-    copy(mins.begin(), mins.end(), std::ostream_iterator<precision>(o, " "));
+    copy(mins.begin(), mins.end(), std::ostream_iterator<FloatType>(o, " "));
     o << "\nMaxs: ";
-    copy(maxs.begin(), maxs.end(), std::ostream_iterator<precision>(o, " "));
+    copy(maxs.begin(), maxs.end(), std::ostream_iterator<FloatType>(o, " "));
     o << '\n';
     for (size_type ii = 0; ii < particles.size(); ++ii) {
       particles[ii].print(o);
@@ -171,7 +171,7 @@ class Molecule {
   }
 
   // OPERATORS
-  Molecule<particle_type>& operator=(const Molecule<particle_type>& m) {
+  Molecule<NDimensions>& operator=(const Molecule<NDimensions>& m) {
     particles = m.atoms();
     mins = m.min();
     maxs = m.max();
@@ -202,7 +202,7 @@ void moveMolecule(Molecule& m, const typename Molecule::vec_type& v) {
 //--------------------------------------
 
 template <typename Molecule>
-typename Molecule::precision radiusOfMolecule(const Molecule& m) {
+FloatType radiusOfMolecule(const Molecule& m) {
   typedef const typename Molecule::vec_type& vec_ref;
   typename Molecule::vec_type center = simpleAverageMoleculePosition(m);
   vec_ref min = m.min();
@@ -213,15 +213,13 @@ typename Molecule::precision radiusOfMolecule(const Molecule& m) {
 //--------------------------------------
 
 template <typename Molecule>
-Molecule readMoleculeFromCoordFile(const char* file,
-                                   typename Molecule::precision radius) {
-  typedef typename boost::tokenizer<boost::char_separator<char> > tokenizer;
+Molecule readMoleculeFromCoordFile(const char* file, FloatType radius) {
+  typedef typename boost::tokenizer<boost::char_separator<char>> tokenizer;
   typename tokenizer::iterator tok_iter, tok_beg, tok_end;
   typename Molecule::particle_holder particle_holder;
   typedef typename Molecule::size_type size_type;
   typedef typename Molecule::particle_type particle_type;
   typedef typename Molecule::vec_type vec_type;
-  typedef typename Molecule::precision precision;
 
   std::ifstream in(file);
   if (!in) {
@@ -251,7 +249,7 @@ Molecule readMoleculeFromCoordFile(const char* file,
     std::string id(*tok_beg);
     vec_type coords;
     while (++tok_beg != tok_end) {
-      coords.push_back((precision)atof((*tok_beg).c_str()));
+      coords.push_back((FloatType)atof((*tok_beg).c_str()));
     }
     particle_type s(id, coords, radius);
     m.push_back(s);
@@ -303,7 +301,7 @@ void printMolecules(std::ostream& o, Iterator begin, Iterator end) {
 template <typename Molecule, typename Sphere>
 bool isMoleculeRoughlyInSphere(const Molecule& m, const Sphere& s) {
   typename Molecule::vec_type x1 = simpleAverageMoleculePosition(m);
-  typename Molecule::precision r1 = radiusOfMolecule(m);
+  FloatType r1 = radiusOfMolecule(m);
   Sphere s1(x1, r1);
   return doIntersect(s, s1);
 }

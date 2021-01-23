@@ -25,6 +25,7 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "configs.h"
 #include "fixedVec.hpp"
 #include "particle.hpp"
 #include "voxel.hpp"

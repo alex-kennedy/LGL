@@ -29,17 +29,21 @@
 #include <string>
 
 #include "aPthread.hpp"
+#include "configs.h"
 #include "fixedVec.hpp"
 #include "fixedVecOperations.hpp"
 
 //----------------------------------------------------
 
 enum Dimension { k2Dimensions = 2, k3Dimensions = 3 };
+typedef float FloatType;
 
-template <typename FloatType, Dimension NDimensions>
+//----------------------------------------------------
+
+template <Dimension NDimensions>
 class Particle {
  private:
-  typedef Particle<FloatType, NDimensions> Particle_;
+  typedef Particle<NDimensions> Particle_;
   unsigned int index_;  // Index of particle in array
 
  public:
@@ -182,8 +186,8 @@ class Particle {
 
 //----------------------------------------------------
 
-template <typename FloatType, Dimension NDimensions>
-void Particle<FloatType, NDimensions>::printParticle(std::ostream& o) const {
+template <Dimension NDimensions>
+void Particle<NDimensions>::printParticle(std::ostream& o) const {
   o << "Index: " << index_ << "\tId: " << id_ << '\t' << "M: " << mass_ << '\t'
     << "R: " << radius_ << "\tCont: " << container_ << '\n';
   ;
@@ -198,8 +202,8 @@ void Particle<FloatType, NDimensions>::printParticle(std::ostream& o) const {
 
 //----------------------------------------------------
 
-template <typename FloatType, Dimension NDimensions>
-void Particle<FloatType, NDimensions>::printXCoords(std::ostream& o) const {
+template <Dimension NDimensions>
+void Particle<NDimensions>::printXCoords(std::ostream& o) const {
   o << x[0];
   for (unsigned int ii = 1; ii < NDimensions; ++ii) {
     o << " " << x[ii];
@@ -209,7 +213,7 @@ void Particle<FloatType, NDimensions>::printXCoords(std::ostream& o) const {
 //----------------------------------------------------
 
 #if 0
-template <typename FloatType, Dimension NDimensions>
+template <Dimension NDimensions>
 void Particle<FloatType, NDimensions>::printVCoords(std::ostream& o) const {
   o << v[0];
   for (unsigned int ii = 1; ii < NDimensions; ++ii) {
@@ -220,8 +224,8 @@ void Particle<FloatType, NDimensions>::printVCoords(std::ostream& o) const {
 
 //----------------------------------------------------
 
-template <typename FloatType, Dimension NDimensions>
-void Particle<FloatType, NDimensions>::printFCoords(std::ostream& o) const {
+template <Dimension NDimensions>
+void Particle<NDimensions>::printFCoords(std::ostream& o) const {
   o << f[0];
   for (unsigned int ii = 1; ii < NDimensions; ++ii) {
     o << " " << f[ii];
@@ -230,8 +234,8 @@ void Particle<FloatType, NDimensions>::printFCoords(std::ostream& o) const {
 
 //----------------------------------------------------
 
-template <typename FloatType, Dimension NDimensions>
-void Particle<FloatType, NDimensions>::printX(std::ostream& o) const {
+template <Dimension NDimensions>
+void Particle<NDimensions>::printX(std::ostream& o) const {
   o << index_;
   for (unsigned int ii = 0; ii < NDimensions; ++ii) {
     o << " " << x[ii];
@@ -242,8 +246,8 @@ void Particle<FloatType, NDimensions>::printX(std::ostream& o) const {
 //----------------------------------------------------
 
 #if 0
-template <typename FloatType, Dimension NDimensions>
-void Particle<FloatType, NDimensions>::printV(std::ostream& o) const {
+template <Dimension NDimensions>
+void Particle<NDimensions>::printV(std::ostream& o) const {
   o << id;
   for (unsigned int ii = 0; ii < NDimensions; ++ii) {
     o << " " << v[ii];
@@ -254,8 +258,8 @@ void Particle<FloatType, NDimensions>::printV(std::ostream& o) const {
 
 //----------------------------------------------------
 
-template <typename FloatType, Dimension NDimensions>
-void Particle<FloatType, NDimensions>::printF(std::ostream& o) const {
+template <Dimension NDimensions>
+void Particle<NDimensions>::printF(std::ostream& o) const {
   o << id_;
   for (unsigned int ii = 0; ii < NDimensions; ++ii) {
     o << '\t' << f[ii];
