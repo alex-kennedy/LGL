@@ -22,6 +22,9 @@
 
 //------------------------------------------------------
 
+namespace lgl {
+namespace lib {
+
 typedef float prec_t;  // TODO(alexkennedy): Remove when replaced
 const unsigned int DIMENSION = 2;
 
@@ -93,5 +96,8 @@ const int DEFAULT_WEIGHT_FORMAT = 1;
 const FloatType DEFAULT_NODE_MASS = 1.0;
 
 //------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

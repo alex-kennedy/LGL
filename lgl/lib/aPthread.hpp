@@ -37,6 +37,9 @@ using namespace std;
 
 typedef void* (*FunctionPtr)(void*);
 
+namespace lgl {
+namespace lib {
+
 class Apthread {
  protected:
   pthread_t handle_;
@@ -245,5 +248,8 @@ class Amutex {
 };
 
 //--------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

@@ -30,6 +30,9 @@
 
 using namespace boost;
 
+namespace lgl {
+namespace lib {
+
 //---------------------------------------------------------------
 
 void* calcInteractions(void* arg_) {
@@ -655,3 +658,6 @@ void interpolateUninitializedPositions(PCChaperone& chaperone,
     cout << "\nInterpolation of uninitialized positions completed successfully."
          << std::endl;
 }
+
+}  // namespace lib
+}  // namespace lgl

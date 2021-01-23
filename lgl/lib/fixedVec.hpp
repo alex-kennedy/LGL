@@ -27,6 +27,9 @@
 #include <iostream>
 #include <utility>
 
+namespace lgl {
+namespace lib {
+
 //----------------------------------------------------
 
 template <typename T>
@@ -189,5 +192,8 @@ class FixedVec {
 };
 
 //----------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

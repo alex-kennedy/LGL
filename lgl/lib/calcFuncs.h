@@ -23,6 +23,10 @@
 //------------------------------------------------
 
 using namespace boost;
+
+namespace lgl {
+namespace lib {
+
 typedef adjacency_list<vecS, vecS, directedS> out_graph;
 
 //------------------------------------------------
@@ -117,5 +121,8 @@ void interpolateUninitializedPositions(PCChaperone& chaperone,
                                        bool remove_disconnected_nodes);
 
 //------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

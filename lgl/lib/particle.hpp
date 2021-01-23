@@ -33,6 +33,9 @@
 #include "fixedVec.hpp"
 #include "fixedVecOperations.hpp"
 
+namespace lgl {
+namespace lib {
+
 //----------------------------------------------------
 
 enum Dimension { k2Dimensions = 2, k3Dimensions = 3 };
@@ -276,5 +279,8 @@ typename Particle::precision euclideanDistance(const Particle& p1,
 }
 
 //----------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

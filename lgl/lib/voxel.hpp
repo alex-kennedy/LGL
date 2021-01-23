@@ -33,6 +33,9 @@
 // cube.h.
 //------------------------------------------------------------
 
+namespace lgl {
+namespace lib {
+
 template <typename Occupant>
 class Voxel
     : public Cube<typename Occupant::precision, Occupant::n_dimensions_> {
@@ -113,5 +116,8 @@ class Voxel
 };
 
 //------------------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

@@ -25,6 +25,9 @@
 
 #include "fixedVec.hpp"
 
+namespace lgl {
+namespace lib {
+
 //------------------------------------------------------------
 
 template <typename prec_, unsigned int dimension_>
@@ -93,5 +96,8 @@ class Cube {
 };
 
 //------------------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

@@ -41,6 +41,9 @@
 #include "fixedVecOperations.hpp"
 #include "mutualMap.hpp"
 
+namespace lgl {
+namespace lib {
+
 //--------------------------------------------------
 
 namespace GraphDetail {
@@ -1019,5 +1022,8 @@ void readLGL_weightMin(Graph& g, const char* file,
 }
 
 //--------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

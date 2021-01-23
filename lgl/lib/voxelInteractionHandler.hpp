@@ -29,6 +29,9 @@
 
 //---------------------------------------------
 
+namespace lgl {
+namespace lib {
+
 template <typename Voxel, typename InteractionHandler>
 class VoxelInteractionHandler {
  private:
@@ -133,5 +136,8 @@ class VoxelInteractionHandler {
 };
 
 //---------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

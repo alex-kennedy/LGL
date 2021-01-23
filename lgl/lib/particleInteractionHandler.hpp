@@ -28,9 +28,12 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "configs.h"
 #include "particle.hpp"
 #include "particleStats.hpp"
-#include "configs.h"
+
+namespace lgl {
+namespace lib {
 
 //---------------------------------------------
 
@@ -280,5 +283,8 @@ class ParticleInteractionHandler {
 };
 
 //---------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

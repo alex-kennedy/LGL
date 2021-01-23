@@ -30,6 +30,9 @@
 #include "particle.hpp"
 #include "voxel.hpp"
 
+namespace lgl {
+namespace lib {
+
 //------------------------------------------------------------
 
 // Forward declaration for befriending Grid
@@ -542,5 +545,8 @@ void shift_particle(Particle& p, Grid& g) {
 }
 
 //---------------------------------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

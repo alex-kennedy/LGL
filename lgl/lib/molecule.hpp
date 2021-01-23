@@ -35,6 +35,9 @@
 #include "fixedVecOperations.hpp"
 #include "sphere.hpp"
 
+namespace lgl {
+namespace lib {
+
 //--------------------------------------
 
 template <Dimension NDimensions>
@@ -307,5 +310,8 @@ bool isMoleculeRoughlyInSphere(const Molecule& m, const Sphere& s) {
 }
 
 //--------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

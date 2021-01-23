@@ -29,6 +29,9 @@
 
 #include "particle.hpp"
 
+namespace lgl {
+namespace lib {
+
 //----------------------------------------------------
 
 template <typename Particle>
@@ -109,5 +112,8 @@ class ParticleContainer {
 };
 
 //----------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

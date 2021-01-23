@@ -33,6 +33,9 @@
 #include <utility>
 #include <vector>
 
+namespace lgl {
+namespace lib {
+
 class thread_pool {
  public:
   explicit thread_pool(unsigned num_threads) : threads_(num_threads) {
@@ -90,5 +93,8 @@ class thread_pool {
     }
   }
 };
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif  // THREAD_POOL_HPP_INCLUDED

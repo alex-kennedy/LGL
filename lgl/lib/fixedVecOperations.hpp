@@ -25,6 +25,9 @@
 
 #include <cmath>
 
+namespace lgl {
+namespace lib {
+
 //-------------------------------------------
 // Does all pairs comparison, redundant. This
 // does i && j and j && i and with i == j.
@@ -180,5 +183,8 @@ void rotate2DCartesianVector(Array& to, const Array& from, double alpha) {
 }
 
 //-------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

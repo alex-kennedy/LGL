@@ -24,6 +24,9 @@
 #include <exception>
 #include <map>
 
+namespace lgl {
+namespace lib {
+
 // Create a mutual mapping from former to latter;
 template <typename former, typename latter>
 class MutualMap {
@@ -128,5 +131,8 @@ class MutualMap {
     return *this;
   }
 };
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

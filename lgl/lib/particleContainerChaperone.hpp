@@ -37,6 +37,9 @@
 #include "particle.hpp"
 #include "particleContainer.hpp"
 
+namespace lgl {
+namespace lib {
+
 //----------------------------------------------------
 
 const unsigned int _X_FILE__ = 0;  // Position file
@@ -412,5 +415,8 @@ void ParticleContainerChaperone<Particle>::writeOutFiles() {
 }
 
 //----------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

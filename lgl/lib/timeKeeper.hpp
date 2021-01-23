@@ -25,6 +25,9 @@
 
 #include <iostream>
 
+namespace lgl {
+namespace lib {
+
 //----------------------------------------------------
 
 template <typename prec_ = float>
@@ -94,5 +97,8 @@ class TimeKeeper {
 };
 
 //----------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

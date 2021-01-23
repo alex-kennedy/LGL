@@ -31,6 +31,9 @@
 #include "particle.hpp"
 #include "voxel.hpp"
 
+namespace lgl {
+namespace lib {
+
 //---------------------------------------------------------------------------
 
 template <typename Grid>
@@ -255,5 +258,8 @@ void GridSchedual_MTS<Occupant>::renew() {
 }
 
 //---------------------------------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

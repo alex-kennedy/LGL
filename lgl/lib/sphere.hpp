@@ -32,6 +32,9 @@
 
 #include "fixedVec.hpp"
 
+namespace lgl {
+namespace lib {
+
 ///////////////////////////////////////////////////////
 
 template <typename prec>
@@ -153,5 +156,8 @@ inline void randomPointOnSurface(const Sphere& s,
 }
 
 ///////////////////////////////////////////////////////
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

@@ -30,6 +30,9 @@
 
 #include "fixedVecOperations.hpp"
 
+namespace lgl {
+namespace lib {
+
 //----------------------------------------------------
 
 template <typename Entry, typename prec = float>
@@ -151,5 +154,8 @@ class EDLookupTable {
 };
 
 //----------------------------------------------------
+
+}  // namespace lib
+}  // namespace lgl
 
 #endif

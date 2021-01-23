@@ -26,11 +26,13 @@
 #include <cstring>
 #include <iostream>
 
-#include "lgl/lib/configs.h"
 #include "lgl/lib/calcFuncs.h"
+#include "lgl/lib/configs.h"
 #include "lgl/lib/edLookupTable.hpp"
 #include "lgl/lib/molecule.hpp"
 #include "lgl/lib/sphere.hpp"
+
+using namespace lgl::lib;
 
 ///////////////////////////////////////////////////////////
 
