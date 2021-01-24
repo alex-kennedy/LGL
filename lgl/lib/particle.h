@@ -139,7 +139,7 @@ class Particle {
 
   bool isPositionInitialized() const noexcept;
 
-  void resetValues();
+  void reset_values();
 
   void copy(const Particle<NDimensions>& p);
 
