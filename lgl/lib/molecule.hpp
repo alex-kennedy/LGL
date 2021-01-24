@@ -33,6 +33,7 @@
 #include <vector>
 
 #include "fixedVecOperations.hpp"
+#include "cube.h"
 #include "sphere.hpp"
 
 namespace lgl {

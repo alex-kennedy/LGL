@@ -30,6 +30,7 @@
 
 #include "aPthread.hpp"
 #include "configs.h"
+#include "cube.h"
 #include "fixedVec.hpp"
 #include "fixedVecOperations.hpp"
 
@@ -38,7 +39,7 @@ namespace lib {
 
 //----------------------------------------------------
 
-enum Dimension { k2Dimensions = 2, k3Dimensions = 3 };
+// TODO(alexkennedy): Remove these, they're repeats
 typedef float FloatType;
 
 //----------------------------------------------------

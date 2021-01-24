@@ -3,10 +3,14 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 cc_library(
     name = "lib",
     srcs = [
-        "aPthread.hpp",
         "calcFuncs.cc",
         "configs.h",
-        "cube.hpp",
+        "cube.cc",
+    ],
+    hdrs = [
+        "aPthread.hpp",
+        "calcFuncs.h",
+        "cube.h",
         "edLookupTable.hpp",
         "fixedVec.hpp",
         "fixedVecOperations.hpp",
@@ -25,9 +29,6 @@ cc_library(
         "timeKeeper.hpp",
         "voxel.hpp",
         "voxelInteractionHandler.hpp",
-    ],
-    hdrs = [
-        "calcFuncs.h",
     ],
     linkopts = ["-pthread"],
     visibility = ["//lgl:__subpackages__"],

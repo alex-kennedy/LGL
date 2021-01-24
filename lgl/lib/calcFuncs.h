@@ -17,8 +17,16 @@
 #include <vector>
 
 #include "configs.h"
+#include "cube.h"
 #include "fixedVecOperations.hpp"
+#include "grid.hpp"
+#include "particle.hpp"
+#include "particleContainer.hpp"
+#include "particleContainerChaperone.hpp"
+#include "particleInteractionHandler.hpp"
 #include "sphere.hpp"
+#include "voxel.hpp"
+#include "voxelInteractionHandler.hpp"
 
 //------------------------------------------------
 

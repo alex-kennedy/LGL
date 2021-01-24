@@ -28,9 +28,14 @@
 
 #include "lgl/lib/calcFuncs.h"
 #include "lgl/lib/configs.h"
+#include "lgl/lib/cube.h"
 #include "lgl/lib/edLookupTable.hpp"
+#include "lgl/lib/grid.hpp"
 #include "lgl/lib/molecule.hpp"
+#include "lgl/lib/particle.hpp"
 #include "lgl/lib/sphere.hpp"
+#include "lgl/lib/voxel.hpp"
+#include "lgl/lib/voxelInteractionHandler.hpp"
 
 using namespace lgl::lib;
 
@@ -38,7 +43,7 @@ using namespace lgl::lib;
 
 typedef float prec_t;
 typedef Sphere<prec_t> particle;
-typedef Molecule<Dimension::k2Dimensions> Mol;
+typedef Molecule<lgl::lib::Dimension::k2Dimensions> Mol;
 typedef Mol::vec_type vec_type;
 typedef std::vector<Mol> Molecules;
 typedef Mol::size_type size_type;

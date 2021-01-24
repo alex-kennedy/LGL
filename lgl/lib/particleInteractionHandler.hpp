@@ -29,6 +29,7 @@
 #include <iostream>
 
 #include "configs.h"
+#include "cube.h"
 #include "particle.hpp"
 #include "particleStats.hpp"
 

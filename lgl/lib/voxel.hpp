@@ -25,7 +25,9 @@
 #include <unordered_set>
 
 #include "aPthread.hpp"
-#include "cube.hpp"
+#include "configs.h"
+#include "cube.h"
+#include "particle.hpp"
 
 //------------------------------------------------------------
 // A voxel IS a cube with occupants inside.
@@ -36,13 +38,13 @@
 namespace lgl {
 namespace lib {
 
-template <typename Occupant>
-class Voxel
-    : public Cube<typename Occupant::precision, Occupant::n_dimensions_> {
+template <Dimension NDimensions>
+class Voxel : public Cube<NDimensions> {
  private:
+  using Occupant = Particle<NDimensions>;
   typedef typename std::unordered_set<Occupant*> OL_;
-  typedef Voxel<Occupant> Voxel_;
-  typedef Cube<typename Occupant::precision, Occupant::n_dimensions_> Cube_;
+  typedef Voxel<NDimensions> Voxel_;
+  typedef Cube<NDimensions> Cube_;
 
  public:
   typedef typename OL_::size_type size_type;
@@ -58,8 +60,8 @@ class Voxel
 
  public:
   // CONSTRUCTORS
-  Voxel() : Cube_(), index_(0), interactionCtr_(0), mutex() {}
-  Voxel(const Voxel_& v) { Voxel_::operator=(v); }
+  Voxel() : Cube<NDimensions>(), index_(0), interactionCtr_(0), mutex() {}
+  Voxel(const Voxel<NDimensions>& v) { Voxel<NDimensions>::operator=(v); }
 
   // ACCESSORS
   unsigned int index() { return index_; }
@@ -100,7 +102,7 @@ class Voxel
   void print(std::ostream& o = std::cout) const {
     o << "Vox: " << index_ << "\tOcc: " << occupants.size()
       << "\tCtr: " << interactionCtr_ << '\t';
-    Cube_::print(o);
+    Cube<NDimensions>::print(o);
   }
 
   void resize(const Cube_& c) { Cube_::operator=(c); }
@@ -114,8 +116,6 @@ class Voxel
     return *this;
   }
 };
-
-//------------------------------------------------------------
 
 }  // namespace lib
 }  // namespace lgl

@@ -34,6 +34,7 @@
 #include <string>
 #include <unordered_map>
 
+#include "cube.h"
 #include "particle.hpp"
 #include "particleContainer.hpp"
 

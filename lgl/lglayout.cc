@@ -31,7 +31,12 @@
 
 #include "lgl/lib/calcFuncs.h"
 #include "lgl/lib/configs.h"
+#include "lgl/lib/cube.h"
+#include "lgl/lib/grid.hpp"
+#include "lgl/lib/particle.hpp"
 #include "lgl/lib/particleInteractionHandler.hpp"
+#include "lgl/lib/voxel.hpp"
+#include "lgl/lib/voxelInteractionHandler.hpp"
 
 using namespace std;
 using namespace boost;

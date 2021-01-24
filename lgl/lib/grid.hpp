@@ -25,10 +25,12 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "configs.h"
+#include "cube.h"
 #include "fixedVec.hpp"
+#include "grid.hpp"
 #include "particle.hpp"
 #include "voxel.hpp"
+#include "voxelInteractionHandler.hpp"
 
 namespace lgl {
 namespace lib {
@@ -54,7 +56,7 @@ class Grid : public Amutex {
   typedef unsigned int size_type;
   typedef typename Occupant::precision precision;
   typedef typename Occupant::vec_type vec_type;
-  typedef Voxel<Occupant> voxel_type;
+  typedef Voxel<n_dimensions_> voxel_type;
   typedef GridIter<Grid<Occupant> > iterator;
 
  private:
@@ -87,7 +89,7 @@ class Grid : public Amutex {
       long upper = ctr + voxPerEdge[0];
       for (long ii = ctr; ii < upper; ++ii) {
         voxels_[ii].index(ii);
-        voxels_[ii].orig(xyz);
+        voxels_[ii].origin(xyz);
         voxels_[ii].radius(vr);
         xyz[0] += voxelLength;
       }
@@ -151,7 +153,7 @@ class Grid : public Amutex {
     // This converts dimension to 1D
     size_type entry = coord.dotProduct(voxPerDim);
     // Double check
-    if ((voxels_ + entry)->checkInclusionFuzzy(x)) {
+    if ((voxels_ + entry)->check_inclusion_fuzzy(x)) {
       return voxels_ + entry;
     } else {
       // The location will not fit in this grid
@@ -530,12 +532,11 @@ void _remove_particle(Particle& p, Grid& g) {
 // This assumes the particle is already in the grid.
 template <typename Particle, typename Grid>
 void shift_particle(Particle& p, Grid& g) {
-  // Check to see if the particle has even
-  // left the current voxel, which is usually
-  // not the case.
+  // Check to see if the particle has even left the current voxel, which is
+  // usually not the case.
   if (p.container() >= 0) {
     const typename Grid::voxel_type& v = g[p.container()];
-    if (v.checkInclusionFuzzy(p.X())) {
+    if (v.check_inclusion_fuzzy(p.X())) {
       // The particle has not left the voxel
       return;
     }

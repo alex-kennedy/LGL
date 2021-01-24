@@ -10,6 +10,7 @@
 
 #include "aPthread.hpp"
 #include "graph.hpp"
+#include "cube.h"
 #include "grid.hpp"
 #include "gridSchedual.hpp"
 #include "particle.hpp"
@@ -28,11 +29,11 @@ namespace lib {
 typedef float prec_t;  // TODO(alexkennedy): Remove when replaced
 const unsigned int DIMENSION = 2;
 
-typedef float FloatType;
-
 //------------------------------------------------------
 
-typedef Particle<Dimension::k2Dimensions> Node;
+const Dimension n_dimension_config = Dimension::k2Dimensions;
+
+typedef Particle<n_dimension_config> Node;
 typedef ParticleContainer<Node> NodeContainer;
 typedef Grid<Node> Grid_t;
 typedef FixedVec<FloatType, Dimension::k2Dimensions> FixedVec_p;
@@ -40,7 +41,7 @@ typedef FixedVec<long, Dimension::k2Dimensions> FixedVec_l;
 typedef GridIter<Grid_t> GridIterator;
 typedef ParticleContainerChaperone<Node> PCChaperone;
 typedef ApthreadContainer ThreadContainer;
-typedef Voxel<Node> Voxel_t;
+typedef Voxel<n_dimension_config> Voxel_t;
 typedef TimeKeeper<FloatType> TimeKeeper_t;
 template <typename Particle>
 class ParticleInteractionHandler;
