@@ -29,7 +29,7 @@
 #include "configs.h"
 #include "cube.h"
 #include "grid.hpp"
-#include "particle.hpp"
+#include "particle.h"
 #include "voxel.hpp"
 
 namespace lgl {

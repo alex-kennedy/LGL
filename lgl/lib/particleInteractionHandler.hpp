@@ -30,7 +30,7 @@
 
 #include "configs.h"
 #include "cube.h"
-#include "particle.hpp"
+#include "particle.h"
 #include "particleStats.hpp"
 
 namespace lgl {

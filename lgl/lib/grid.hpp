@@ -28,7 +28,7 @@
 #include "cube.h"
 #include "fixedVec.hpp"
 #include "grid.hpp"
-#include "particle.hpp"
+#include "particle.h"
 #include "voxel.hpp"
 #include "voxelInteractionHandler.hpp"
 

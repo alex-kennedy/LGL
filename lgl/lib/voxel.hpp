@@ -27,7 +27,7 @@
 #include "aPthread.hpp"
 #include "configs.h"
 #include "cube.h"
-#include "particle.hpp"
+#include "particle.h"
 
 //------------------------------------------------------------
 // A voxel IS a cube with occupants inside.

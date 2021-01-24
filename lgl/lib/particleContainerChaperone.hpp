@@ -35,7 +35,7 @@
 #include <unordered_map>
 
 #include "cube.h"
-#include "particle.hpp"
+#include "particle.h"
 #include "particleContainer.hpp"
 
 namespace lgl {

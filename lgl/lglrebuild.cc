@@ -32,7 +32,7 @@
 #include "lgl/lib/edLookupTable.hpp"
 #include "lgl/lib/grid.hpp"
 #include "lgl/lib/molecule.hpp"
-#include "lgl/lib/particle.hpp"
+#include "lgl/lib/particle.h"
 #include "lgl/lib/sphere.hpp"
 #include "lgl/lib/voxel.hpp"
 #include "lgl/lib/voxelInteractionHandler.hpp"

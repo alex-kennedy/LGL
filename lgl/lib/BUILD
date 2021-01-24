@@ -6,6 +6,7 @@ cc_library(
         "calcFuncs.cc",
         "configs.h",
         "cube.cc",
+        "particle.cc",
     ],
     hdrs = [
         "aPthread.hpp",
@@ -19,7 +20,7 @@ cc_library(
         "gridSchedual.hpp",
         "molecule.hpp",
         "mutualMap.hpp",
-        "particle.hpp",
+        "particle.h",
         "particleContainer.hpp",
         "particleContainerChaperone.hpp",
         "particleInteractionHandler.hpp",

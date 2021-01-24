@@ -13,7 +13,7 @@
 #include "cube.h"
 #include "grid.hpp"
 #include "gridSchedual.hpp"
-#include "particle.hpp"
+#include "particle.h"
 #include "particleContainer.hpp"
 #include "particleContainerChaperone.hpp"
 #include "particleStats.hpp"
@@ -33,7 +33,7 @@ const unsigned int DIMENSION = 2;
 
 const Dimension n_dimension_config = Dimension::k2Dimensions;
 
-typedef Particle<n_dimension_config> Node;
+typedef Particle<k2Dimensions> Node;
 typedef ParticleContainer<Node> NodeContainer;
 typedef Grid<Node> Grid_t;
 typedef FixedVec<FloatType, Dimension::k2Dimensions> FixedVec_p;

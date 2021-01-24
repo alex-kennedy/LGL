@@ -25,7 +25,7 @@
 
 #include <iostream>
 
-#include "particle.hpp"
+#include "particle.h"
 
 namespace lgl {
 namespace lib {

@@ -20,7 +20,7 @@
 #include "cube.h"
 #include "fixedVecOperations.hpp"
 #include "grid.hpp"
-#include "particle.hpp"
+#include "particle.h"
 #include "particleContainer.hpp"
 #include "particleContainerChaperone.hpp"
 #include "particleInteractionHandler.hpp"

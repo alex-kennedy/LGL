@@ -28,7 +28,7 @@
 #include <vector>
 
 #include "cube.h"
-#include "particle.hpp"
+#include "particle.h"
 
 namespace lgl {
 namespace lib {

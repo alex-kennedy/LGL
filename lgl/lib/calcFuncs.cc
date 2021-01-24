@@ -26,11 +26,11 @@
 #include <boost/lexical_cast.hpp>
 
 #include "cube.h"
-#include "particle.hpp"
+#include "grid.hpp"
+#include "particle.h"
 #include "particleInteractionHandler.hpp"
 #include "thread_pool.hpp"
 #include "voxel.hpp"
-#include "grid.hpp"
 #include "voxelInteractionHandler.hpp"
 
 using namespace boost;
