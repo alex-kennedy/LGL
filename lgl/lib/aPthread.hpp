@@ -20,8 +20,8 @@
 // These are just simple thread/mutex wrappers.
 //--------------------------------------------------
 
-#ifndef APTHHREAD_H_
-#define APTHHREAD_H_
+#ifndef LGL_LIB_APTHHREAD_H_
+#define LGL_LIB_APTHHREAD_H_
 
 //--------------------------------------------------
 
@@ -252,4 +252,4 @@ class Amutex {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_APTHHREAD_H_

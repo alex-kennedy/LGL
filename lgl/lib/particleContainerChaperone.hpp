@@ -16,8 +16,8 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307 USA
 //
-#ifndef PARTICLE_CONTAINER_CHAPERONE_HPP_
-#define PARTICLE_CONTAINER_CHAPERONE_HPP_
+#ifndef LGL_LIB_PARTICLE_CONTAINER_CHAPERONE_HPP_
+#define LGL_LIB_PARTICLE_CONTAINER_CHAPERONE_HPP_
 
 //----------------------------------------------------
 // This class is a helper for particleContainer. It takes
@@ -420,4 +420,4 @@ void ParticleContainerChaperone<Particle>::writeOutFiles() {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_PARTICLE_CONTAINER_CHAPERONE_HPP_

@@ -20,8 +20,8 @@
 // A simple thread pool implementation, requiring C++11
 //--------------------------------------------------
 
-#ifndef THREAD_POOL_HPP_INCLUDED
-#define THREAD_POOL_HPP_INCLUDED
+#ifndef LGL_LIB_THREAD_POOL_HPP_
+#define LGL_LIB_THREAD_POOL_HPP_
 
 #include <cassert>
 #include <condition_variable>
@@ -97,4 +97,4 @@ class thread_pool {
 }  // namespace lib
 }  // namespace lgl
 
-#endif  // THREAD_POOL_HPP_INCLUDED
+#endif  // LGL_LIB_THREAD_POOL_HPP_

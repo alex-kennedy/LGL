@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef PARTICLEINTERACTIONHANDLER_HPP_
-#define PARTICLEINTERACTIONHANDLER_HPP_
+#ifndef LGL_LIB_PARTICLE_INTERACTION_HANDLER_HPP_
+#define LGL_LIB_PARTICLE_INTERACTION_HANDLER_HPP_
 
 //---------------------------------------------
 
@@ -288,4 +288,4 @@ class ParticleInteractionHandler {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_PARTICLE_INTERACTION_HANDLER_HPP_

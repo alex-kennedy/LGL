@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef PARTICLESTATS_HPP_
-#define PARTICLESTATS_HPP_
+#ifndef LGL_LIB_PARTICLE_STATS_HPP_
+#define LGL_LIB_PARTICLE_STATS_HPP_
 
 //---------------------------------------------
 
@@ -138,4 +138,4 @@ class ParticleStats {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_PARTICLE_STATS_HPP_

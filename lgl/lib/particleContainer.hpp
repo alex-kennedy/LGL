@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef PARTICLE_CONTAINER_HPP_
-#define PARTICLE_CONTAINER_HPP_
+#ifndef LGL_LIB_PARTICLE_CONTAINER_HPP_
+#define LGL_LIB_PARTICLE_CONTAINER_HPP_
 
 //----------------------------------------------------
 
@@ -117,4 +117,4 @@ class ParticleContainer {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_PARTICLE_CONTAINER_HPP_

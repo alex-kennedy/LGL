@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef _FIXEDVECTOROPERAIONS_H_
-#define _FIXEDVECTOROPERAIONS_H_
+#ifndef LGL_LIB_FIXEDVECTOROPERAIONS_H_
+#define LGL_LIB_FIXEDVECTOROPERAIONS_H_
 
 //-------------------------------------------
 
@@ -187,4 +187,4 @@ void rotate2DCartesianVector(Array& to, const Array& from, double alpha) {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_FIXEDVECTOROPERAIONS_H_

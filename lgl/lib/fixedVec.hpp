@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef _FIXEDVEC_H_
-#define _FIXEDVEC_H_
+#ifndef LGL_LIB_FIXEDVEC_H_
+#define LGL_LIB_FIXEDVEC_H_
 
 //----------------------------------------------------
 
@@ -196,4 +196,4 @@ class FixedVec {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_FIXEDVEC_H_

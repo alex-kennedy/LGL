@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef SCHEDUALITERATORS_H_
-#define SCHEDUALITERATORS_H_
+#ifndef LGL_LIB_SCHEDUALITERATORS_H_
+#define LGL_LIB_SCHEDUALITERATORS_H_
 
 //---------------------------------------------------------------------------
 
@@ -263,4 +263,4 @@ void GridSchedual_MTS<Occupant>::renew() {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_SCHEDUALITERATORS_H_

@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef _GRID_HPP_
-#define _GRID_HPP_
+#ifndef LGL_LIB_GRID_HPP_
+#define LGL_LIB_GRID_HPP_
 
 #include <cassert>
 #include <cstdlib>
@@ -550,4 +550,4 @@ void shift_particle(Particle& p, Grid& g) {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_GRID_HPP_

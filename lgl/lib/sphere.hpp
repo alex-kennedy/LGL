@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef SPHERE_HPP_
-#define SPHERE_HPP_
+#ifndef LGL_LIB_SPHERE_HPP_
+#define LGL_LIB_SPHERE_HPP_
 
 ///////////////////////////////////////////////////////
 
@@ -160,4 +160,4 @@ inline void randomPointOnSurface(const Sphere& s,
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_SPHERE_HPP_

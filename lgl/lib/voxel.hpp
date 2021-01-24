@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef _VOXEL_HPP_
-#define _VOXEL_HPP_
+#ifndef LGL_LIB_VOXEL_HPP_
+#define LGL_LIB_VOXEL_HPP_
 
 #include <iostream>
 #include <unordered_set>
@@ -120,4 +120,4 @@ class Voxel : public Cube<NDimensions> {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_VOXEL_HPP_

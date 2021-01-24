@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef EDLOOKUPTABLE_HPP_
-#define EDLOOKUPTABLE_HPP_
+#ifndef LGL_LIB_EDLOOKUPTABLE_HPP_
+#define LGL_LIB_EDLOOKUPTABLE_HPP_
 
 //----------------------------------------------------
 
@@ -158,4 +158,4 @@ class EDLookupTable {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_EDLOOKUPTABLE_HPP_

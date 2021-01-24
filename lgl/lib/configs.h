@@ -1,5 +1,5 @@
-#ifndef _CONFIGS_H_
-#define _CONFIGS_H_
+#ifndef LGL_LIB_CONFIGS_H_
+#define LGL_LIB_CONFIGS_H_
 
 //------------------------------------------------------
 
@@ -100,4 +100,4 @@ const FloatType DEFAULT_NODE_MASS = 1.0;
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_CONFIGS_H_

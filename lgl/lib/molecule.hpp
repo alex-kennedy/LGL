@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef MOLECULE_HPP_
-#define MOLECULE_HPP_
+#ifndef LGL_LIB_MOLECULE_HPP_
+#define LGL_LIB_MOLECULE_HPP_
 
 //--------------------------------------
 
@@ -32,8 +32,8 @@
 #include <string>
 #include <vector>
 
-#include "fixedVecOperations.hpp"
 #include "cube.h"
+#include "fixedVecOperations.hpp"
 #include "sphere.hpp"
 
 namespace lgl {
@@ -315,4 +315,4 @@ bool isMoleculeRoughlyInSphere(const Molecule& m, const Sphere& s) {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_MOLECULE_HPP_

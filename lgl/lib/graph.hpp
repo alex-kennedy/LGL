@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef _GRAPH_HPP_
-#define _GRAPH_HPP_
+#ifndef LGL_LIB_GRAPH_HPP_
+#define LGL_LIB_GRAPH_HPP_
 
 //--------------------------------------------------
 
@@ -1026,4 +1026,4 @@ void readLGL_weightMin(Graph& g, const char* file,
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_GRAPH_HPP_

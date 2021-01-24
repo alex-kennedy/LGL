@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef VOXELINTERACTIONHANDLER_HPP_
-#define VOXELINTERACTIONHANDLER_HPP_
+#ifndef LGL_LIB_VOXEL_INTERACTION_HANDLER_HPP_
+#define LGL_LIB_VOXEL_INTERACTION_HANDLER_HPP_
 
 //---------------------------------------------
 
@@ -141,4 +141,4 @@ class VoxelInteractionHandler {
 }  // namespace lib
 }  // namespace lgl
 
-#endif
+#endif  // LGL_LIB_VOXEL_INTERACTION_HANDLER_HPP_
