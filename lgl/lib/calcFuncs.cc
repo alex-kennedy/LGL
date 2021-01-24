@@ -184,7 +184,7 @@ void* onlyEdgeInteractions(void* arg_) {
 //--------------------------------------------------------------
 
 void beginSimulation(ThreadContainer& threads, prec_t cutOffPrecision,
-                     TimeKeeper_t& timer, ThreadArgs* threadArgs,
+                     TimeKeeper& timer, ThreadArgs* threadArgs,
                      PCChaperone& chaperone, unsigned int totalLevels,
                      bool givenCoords, prec_t placementDistance,
                      prec_t placementRadius, bool placeLeafsClose,

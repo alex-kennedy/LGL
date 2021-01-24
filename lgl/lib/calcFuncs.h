@@ -75,7 +75,7 @@ int generateMSTFromNodes(NodeContainer& nodes, ThreadArgs* args, long p);
 
 prec_t collectOutput(ThreadArgs* args, PCChaperone& chaperone);
 void beginSimulation(ThreadContainer& threads, prec_t cutOffPrecision,
-                     TimeKeeper_t& timer, ThreadArgs* threadArgs,
+                     TimeKeeper& timer, ThreadArgs* threadArgs,
                      PCChaperone& chaperone, unsigned int totalLevels, bool b,
                      prec_t placementDistance, prec_t placementRadius,
                      bool placeLeafsClose, bool silentOutput);

@@ -27,7 +27,7 @@ cc_library(
         "particleStats.hpp",
         "sphere.hpp",
         "thread_pool.hpp",
-        "timeKeeper.hpp",
+        "time_keeper.hpp",
         "voxel.hpp",
         "voxelInteractionHandler.hpp",
     ],

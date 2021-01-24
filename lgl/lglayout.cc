@@ -51,7 +51,7 @@ int main(int argc, char **argv) try {
     displayUsage(argv);
   }
 
-  TimeKeeper_t timer;
+  TimeKeeper timer;
 
   // Now to deal with the options. First set to
   // defaults and if options are passed the vars
@@ -85,7 +85,7 @@ int main(int argc, char **argv) try {
   bool disregardDisconnectedNodes = false;
 
   timer.max(MAXITER);
-  timer.timeStep(PART_TIME_STEP);
+  timer.time_step(PART_TIME_STEP);
 
   while ((optch = getopt(argc, argv,
                          "x:a:t:m:M:i:s:r:k:T:R:S:W:z:o:leOyu:v:Iq:E:L:D")) !=
@@ -119,7 +119,7 @@ int main(int argc, char **argv) try {
         outerRadius = atof(optarg);
         break;
       case 'T':
-        timer.timeStep(atof(optarg));
+        timer.time_step(atof(optarg));
         break;
       case 'S':
         nodeSizeRadius = atof(optarg);
@@ -245,7 +245,7 @@ int main(int argc, char **argv) try {
   cout.flush();
   VoxelHandler vh;
   NodeInteractionHandler nh;
-  nh.timeStep(timer.timeStep());
+  nh.timeStep(timer.time_step());
   nh.noiseAmplitude(1.0);
   GridSchedual_t schedual(grid);
   bool acceptable = schedual.threads(processorCount);
@@ -364,7 +364,7 @@ int main(int argc, char **argv) try {
     current.nodeHandler = new NodeInteractionHandler(nh);
     current.nodeHandler->id(threadCtr);
     current.nodeHandler->forceLimit(.1 * voxelLength /
-                                    static_cast<prec_t>(timer.timeStep()));
+                                    static_cast<prec_t>(timer.time_step()));
     current.nodeHandler->eqDistance(eqDistance);
     current.nodeHandler->ellipseFactors(ellipseFactors);
     current.voxelHandler = new VoxelHandler(vh);
