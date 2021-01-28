@@ -30,7 +30,7 @@
 #include "cube.h"
 #include "grid.hpp"
 #include "particle.h"
-#include "voxel.hpp"
+#include "voxel.h"
 
 namespace lgl {
 namespace lib {

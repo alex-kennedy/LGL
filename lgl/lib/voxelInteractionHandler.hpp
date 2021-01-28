@@ -26,7 +26,7 @@
 #include <iostream>
 
 #include "cube.h"
-#include "voxel.hpp"
+#include "voxel.h"
 
 //---------------------------------------------
 

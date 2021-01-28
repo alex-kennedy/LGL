@@ -34,7 +34,7 @@
 #include "lgl/lib/molecule.hpp"
 #include "lgl/lib/particle.h"
 #include "lgl/lib/sphere.hpp"
-#include "lgl/lib/voxel.hpp"
+#include "lgl/lib/voxel.h"
 #include "lgl/lib/voxelInteractionHandler.hpp"
 
 using namespace lgl::lib;

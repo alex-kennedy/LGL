@@ -25,7 +25,7 @@
 #include "particleContainerChaperone.hpp"
 #include "particleInteractionHandler.hpp"
 #include "sphere.hpp"
-#include "voxel.hpp"
+#include "voxel.h"
 #include "voxelInteractionHandler.hpp"
 
 //------------------------------------------------

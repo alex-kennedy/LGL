@@ -10,7 +10,7 @@
 #include "include/gridSchedual.hpp"
 #include "include/particle.hpp"
 #include "include/particleContainerChaperone.hpp"
-#include "include/voxel.hpp"
+#include "include/voxel.h"
 #include "include/voxelInteractionHandler.hpp"
 
 /////////////////////////////////////////////////////////

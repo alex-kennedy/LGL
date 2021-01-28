@@ -35,7 +35,7 @@
 #include "lgl/lib/grid.hpp"
 #include "lgl/lib/particle.h"
 #include "lgl/lib/particleInteractionHandler.hpp"
-#include "lgl/lib/voxel.hpp"
+#include "lgl/lib/voxel.h"
 #include "lgl/lib/voxelInteractionHandler.hpp"
 
 using namespace std;

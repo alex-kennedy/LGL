@@ -7,6 +7,7 @@ cc_library(
         "configs.h",
         "cube.cc",
         "particle.cc",
+        "voxel.cc",
     ],
     hdrs = [
         "aPthread.hpp",
@@ -28,7 +29,7 @@ cc_library(
         "sphere.hpp",
         "thread_pool.hpp",
         "time_keeper.hpp",
-        "voxel.hpp",
+        "voxel.h",
         "voxelInteractionHandler.hpp",
     ],
     linkopts = ["-pthread"],

@@ -30,7 +30,7 @@
 #include "particle.h"
 #include "particleInteractionHandler.hpp"
 #include "thread_pool.hpp"
-#include "voxel.hpp"
+#include "voxel.h"
 #include "voxelInteractionHandler.hpp"
 
 using namespace boost;

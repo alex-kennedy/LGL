@@ -27,9 +27,8 @@
 
 #include "cube.h"
 #include "fixedVec.hpp"
-#include "grid.hpp"
 #include "particle.h"
-#include "voxel.hpp"
+#include "voxel.h"
 #include "voxelInteractionHandler.hpp"
 
 namespace lgl {

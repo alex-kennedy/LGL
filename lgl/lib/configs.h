@@ -18,7 +18,7 @@
 #include "particleContainerChaperone.hpp"
 #include "particleStats.hpp"
 #include "time_keeper.hpp"
-#include "voxel.hpp"
+#include "voxel.h"
 #include "voxelInteractionHandler.hpp"
 
 //------------------------------------------------------
