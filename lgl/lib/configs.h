@@ -15,6 +15,7 @@
 #include "particle.h"
 #include "particleContainer.hpp"
 #include "particleContainerChaperone.hpp"
+#include "particleInteractionHandler.hpp"
 #include "particleStats.hpp"
 #include "pthread_wrapper.h"
 #include "thread_pool.hpp"
@@ -43,9 +44,7 @@ typedef GridIter<Grid_t> GridIterator;
 typedef ParticleContainerChaperone<Node> PCChaperone;
 typedef ApthreadContainer ThreadContainer;
 typedef Voxel<n_dimensions> Voxel_t;
-template <typename Particle>
-class ParticleInteractionHandler;
-typedef ParticleInteractionHandler<Node> NodeInteractionHandler;
+typedef ParticleInteractionHandler<n_dimensions> NodeInteractionHandler;
 typedef VoxelInteractionHandler<Voxel_t, NodeInteractionHandler> VoxelHandler;
 typedef GridSchedual_MTS<Grid_t> GridSchedual_t;
 typedef ParticleStats<Node> ParticleStats_t;
@@ -53,7 +52,6 @@ typedef Graph<FloatType> Graph_t;
 typedef vector<unsigned> LevelMap;
 typedef vector<unsigned> ParentMap;
 typedef vector<bool> PlacementStatus;
-typedef std::vector<FloatType> EllipseFactors;
 
 //------------------------------------------------------
 

@@ -40,7 +40,6 @@ class VoxelInteractionHandler {
 
  public:
   typedef Voxel voxel_type;
-  typedef typename InteractionHandler::precision precision;
   typedef typename Voxel::occupant_type occupant_type;
   typedef typename voxel_type::size_type size_type;
   typedef typename voxel_type::occupant_iterator occupant_iterator;

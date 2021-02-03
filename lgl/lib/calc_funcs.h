@@ -36,6 +36,7 @@ namespace lgl {
 namespace lib {
 
 typedef adjacency_list<vecS, vecS, directedS> out_graph;
+typedef std::vector<FloatType> EllipseFactors;
 
 //------------------------------------------------
 

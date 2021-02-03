@@ -3,7 +3,6 @@
 #include <iomanip>
 #include <iostream>
 
-#include "lgl/lib/configs.h"
 #include "lgl/lib/graph.hpp"
 
 using namespace std;
@@ -23,7 +22,7 @@ int main(int argc, char** argv) {
   string infile = argv[1];
   string outfile = argv[2];
 
-  Graph_t g;
+  Graph<float> g;
 
   if ((infile.find(".ncol") != std::string::npos &&
        infile.find(".lgl") == std::string::npos) ||

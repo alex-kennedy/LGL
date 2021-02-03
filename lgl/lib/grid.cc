@@ -8,7 +8,6 @@
 #include "fixedVec.hpp"
 #include "particle.h"
 #include "voxel.h"
-#include "voxelInteractionHandler.hpp"
 
 namespace lgl {
 namespace lib {

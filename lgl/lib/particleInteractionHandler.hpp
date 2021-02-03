@@ -28,7 +28,6 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "configs.h"
 #include "cube.h"
 #include "particle.h"
 #include "particleStats.hpp"
@@ -36,26 +35,20 @@
 namespace lgl {
 namespace lib {
 
-//---------------------------------------------
+typedef std::vector<FloatType> EllipseFactors;
 
-template <typename Particle>
+template <Dimension D>
 class ParticleInteractionHandler {
- private:
-  typedef ParticleInteractionHandler<Particle> PIH_;
-
  public:
-  static const Dimension n_dimensions_ = Particle::n_dimensions_;
-  typedef Particle particle_type;
-  typedef typename particle_type::precision precision;
-  typedef typename particle_type::vec_type vec_type;
+  typedef typename Particle<D>::vec_type vec_type;
 
  protected:
-  precision timeStep_;
-  precision springConstant_;
-  precision eqDistance_;
-  precision eqDistanceSquared_ = 0;  // just for optimization
-  precision forceConstraint_;
-  precision noiseAmplitude_;
+  FloatType timeStep_;
+  FloatType springConstant_;
+  FloatType eqDistance_;
+  FloatType eqDistanceSquared_ = 0;  // just for optimization
+  FloatType forceConstraint_;
+  FloatType noiseAmplitude_;
   EllipseFactors ellipseFactors_;
   int id_;
 
@@ -63,18 +56,18 @@ class ParticleInteractionHandler {
   // to account for Particle::F()[ii] being atomic
   // This encourages pass throughs by giving a boost to whatever
   // direction particles were going in the first place
-  void handleCollision(Particle& p1, Particle& p2) const {
+  void handleCollision(Particle<D>& p1, Particle<D>& p2) const {
     const vec_type& f1 = p1.F();
     const vec_type& f2 = p2.F();
-    const precision mag1 = p1.F().magnitude();
-    precision mag1m1 = 0;
+    const FloatType mag1 = p1.F().magnitude();
+    FloatType mag1m1 = 0;
     if (mag1 > .01) {
       mag1m1 = 1.0 / mag1;
     } else {
       mag1m1 = .1;
     }
-    const precision mag2 = p2.F().magnitude();
-    precision mag2m1 = 0;
+    const FloatType mag2 = p2.F().magnitude();
+    FloatType mag2m1 = 0;
     if (mag2 > .01) {
       mag2m1 = 1.0 / mag2;
     } else {
@@ -84,7 +77,7 @@ class ParticleInteractionHandler {
     vec_type f1_;
     vec_type f2_;
 
-    for (unsigned int ii = 0; ii < n_dimensions_; ++ii) {
+    for (unsigned int ii = 0; ii < D; ++ii) {
       f1_[ii] = -.1 * (f1[ii] * mag1m1);
       f2_[ii] = -.1 * (f2[ii] * mag2m1);
     }
@@ -109,10 +102,12 @@ class ParticleInteractionHandler {
   }
 
  public:
-  ParticleInteractionHandler() { PIH_::initVars(); }
-  ParticleInteractionHandler(const PIH_& p) { PIH_::copy(p); }
+  ParticleInteractionHandler() { ParticleInteractionHandler<D>::initVars(); }
+  ParticleInteractionHandler(const ParticleInteractionHandler<D>& p) {
+    ParticleInteractionHandler<D>::copy(p);
+  }
 
-  void copy(const PIH_& pi) {
+  void copy(const ParticleInteractionHandler<D>& pi) {
     timeStep_ = pi.timeStep_;
     springConstant_ = pi.springConstant_;
     eqDistance_ = pi.eqDistance_;
@@ -124,24 +119,24 @@ class ParticleInteractionHandler {
   int id() const { return id_; }
   void id(int i) { id_ = i; }
 
-  precision timeStep() const { return timeStep_; }
-  void timeStep(precision t) { timeStep_ = t; }
+  FloatType timeStep() const { return timeStep_; }
+  void timeStep(FloatType t) { timeStep_ = t; }
 
-  precision springConstant() const { return springConstant_; }
-  void springConstant(precision k) { springConstant_ = k; }
+  FloatType springConstant() const { return springConstant_; }
+  void springConstant(FloatType k) { springConstant_ = k; }
 
-  precision eqDistance() const { return eqDistance_; }
-  void eqDistance(precision e) {
+  FloatType eqDistance() const { return eqDistance_; }
+  void eqDistance(FloatType e) {
     eqDistance_ = e;
     eqDistanceSquared_ = sqr(e);
   }
 
-  void forceLimit(precision v) { forceConstraint_ = v; }
-  precision forceLimit() const { return forceConstraint_; }
+  void forceLimit(FloatType v) { forceConstraint_ = v; }
+  FloatType forceLimit() const { return forceConstraint_; }
 
-  void enforceFLimit(Particle& p1) const {
+  void enforceFLimit(Particle<D>& p1) const {
     p1.lock();
-    for (unsigned int d = 0; d < n_dimensions_; ++d) {
+    for (unsigned int d = 0; d < D; ++d) {
       if (p1.f[d] > forceConstraint_) {
         p1.f[d] = forceConstraint_;
       } else if (p1.f[d] < -1.0 * forceConstraint_) {
@@ -152,17 +147,17 @@ class ParticleInteractionHandler {
     // p1.print(cout);
   }
 
-  void noiseAmplitude(precision n) { noiseAmplitude_ = n; }
-  precision noiseAmplitude() const { return noiseAmplitude_; }
+  void noiseAmplitude(FloatType n) { noiseAmplitude_ = n; }
+  FloatType noiseAmplitude() const { return noiseAmplitude_; }
 
-  void addNoise(Particle& p1) const {
-    precision factor = noiseAmplitude_;
-    typename Particle::vec_type noise;
-    constexpr precision divisor = RAND_MAX + 1.0;
+  void addNoise(Particle<D>& p1) const {
+    FloatType factor = noiseAmplitude_;
+    typename Particle<D>::vec_type noise;
+    constexpr FloatType divisor = RAND_MAX + 1.0;
     constexpr int rand_half = (RAND_MAX + 1u) / 2;
-    for (unsigned d = 0; d < n_dimensions_; ++d) {
+    for (unsigned d = 0; d < D; ++d) {
       if (std::rand() < rand_half) factor = -factor;
-      noise[d] = factor * (((precision)std::rand()) / divisor);
+      noise[d] = factor * (((FloatType)std::rand()) / divisor);
     }
     // no need to lock because particle's force constituents are atomic
     // p1.lock();
@@ -176,18 +171,18 @@ class ParticleInteractionHandler {
                                        EllipseFactors::value_type(1)))
       ellipseFactors_.clear();  // just an optimization
     if (ellipseFactors_.empty()) return;
-    if (ellipseFactors_.size() < n_dimensions_)
-      ellipseFactors_.resize(n_dimensions_, ellipseFactors_.back());
+    if (ellipseFactors_.size() < D)
+      ellipseFactors_.resize(D, ellipseFactors_.back());
   }
 
-  void interaction(Particle& p1, Particle& p2) const {
+  void interaction(Particle<D>& p1, Particle<D>& p2) const {
     if (euclideanDistanceSquared(p1.X().begin(), p1.X().end(), p2.X().begin()) <
         eqDistanceSquared_) {
       springRepulsiveInteraction(p1, p2);
     }
   }
 
-  void springRepulsiveInteraction(Particle& p1, Particle& p2) const {
+  void springRepulsiveInteraction(Particle<D>& p1, Particle<D>& p2) const {
     const bool p1anchor = p1.isAnchor(), p2anchor = p2.isAnchor();
     if (p1.collisionCheck(p2)) {
       if (!p1anchor) addNoise(p1);
@@ -204,19 +199,19 @@ class ParticleInteractionHandler {
       x2[i] *= f;
     }
 
-    const precision magx1x2 = x1.distance(x2);
-    const precision sepFromIdeal = (magx1x2 - eqDistance_);
-    const precision scale = -springConstant_ * sepFromIdeal / magx1x2;
+    const FloatType magx1x2 = x1.distance(x2);
+    const FloatType sepFromIdeal = (magx1x2 - eqDistance_);
+    const FloatType scale = -springConstant_ * sepFromIdeal / magx1x2;
 
     vec_type f_;
     vec_type fm1_;
 
-    for (unsigned int ii = 0; ii < n_dimensions_; ++ii) {
-      precision dx = (x1[ii] - x2[ii]);
+    for (unsigned int ii = 0; ii < D; ++ii) {
+      FloatType dx = (x1[ii] - x2[ii]);
 #if 0  // results in a bad image for "the internet"
       if (dx > eqDistance_) dx = 1.0 / dx;
 #endif
-      precision f = dx * scale;
+      FloatType f = dx * scale;
       f_[ii] = f;
       fm1_[ii] = -f;
     }
@@ -248,26 +243,28 @@ class ParticleInteractionHandler {
     //    p2.print();
   }
 
-  void integrate(Particle& p1) const { PIH_::integrateFirstOrder(p1); }
-
-  void integrate(Particle& p1, precision t) const {
-    PIH_::integrateFirstOrder(p1, t);
+  void integrate(Particle<D>& p1) const {
+    ParticleInteractionHandler<D>::integrateFirstOrder(p1);
   }
 
-  void integrateFirstOrder(Particle& p1, precision t) const {
-    for (unsigned int ii = 0; ii < n_dimensions_; ++ii) {
-      precision finc = p1.f[ii] * t;
+  void integrate(Particle<D>& p1, FloatType t) const {
+    ParticleInteractionHandler<D>::integrateFirstOrder(p1, t);
+  }
+
+  void integrateFirstOrder(Particle<D>& p1, FloatType t) const {
+    for (unsigned int ii = 0; ii < D; ++ii) {
+      FloatType finc = p1.f[ii] * t;
       if (finc < 0) {
-        finc = -min<precision>((precision).05, abs(finc));
+        finc = -min<FloatType>((FloatType).05, abs(finc));
       } else {
-        finc = min<precision>((precision).05, finc);
+        finc = min<FloatType>((FloatType).05, finc);
       }
       p1.x[ii] += finc;
     }
   }
 
-  void integrateFirstOrder(Particle& p1) const {
-    PIH_::integrateFirstOrder(p1, timeStep_);
+  void integrateFirstOrder(Particle<D>& p1) const {
+    ParticleInteractionHandler<D>::integrateFirstOrder(p1, timeStep_);
   }
 
   void print(std::ostream& o = std::cout) const {
@@ -275,15 +272,16 @@ class ParticleInteractionHandler {
       << "\ta: " << eqDistance_ << '\n';
   }
 
-  PIH_& operator=(const PIH_& p) {
-    PIH_::copy(p);
+  ParticleInteractionHandler<D>& operator=(
+      const ParticleInteractionHandler<D>& p) {
+    ParticleInteractionHandler<D>::copy(p);
     return *this;
   }
 
-  bool operator==(const PIH_& p) const { return id_ == p.id_; }
+  bool operator==(const ParticleInteractionHandler<D>& p) const {
+    return id_ == p.id_;
+  }
 };
-
-//---------------------------------------------
 
 }  // namespace lib
 }  // namespace lgl
