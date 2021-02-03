@@ -32,7 +32,7 @@
 #include "lgl/lib/calcFuncs.h"
 #include "lgl/lib/configs.h"
 #include "lgl/lib/cube.h"
-#include "lgl/lib/grid.hpp"
+#include "lgl/lib/grid.h"
 #include "lgl/lib/particle.h"
 #include "lgl/lib/particleInteractionHandler.hpp"
 #include "lgl/lib/voxel.h"

@@ -28,7 +28,7 @@
 
 #include "configs.h"
 #include "cube.h"
-#include "grid.hpp"
+#include "grid.h"
 #include "particle.h"
 #include "voxel.h"
 

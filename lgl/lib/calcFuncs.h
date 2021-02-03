@@ -19,7 +19,7 @@
 #include "configs.h"
 #include "cube.h"
 #include "fixedVecOperations.hpp"
-#include "grid.hpp"
+#include "grid.h"
 #include "particle.h"
 #include "particleContainer.hpp"
 #include "particleContainerChaperone.hpp"

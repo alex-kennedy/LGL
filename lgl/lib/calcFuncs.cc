@@ -26,7 +26,7 @@
 #include <boost/lexical_cast.hpp>
 
 #include "cube.h"
-#include "grid.hpp"
+#include "grid.h"
 #include "particle.h"
 #include "particleInteractionHandler.hpp"
 #include "thread_pool.hpp"

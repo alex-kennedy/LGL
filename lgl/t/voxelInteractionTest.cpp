@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "include/fixedVec.hpp"
-#include "include/grid.hpp"
+#include "include/grid.h"
 #include "include/gridSchedual.hpp"
 #include "include/particle.hpp"
 #include "include/particleContainerChaperone.hpp"

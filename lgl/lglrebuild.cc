@@ -30,7 +30,7 @@
 #include "lgl/lib/configs.h"
 #include "lgl/lib/cube.h"
 #include "lgl/lib/edLookupTable.hpp"
-#include "lgl/lib/grid.hpp"
+#include "lgl/lib/grid.h"
 #include "lgl/lib/molecule.hpp"
 #include "lgl/lib/particle.h"
 #include "lgl/lib/sphere.hpp"
