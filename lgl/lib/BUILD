@@ -12,6 +12,7 @@ cc_library(
         "particle.cc",
         "pthread_wrapper.cc",
         "voxel.cc",
+        "voxel_interaction_handler.cc",
     ],
     hdrs = [
         "calc_funcs.h",
@@ -34,7 +35,7 @@ cc_library(
         "time_keeper.hpp",
         "types.h",
         "voxel.h",
-        "voxelInteractionHandler.hpp",
+        "voxel_interaction_handler.h",
     ],
     linkopts = ["-pthread"],
     visibility = ["//lgl:__subpackages__"],

@@ -27,10 +27,11 @@
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 
-#include "types.h"
 #include "particle.h"
 #include "particleStats.hpp"
+#include "types.h"
 
 namespace lgl {
 namespace lib {

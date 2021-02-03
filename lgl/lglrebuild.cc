@@ -35,7 +35,7 @@
 #include "lgl/lib/particle.h"
 #include "lgl/lib/sphere.hpp"
 #include "lgl/lib/voxel.h"
-#include "lgl/lib/voxelInteractionHandler.hpp"
+#include "lgl/lib/voxel_interaction_handler.h"
 
 using namespace lgl::lib;
 

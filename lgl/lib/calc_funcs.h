@@ -25,7 +25,7 @@
 #include "particleInteractionHandler.hpp"
 #include "sphere.hpp"
 #include "voxel.h"
-#include "voxelInteractionHandler.hpp"
+#include "voxel_interaction_handler.h"
 
 //------------------------------------------------
 

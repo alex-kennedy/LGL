@@ -21,7 +21,7 @@
 #include "time_keeper.hpp"
 #include "types.h"
 #include "voxel.h"
-#include "voxelInteractionHandler.hpp"
+#include "voxel_interaction_handler.h"
 
 //------------------------------------------------------
 
@@ -45,7 +45,7 @@ typedef ParticleContainerChaperone<Node> PCChaperone;
 typedef ApthreadContainer ThreadContainer;
 typedef Voxel<n_dimensions> Voxel_t;
 typedef ParticleInteractionHandler<n_dimensions> NodeInteractionHandler;
-typedef VoxelInteractionHandler<Voxel_t, NodeInteractionHandler> VoxelHandler;
+typedef VoxelInteractionHandler<n_dimensions> VoxelHandler;
 typedef GridSchedual_MTS<Grid_t> GridSchedual_t;
 typedef ParticleStats<Node> ParticleStats_t;
 typedef Graph<FloatType> Graph_t;

@@ -36,7 +36,7 @@
 #include "lgl/lib/particle.h"
 #include "lgl/lib/particleInteractionHandler.hpp"
 #include "lgl/lib/voxel.h"
-#include "lgl/lib/voxelInteractionHandler.hpp"
+#include "lgl/lib/voxel_interaction_handler.h"
 
 using namespace std;
 using namespace boost;

@@ -26,7 +26,6 @@
 #include <cassert>
 #include <iostream>
 
-#include "configs.h"
 #include "grid.h"
 #include "particle.h"
 #include "types.h"
