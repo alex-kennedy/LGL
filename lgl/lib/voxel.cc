@@ -5,26 +5,25 @@
 namespace lgl {
 namespace lib {
 
-template <Dimension NDimensions>
-void Voxel<NDimensions>::copy(const Voxel<NDimensions>& v) {
-  Cube_::operator=(v);
+template <Dimension D>
+void Voxel<D>::copy(const Voxel<D>& v) {
+  Cube<D>::operator=(v);
   mutex = v.mutex;
   index_ = v.index_;
   interactionCtr_ = v.interactionCtr_;
   occupants = v.occupants;
 }
 
-template <Dimension NDimensions>
-void Voxel<NDimensions>::print(std::ostream& o) const {
+template <Dimension D>
+void Voxel<D>::print(std::ostream& o) const {
   o << "Vox: " << index_ << "\tOcc: " << occupants.size()
     << "\tCtr: " << interactionCtr_ << '\t';
-  Cube<NDimensions>::print(o);
+  Cube<D>::print(o);
 }
 
-template <Dimension NDimensions>
-const Voxel<NDimensions>& Voxel<NDimensions>::operator=(
-    const Voxel<NDimensions>& v) {
-  Voxel<NDimensions>::copy(v);
+template <Dimension D>
+const Voxel<D>& Voxel<D>::operator=(const Voxel<D>& v) {
+  Voxel<D>::copy(v);
   return *this;
 }
 

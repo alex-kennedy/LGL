@@ -11,30 +11,27 @@
 namespace lgl {
 namespace lib {
 
-template <Dimension NDimensions>
-class Voxel : public Cube<NDimensions> {
+template <Dimension D>
+class Voxel : public Cube<D> {
  private:
-  using Occupant = Particle<NDimensions>;
-  typedef typename std::unordered_set<Occupant*> OL_;
-  typedef Voxel<NDimensions> Voxel_;
-  typedef Cube<NDimensions> Cube_;
+  using occupant_set_type = typename std::unordered_set<Particle<D>*>;
 
  public:
-  typedef typename OL_::size_type size_type;
-  typedef typename OL_::iterator occupant_iterator;
-  typedef typename OL_::const_iterator const_occupant_iterator;
-  typedef Occupant occupant_type;
+  using occupant_type = Particle<D>;
+  using size_type = typename occupant_set_type::size_type;
+  using occupant_iterator = typename occupant_set_type::iterator;
+  using const_occupant_iterator = typename occupant_set_type::const_iterator;
 
  protected:
   unsigned int index_;
   long interactionCtr_;
   Amutex mutex;
-  std::unordered_set<Particle<NDimensions>*> occupants;
+  occupant_set_type occupants;
 
  public:
-  Voxel() : Cube<NDimensions>(), index_(0), interactionCtr_(0), mutex() {}
+  Voxel() : Cube<D>(), index_(0), interactionCtr_(0), mutex() {}
 
-  Voxel(const Voxel<NDimensions>& v) { Voxel<NDimensions>::operator=(v); }
+  Voxel(const Voxel<D>& v) { Voxel<D>::operator=(v); }
 
   unsigned int index() { return index_; }
 
@@ -42,12 +39,14 @@ class Voxel : public Cube<NDimensions> {
   int unlock() { return mutex.unlock(); }
   int trylock() { return mutex.trylock(); }
 
-  auto begin() { return occupants.begin(); }
-  auto end() { return occupants.end(); }
-  auto begin() const { return occupants.begin(); }
-  auto end() const { return occupants.end(); }
+  occupant_iterator begin() { return occupants.begin(); }
+  occupant_iterator end() { return occupants.end(); }
+  const_occupant_iterator begin() const { return occupants.begin(); }
+  const_occupant_iterator end() const { return occupants.end(); }
 
-  auto occupancy() const { return occupants.size(); }
+  typename occupant_set_type::size_type occupancy() const {
+    return occupants.size();
+  }
 
   long interactionCtr() const { return interactionCtr_; }
 
@@ -55,25 +54,23 @@ class Voxel : public Cube<NDimensions> {
 
   void index(unsigned int i) { index_ = i; }
 
-  void insert(Particle<NDimensions>& o) { occupants.insert(&o); }
-  void remove(Particle<NDimensions>& o) { occupants.erase(&o); }
+  void insert(Particle<D>& o) { occupants.insert(&o); }
+  void remove(Particle<D>& o) { occupants.erase(&o); }
 
   void incInteractionCtr(long i = 1) { interactionCtr_ += i; }
   void interactionCtr(long i) { interactionCtr_ = i; }
 
-  void copy(const Voxel<NDimensions>& v);
+  void copy(const Voxel<D>& v);
 
   void print(std::ostream& o = std::cout) const;
 
-  void resize(const Cube<NDimensions>& c) { Cube_::operator=(c); }
+  void resize(const Cube<D>& c) { Cube<D>::operator=(c); }
 
-  bool operator==(const Voxel<NDimensions>& v) const {
-    return index_ == v.index_;
-  }
+  bool operator==(const Voxel<D>& v) const { return index_ == v.index_; }
 
-  bool operator!=(const Voxel<NDimensions>& v) const { return !(*this == v); }
+  bool operator!=(const Voxel<D>& v) const { return !(*this == v); }
 
-  const Voxel<NDimensions>& operator=(const Voxel<NDimensions>& v);
+  const Voxel<D>& operator=(const Voxel<D>& v);
 };
 
 }  // namespace lib
