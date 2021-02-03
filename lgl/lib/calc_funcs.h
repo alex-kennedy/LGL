@@ -1,8 +1,8 @@
 // This file has functions which the threads
 // could call.
 
-#ifndef LGL_LIB_CALCFUNCS_H_
-#define LGL_LIB_CALCFUNCS_H_
+#ifndef LGL_LIB_CALC_FUNCS_H_
+#define LGL_LIB_CALC_FUNCS_H_
 
 #include <algorithm>
 #include <boost/graph/adjacency_list.hpp>
@@ -133,4 +133,4 @@ void interpolateUninitializedPositions(PCChaperone& chaperone,
 }  // namespace lib
 }  // namespace lgl
 
-#endif  // LGL_LIB_CALCFUNCS_H_
+#endif  // LGL_LIB_CALC_FUNCS_H_

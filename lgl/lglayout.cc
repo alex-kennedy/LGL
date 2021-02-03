@@ -29,7 +29,7 @@
 #include <iomanip>
 #include <iostream>
 
-#include "lgl/lib/calcFuncs.h"
+#include "lgl/lib/calc_funcs.h"
 #include "lgl/lib/configs.h"
 #include "lgl/lib/cube.h"
 #include "lgl/lib/grid.h"

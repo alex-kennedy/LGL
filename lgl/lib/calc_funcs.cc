@@ -18,7 +18,7 @@
 //  MA 02111-1307 USA
 //
 
-#include "calcFuncs.h"
+#include "calc_funcs.h"
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>

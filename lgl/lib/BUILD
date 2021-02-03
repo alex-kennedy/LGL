@@ -3,7 +3,7 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 cc_library(
     name = "lib",
     srcs = [
-        "calcFuncs.cc",
+        "calc_funcs.cc",
         "configs.h",
         "cube.cc",
         "grid.cc",
@@ -12,7 +12,7 @@ cc_library(
         "voxel.cc",
     ],
     hdrs = [
-        "calcFuncs.h",
+        "calc_funcs.h",
         "cube.h",
         "edLookupTable.hpp",
         "fixedVec.hpp",
