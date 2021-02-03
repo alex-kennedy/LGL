@@ -138,7 +138,7 @@ class GridIter {
 
   void initFromGrid(Grid& g);
 
-  // void print(std::ostream& o = std::cout) const;
+  void print(std::ostream& o = std::cout) const;
 
   void reset();
 

@@ -169,22 +169,23 @@ void GridIter<Grid>::initFromGrid(Grid& g) {
   end_ = &g[g.size() - 1];
 }
 
-// template <typename Grid>
-// void GridIter<Grid>::print(std::ostream& o) const {
-//   o << "Iter: " << iterID << '\n'
-//     << "\tPtrs: "
-//     << "Beg: " << begin_ << '\t' << "Start: " << start_ << '\t'
-//     << "End: " << end_ << '\t' << "Current: " << current_ << '\t'
-//     << "Nbhr: " << neighbor_ << '\n'
-//     << "\tGridDimensions: ";
-//   dimensions.print(o);
-//   o << "\tStartingPoints: ";
-//   startingPoint.print(o);
-//   o << "\tCurrentVoxel: ";
-//   currentVoxel.print(o);
-//   o << "CurrentNbhr: " << neighborCtr << " [" << iterMax
-//     << "] : " << currentNbhr.print(o) << '\n';
-// }
+template <typename Grid>
+void GridIter<Grid>::print(std::ostream& o) const {
+  o << "Iter: " << iterID << '\n'
+    << "\tPtrs: "
+    << "Beg: " << begin_ << '\t' << "Start: " << start_ << '\t'
+    << "End: " << end_ << '\t' << "Current: " << current_ << '\t'
+    << "Nbhr: " << neighbor_ << '\n'
+    << "\tGridDimensions: ";
+  dimensions.print(o);
+  o << "\tStartingPoints: ";
+  startingPoint.print(o);
+  o << "\tCurrentVoxel: ";
+  currentVoxel.print(o);
+  o << "CurrentNbhr: " << neighborCtr << " [" << iterMax << "] : ";
+  currentNbhr.print(o);
+  o << '\n';
+}
 
 template <typename Grid>
 void GridIter<Grid>::reset() {
