@@ -22,7 +22,7 @@
 #include "particle.h"
 #include "particleContainer.hpp"
 #include "particleContainerChaperone.hpp"
-#include "particleInteractionHandler.hpp"
+#include "lgl/lib/particle_interaction_handler.h"
 #include "sphere.hpp"
 #include "voxel.h"
 #include "voxel_interaction_handler.h"

@@ -34,7 +34,7 @@
 #include "lgl/lib/cube.h"
 #include "lgl/lib/grid.h"
 #include "lgl/lib/particle.h"
-#include "lgl/lib/particleInteractionHandler.hpp"
+#include "lgl/lib/particle_interaction_handler.h"
 #include "lgl/lib/voxel.h"
 #include "lgl/lib/voxel_interaction_handler.h"
 

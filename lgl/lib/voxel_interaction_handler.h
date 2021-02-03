@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "particleInteractionHandler.hpp"
+#include "particle_interaction_handler.h"
 #include "types.h"
 #include "voxel.h"
 
