@@ -32,29 +32,29 @@ namespace lib {
 // Does all pairs comparison, redundant. This
 // does i && j and j && i and with i == j.
 
-template <typename Iterator, typename BinaryFunction>
-void allPairsCompleteForeach(Iterator begin, Iterator end, BinaryFunction& f) {
-  Iterator begin2 = begin;
-  for (; begin != end; ++begin) {
-    for (; begin2 != end; ++begin2) {
-      f(*begin, *begin2);
-    }
-  }
-}
+// template <typename Iterator, typename BinaryFunction>
+// void allPairsCompleteForeach(Iterator begin, Iterator end, BinaryFunction& f) {
+//   Iterator begin2 = begin;
+//   for (; begin != end; ++begin) {
+//     for (; begin2 != end; ++begin2) {
+//       f(*begin, *begin2);
+//     }
+//   }
+// }
 
 //-------------------------------------------
 // Does a genuine all pairs, not redundant.
 // For all i>j
 
-template <typename Iterator, typename BinaryFunction>
-void allPairsForeach(Iterator begin, Iterator end, BinaryFunction& f) {
-  for (; begin != end; ++begin) {
-    Iterator begin2 = begin;
-    for (++begin2; begin2 != end; ++begin2) {
-      f(*begin, *begin2);
-    }
-  }
-}
+// template <typename Iterator, typename BinaryFunction>
+// void allPairsForeach(Iterator begin, Iterator end, BinaryFunction& f) {
+//   for (; begin != end; ++begin) {
+//     Iterator begin2 = begin;
+//     for (++begin2; begin2 != end; ++begin2) {
+//       f(*begin, *begin2);
+//     }
+//   }
+// }
 
 //-------------------------------------------
 
@@ -69,54 +69,54 @@ precision sum(Iterator1 begin1, Iterator1 end1) {
 
 //-------------------------------------------
 
-template <typename Iterator1, typename Iterator2>
-void normalize(Iterator1 begin1, Iterator1 end1, Iterator2 begin2) {
-  for (; begin1 != end1; ++begin1, ++begin2) {
-    (*begin1) /= (*begin2);
-  }
-}
+// template <typename Iterator1, typename Iterator2>
+// void normalize(Iterator1 begin1, Iterator1 end1, Iterator2 begin2) {
+//   for (; begin1 != end1; ++begin1, ++begin2) {
+//     (*begin1) /= (*begin2);
+//   }
+// }
 
 //-------------------------------------------
 
-template <typename Iterator1>
-void normalize(Iterator1 begin1, Iterator1 end1) {
-  double m = magnitude(begin1, end1);
-  if (m == 0) {
-    return;
-  }
-  scale(begin1, end1, 1.0 / m);
-}
+// template <typename Iterator1>
+// void normalize(Iterator1 begin1, Iterator1 end1) {
+//   double m = magnitude(begin1, end1);
+//   if (m == 0) {
+//     return;
+//   }
+//   scale(begin1, end1, 1.0 / m);
+// }
 
 //-------------------------------------------
 
-template <typename Iterator1>
-void normalize(Iterator1 begin1, Iterator1 end1, Iterator1 begin2) {
-  normalize<Iterator1, Iterator1>(begin1, end1, begin2);
-}
+// template <typename Iterator1>
+// void normalize(Iterator1 begin1, Iterator1 end1, Iterator1 begin2) {
+//   normalize<Iterator1, Iterator1>(begin1, end1, begin2);
+// }
 
 //----------------------------------------------------
 
-template <typename Iterator, typename prec_>
-prec_ standardDeviation(Iterator begin1, Iterator end1) {
-  // Calculate the average
-  Iterator beginT = begin1;
-  prec_ average = 0;
-  unsigned int n = 0;
-  for (; begin1 != end1; ++n, ++begin1) {
-    average += *begin1;
-  }
-  average /= static_cast<prec_>(n);
-  if (n == 1) {
-    return average;
-  }
-  prec_ sigma = 0;
-  // Now to do standard deviation
-  for (; beginT != end1; ++beginT) {
-    prec_ d = *beginT - average;
-    sigma += d * d;
-  }
-  return sqrt(sigma / static_cast<prec_>(n - 1));
-}
+// template <typename Iterator, typename prec_>
+// prec_ standardDeviation(Iterator begin1, Iterator end1) {
+//   // Calculate the average
+//   Iterator beginT = begin1;
+//   prec_ average = 0;
+//   unsigned int n = 0;
+//   for (; begin1 != end1; ++n, ++begin1) {
+//     average += *begin1;
+//   }
+//   average /= static_cast<prec_>(n);
+//   if (n == 1) {
+//     return average;
+//   }
+//   prec_ sigma = 0;
+//   // Now to do standard deviation
+//   for (; beginT != end1; ++beginT) {
+//     prec_ d = *beginT - average;
+//     sigma += d * d;
+//   }
+//   return sqrt(sigma / static_cast<prec_>(n - 1));
+// }
 
 //-------------------------------------------
 
@@ -174,13 +174,13 @@ void scale(Iterator1 begin, Iterator1 end, precision f) {
 
 //-------------------------------------------
 
-template <typename Array>
-void rotate2DCartesianVector(Array& to, const Array& from, double alpha) {
-  double sina = sin(alpha);
-  double cosa = cos(alpha);
-  to[0] = cosa * from[0] - sina * from[1];
-  to[1] = sina * from[0] + cosa * from[1];
-}
+// template <typename Array>
+// void rotate2DCartesianVector(Array& to, const Array& from, double alpha) {
+//   double sina = sin(alpha);
+//   double cosa = cos(alpha);
+//   to[0] = cosa * from[0] - sina * from[1];
+//   to[1] = sina * from[0] + cosa * from[1];
+// }
 
 //-------------------------------------------
 
