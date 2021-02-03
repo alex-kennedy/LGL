@@ -8,16 +8,16 @@
 #include <set>
 #include <vector>
 
-#include "aPthread.hpp"
 #include "cube.h"
 #include "graph.hpp"
-#include "grid.h"
 #include "grid.h"
 #include "gridSchedual.hpp"
 #include "particle.h"
 #include "particleContainer.hpp"
 #include "particleContainerChaperone.hpp"
 #include "particleStats.hpp"
+#include "pthread_wrapper.h"
+#include "thread_pool.hpp"
 #include "time_keeper.hpp"
 #include "voxel.h"
 #include "voxelInteractionHandler.hpp"

@@ -8,7 +8,7 @@
 #include "cube.h"
 // #include "fixedVec.hpp"
 // #include "particle.h"
-#include "aPthread.hpp"
+#include "pthread_wrapper.h"
 #include "voxel.h"
 // #include "voxelInteractionHandler.hpp"
 

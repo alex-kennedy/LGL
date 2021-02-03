@@ -4,9 +4,9 @@
 #include <iostream>
 #include <unordered_set>
 
-#include "aPthread.hpp"
 #include "cube.h"
 #include "particle.h"
+#include "pthread_wrapper.h"
 
 namespace lgl {
 namespace lib {

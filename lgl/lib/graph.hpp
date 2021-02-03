@@ -263,11 +263,11 @@ void generateWeightMapFromNegativeAdjacentVertexCount(Graph& g) {
   typename Graph::out_edge_iterator ee1, ee2;
   std::map<typename Graph::vertex_descriptor, typename Graph::weight_type>
       weights;
-  for (tie(v, vend) = vertices(g.boostGraph()); v != vend; ++v) {
+  for (std::tie(v, vend) = vertices(g.boostGraph()); v != vend; ++v) {
     tie(ee1, ee2) = out_edges(*v, g.boostGraph());
     weights[*v] = -1 * distance(ee1, ee2);
   }
-  for (tie(e, eend) = edges(g.boostGraph()); e != eend; ++e) {
+  for (std::tie(e, eend) = edges(g.boostGraph()); e != eend; ++e) {
     get(boost::edge_weight, g.boostGraph())[*e] =
         // This makes the weight positive
         // boost::numeric_limits< typename Graph::weight_type >::max() +
@@ -513,7 +513,7 @@ std::pair<typename Graph::vertex_descriptor, int> generateLevelsFromGraph(
     // linear time algorithm to find the root by Ying Wang (yw1984@stanford.edu)
 
     int i, k, n = mst.vertexCount();
-    vector<typename Graph::vertex_descriptor> queue(n + 1);
+    std::vector<typename Graph::vertex_descriptor> queue(n + 1);
     int *ccount, *d;
     long long tot = 0, min, *a;
     typename Graph::out_edge_iterator ee1, ee2;
@@ -565,7 +565,7 @@ std::pair<typename Graph::vertex_descriptor, int> generateLevelsFromGraph(
     delete[] a;
     delete[] d;
     delete[] ccount;
-    cerr << "root finding done!" << endl;
+    std::cerr << "root finding done!" << std::endl;
   } else {
     root = *rootPtr;
   }
@@ -837,7 +837,7 @@ void readLGL(Graph& g, const char* file, typename Graph::weight_type cutoff) {
         tie(eee, found) = edge(u, v, bg);
       }
       if (found) {
-        w = min(w, get(boost::edge_weight, bg)[eee]);
+        w = std::min(w, get(boost::edge_weight, bg)[eee]);
         get(boost::edge_weight, bg)[eee] = w;
       } else {
         add_edge(u, v, w, bg);

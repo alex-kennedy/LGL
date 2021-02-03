@@ -26,10 +26,10 @@
 #include <iostream>
 #include <string>
 
-#include "aPthread.hpp"
 #include "cube.h"
 #include "fixedVec.hpp"
 #include "fixedVecOperations.hpp"
+#include "pthread_wrapper.h"
 
 namespace lgl {
 namespace lib {
