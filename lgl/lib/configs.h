@@ -12,9 +12,9 @@
 #include "grid.h"
 #include "gridSchedual.hpp"
 #include "particle.h"
-#include "particleContainer.hpp"
-#include "particleContainerChaperone.hpp"
 #include "particleStats.hpp"
+#include "particle_container.h"
+#include "particle_container_chaperone.h"
 #include "particle_interaction_handler.h"
 #include "pthread_wrapper.h"
 #include "thread_pool.hpp"
@@ -36,12 +36,12 @@ const unsigned int DIMENSION = 2;
 const Dimension n_dimensions = k2Dimensions;
 
 typedef Particle<n_dimensions> Node;
-typedef ParticleContainer<Node> NodeContainer;
+typedef ParticleContainer<n_dimensions> NodeContainer;
 typedef Grid<Node> Grid_t;
 typedef FixedVec<FloatType, n_dimensions> FixedVec_p;
 typedef FixedVec<long, n_dimensions> FixedVec_l;
 typedef GridIter<Grid_t> GridIterator;
-typedef ParticleContainerChaperone<Node> PCChaperone;
+typedef ParticleContainerChaperone<n_dimensions> PCChaperone;
 typedef ApthreadContainer ThreadContainer;
 typedef Voxel<n_dimensions> Voxel_t;
 typedef ParticleInteractionHandler<n_dimensions> NodeInteractionHandler;
