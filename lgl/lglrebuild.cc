@@ -31,7 +31,7 @@
 #include "lgl/lib/cube.h"
 #include "lgl/lib/ed_lookup_table.h"
 #include "lgl/lib/grid.h"
-#include "lgl/lib/molecule.hpp"
+#include "lgl/lib/molecule.h"
 #include "lgl/lib/particle.h"
 #include "lgl/lib/sphere.hpp"
 #include "lgl/lib/voxel.h"
@@ -140,7 +140,8 @@ int main(int argc, char** argv) {
   // Sort molecules from largest to smallest. This will eventually
   // put the larger molecules at the center of the layout.
   if (sortSetsFirst)
-    sort(molecules.begin(), molecules.end(), molecular_size_based_test<Mol>);
+    sort(molecules.begin(), molecules.end(),
+         molecular_size_based_test<n_dimensions>);
   else
     random_shuffle(molecules.begin(), molecules.end());
   // printMolecules( cout ,  molecules.begin() , molecules.end() );
