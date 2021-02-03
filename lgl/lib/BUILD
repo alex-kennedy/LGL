@@ -6,6 +6,7 @@ cc_library(
         "calc_funcs.cc",
         "configs.h",
         "cube.cc",
+        "ed_lookup_table.cc",
         "grid.cc",
         "particle.cc",
         "pthread_wrapper.cc",
@@ -14,7 +15,7 @@ cc_library(
     hdrs = [
         "calc_funcs.h",
         "cube.h",
-        "edLookupTable.hpp",
+        "ed_lookup_table.h",
         "fixedVec.hpp",
         "fixedVecOperations.hpp",
         "graph.hpp",

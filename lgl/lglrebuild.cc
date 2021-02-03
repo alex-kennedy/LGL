@@ -29,7 +29,7 @@
 #include "lgl/lib/calc_funcs.h"
 #include "lgl/lib/configs.h"
 #include "lgl/lib/cube.h"
-#include "lgl/lib/edLookupTable.hpp"
+#include "lgl/lib/ed_lookup_table.h"
 #include "lgl/lib/grid.h"
 #include "lgl/lib/molecule.hpp"
 #include "lgl/lib/particle.h"
@@ -47,7 +47,7 @@ typedef Molecule<lgl::lib::Dimension::k2Dimensions> Mol;
 typedef Mol::vec_type vec_type;
 typedef std::vector<Mol> Molecules;
 typedef Mol::size_type size_type;
-typedef EDLookupTable<particle, prec_t> EDTable;
+typedef EDLookupTable<particle> EDTable;
 typedef std::vector<prec_t> EllipseFactors;
 
 using namespace std;

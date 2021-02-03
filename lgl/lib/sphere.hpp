@@ -27,6 +27,7 @@
 #include <unistd.h>
 
 #include <cstdlib>
+#include <iterator>
 #include <string>
 #include <vector>
 
