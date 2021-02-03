@@ -1,6 +1,5 @@
 #include "ed_lookup_table.h"
 
-#include "cube.h"
 #include "sphere.hpp"
 
 namespace lgl {

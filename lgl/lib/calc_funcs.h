@@ -17,8 +17,7 @@
 #include <vector>
 
 #include "configs.h"
-#include "cube.h"
-#include "fixedVecOperations.hpp"
+#include "fixed_vec.h"
 #include "grid.h"
 #include "particle.h"
 #include "particleContainer.hpp"

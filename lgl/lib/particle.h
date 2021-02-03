@@ -26,10 +26,9 @@
 #include <iostream>
 #include <string>
 
-#include "cube.h"
-#include "fixedVec.hpp"
-#include "fixedVecOperations.hpp"
+#include "fixed_vec.h"
 #include "pthread_wrapper.h"
+#include "types.h"
 
 namespace lgl {
 namespace lib {

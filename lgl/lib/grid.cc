@@ -4,9 +4,9 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "cube.h"
-#include "fixedVec.hpp"
+#include "fixed_vec.h"
 #include "particle.h"
+#include "types.h"
 #include "voxel.h"
 
 namespace lgl {

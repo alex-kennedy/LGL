@@ -5,8 +5,7 @@
 #include <set>
 #include <vector>
 
-#include "cube.h"
-#include "fixedVecOperations.hpp"
+#include "fixed_vec.h"
 
 namespace lgl {
 namespace lib {

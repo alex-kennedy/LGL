@@ -1,16 +1,9 @@
 #ifndef LGL_LIB_GRID_H_
 #define LGL_LIB_GRID_H_
 
-// #include <cassert>
-// #include <cstdlib>
-// #include <iostream>
-
-#include "cube.h"
-// #include "fixedVec.hpp"
-// #include "particle.h"
 #include "pthread_wrapper.h"
+#include "types.h"
 #include "voxel.h"
-// #include "voxelInteractionHandler.hpp"
 
 namespace lgl {
 namespace lib {

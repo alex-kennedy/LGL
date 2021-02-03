@@ -28,7 +28,7 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "cube.h"
+#include "types.h"
 #include "particle.h"
 #include "particleStats.hpp"
 

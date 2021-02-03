@@ -22,7 +22,7 @@
 
 #include <iostream>
 
-#include "fixedVec.hpp"
+#include "fixed_vec.h"
 
 namespace lgl {
 namespace lib {

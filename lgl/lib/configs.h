@@ -8,7 +8,6 @@
 #include <set>
 #include <vector>
 
-#include "cube.h"
 #include "graph.hpp"
 #include "grid.h"
 #include "gridSchedual.hpp"
@@ -20,6 +19,7 @@
 #include "pthread_wrapper.h"
 #include "thread_pool.hpp"
 #include "time_keeper.hpp"
+#include "types.h"
 #include "voxel.h"
 #include "voxelInteractionHandler.hpp"
 

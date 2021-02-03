@@ -1,14 +1,11 @@
 #ifndef LGL_LIB_CUBE_H_
 #define LGL_LIB_CUBE_H_
 
-#include "fixedVec.hpp"
+#include "fixed_vec.h"
+#include "types.h"
 
 namespace lgl {
 namespace lib {
-
-// TODO(alexkennedy): Remove when more header files are split
-enum Dimension { k2Dimensions = 2, k3Dimensions = 3 };
-typedef float FloatType;
 
 template <Dimension NDimensions>
 class Cube {

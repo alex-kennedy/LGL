@@ -27,9 +27,9 @@
 #include <iostream>
 
 #include "configs.h"
-#include "cube.h"
 #include "grid.h"
 #include "particle.h"
+#include "types.h"
 #include "voxel.h"
 
 namespace lgl {

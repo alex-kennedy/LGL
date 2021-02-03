@@ -7,6 +7,7 @@
 #include "cube.h"
 #include "particle.h"
 #include "pthread_wrapper.h"
+#include "types.h"
 
 namespace lgl {
 namespace lib {

@@ -25,7 +25,6 @@
 #include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include "cube.h"
 #include "grid.h"
 #include "particle.h"
 #include "particleInteractionHandler.hpp"

@@ -10,8 +10,8 @@
 #include <string>
 #include <vector>
 
-#include "cube.h"
-#include "fixedVecOperations.hpp"
+#include "types.h"
+#include "fixed_vec.h"
 #include "sphere.hpp"
 
 namespace lgl {

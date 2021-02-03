@@ -1,6 +1,6 @@
 #include "particle.h"
 
-#include "cube.h"
+#include "types.h"
 
 namespace lgl {
 namespace lib {

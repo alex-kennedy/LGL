@@ -38,7 +38,7 @@
 #include <string>
 #include <vector>
 
-#include "fixedVecOperations.hpp"
+#include "fixed_vec.h"
 #include "mutualMap.hpp"
 
 namespace lgl {
