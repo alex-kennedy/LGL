@@ -10,7 +10,7 @@
 
 #include "graph.hpp"
 #include "grid.h"
-#include "gridSchedual.hpp"
+#include "grid_schedule.h"
 #include "particle.h"
 #include "particleStats.hpp"
 #include "particle_container.h"
@@ -46,7 +46,7 @@ typedef ApthreadContainer ThreadContainer;
 typedef Voxel<n_dimensions> Voxel_t;
 typedef ParticleInteractionHandler<n_dimensions> NodeInteractionHandler;
 typedef VoxelInteractionHandler<n_dimensions> VoxelHandler;
-typedef GridSchedual_MTS<Grid_t> GridSchedual_t;
+typedef GridSchedule_MTS<Grid_t> GridSchedule_t;
 typedef ParticleStats<Node> ParticleStats_t;
 typedef Graph<FloatType> Graph_t;
 typedef vector<unsigned> LevelMap;

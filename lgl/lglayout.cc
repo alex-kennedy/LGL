@@ -247,13 +247,13 @@ int main(int argc, char **argv) try {
   NodeInteractionHandler nh;
   nh.timeStep(timer.time_step());
   nh.noiseAmplitude(1.0);
-  GridSchedual_t schedual(grid);
-  bool acceptable = schedual.threads(processorCount);
-  long threadCount = schedual.threads();
+  GridSchedule_t schedule(grid);
+  bool acceptable = schedule.threads(processorCount);
+  long threadCount = schedule.threads();
   while (!acceptable) {
-    acceptable = schedual.threads(--threadCount);
+    acceptable = schedule.threads(--threadCount);
   }
-  schedual.generateVoxelList_MT();
+  schedule.generateVoxelList_MT();
   cout << "Done." << endl;
 
   // First generate the tree to guide the layout
@@ -353,7 +353,7 @@ int main(int argc, char **argv) try {
     current.nbhdRadius = nbhdRadius;
     current.threadCount = threadCount;
     current.voxelList = new FixedVec_l[grid.size() / threadCount + 1];
-    current.voxelListSize = schedual.getVoxelList(threadCtr, current.voxelList);
+    current.voxelListSize = schedule.getVoxelList(threadCtr, current.voxelList);
     current.whichThread = threadCtr;
     current.gridIterator = new GridIterator(grid);
     current.gridIterator->id(threadCtr);
