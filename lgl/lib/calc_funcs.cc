@@ -332,7 +332,7 @@ void layerNPlacement(NodeContainer& nodes, Grid_t& grid, out_graph& g,
                      ParentMap& parents, Graph_t& actualG, LevelMap& lm,
                      prec_t placementDistance, prec_t placementRadius,
                      bool placeLeafsClose) {
-  typedef Sphere<prec_t> S;
+  typedef Sphere S;
   typedef S::vec_type Vec;
   typedef out_graph::out_edge_iterator oei;
   typedef out_graph::vertex_descriptor vertex_descriptor;

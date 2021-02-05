@@ -33,7 +33,7 @@
 #include "lgl/lib/grid.h"
 #include "lgl/lib/molecule.h"
 #include "lgl/lib/particle.h"
-#include "lgl/lib/sphere.hpp"
+#include "lgl/lib/sphere.h"
 #include "lgl/lib/voxel.h"
 #include "lgl/lib/voxel_interaction_handler.h"
 
@@ -42,7 +42,7 @@ using namespace lgl::lib;
 ///////////////////////////////////////////////////////////
 
 typedef float prec_t;
-typedef Sphere<prec_t> particle;
+typedef Sphere particle;
 typedef Molecule<lgl::lib::Dimension::k2Dimensions> Mol;
 typedef Mol::vec_type vec_type;
 typedef std::vector<Mol> Molecules;

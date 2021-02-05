@@ -12,7 +12,7 @@
 
 #include "types.h"
 #include "fixed_vec.h"
-#include "sphere.hpp"
+#include "sphere.h"
 
 namespace lgl {
 namespace lib {
@@ -20,7 +20,7 @@ namespace lib {
 template <Dimension D>
 class Molecule {
  public:
-  typedef Sphere<FloatType> particle_type;
+  typedef Sphere particle_type;
   typedef typename std::vector<particle_type> particle_holder;
   typedef typename particle_holder::size_type size_type;
   typedef typename particle_holder::iterator iterator;

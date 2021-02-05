@@ -1,6 +1,6 @@
 #include "ed_lookup_table.h"
 
-#include "sphere.hpp"
+#include "sphere.h"
 
 namespace lgl {
 namespace lib {
@@ -75,7 +75,7 @@ EDLookupTable<Entry>& EDLookupTable<Entry>::operator=(
   entries = t1.entries;
 }
 
-template class EDLookupTable<Sphere<FloatType>>;
+template class EDLookupTable<Sphere>;
 
 }  // namespace lib
 }  // namespace lgl
