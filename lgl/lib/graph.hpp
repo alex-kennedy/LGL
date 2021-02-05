@@ -39,7 +39,7 @@
 #include <vector>
 
 #include "fixed_vec.h"
-#include "mutualMap.hpp"
+#include "mutual_map.h"
 
 namespace lgl {
 namespace lib {

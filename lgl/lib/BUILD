@@ -29,7 +29,7 @@ cc_library(
         "grid_schedule.h",
         "io.h",
         "molecule.h",
-        "mutualMap.hpp",
+        "mutual_map.h",
         "particle.h",
         "particleStats.hpp",
         "particle_container.h",

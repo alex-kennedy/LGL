@@ -18,8 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef LGL_LIB_MUTUALMAP_HPP_
-#define LGL_LIB_MUTUALMAP_HPP_
+#ifndef LGL_LIB_MUTUAL_MAP_H_
+#define LGL_LIB_MUTUAL_MAP_H_
 
 #include <exception>
 #include <map>
@@ -135,4 +135,4 @@ class MutualMap {
 }  // namespace lib
 }  // namespace lgl
 
-#endif  // LGL_LIB_MUTUALMAP_HPP_
+#endif  // LGL_LIB_MUTUAL_MAP_H_
