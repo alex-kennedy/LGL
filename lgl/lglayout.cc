@@ -33,6 +33,7 @@
 #include "lgl/lib/configs.h"
 #include "lgl/lib/cube.h"
 #include "lgl/lib/grid.h"
+#include "lgl/lib/io.h"
 #include "lgl/lib/particle.h"
 #include "lgl/lib/particle_interaction_handler.h"
 #include "lgl/lib/voxel.h"

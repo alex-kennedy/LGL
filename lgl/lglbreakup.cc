@@ -31,6 +31,7 @@
 
 #include "lgl/lib/configs.h"
 #include "lgl/lib/graph.hpp"
+#include "lgl/lib/io.h"
 
 using namespace std;
 using namespace lgl::lib;
