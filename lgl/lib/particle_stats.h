@@ -18,10 +18,8 @@
  *  MA 02111-1307 USA
  *
  */
-#ifndef LGL_LIB_PARTICLE_STATS_HPP_
-#define LGL_LIB_PARTICLE_STATS_HPP_
-
-//---------------------------------------------
+#ifndef LGL_LIB_PARTICLE_STATS_H_
+#define LGL_LIB_PARTICLE_STATS_H_
 
 #include <iostream>
 
@@ -29,8 +27,6 @@
 
 namespace lgl {
 namespace lib {
-
-//---------------------------------------------
 
 template <typename Particle>
 class ParticleStats {
@@ -133,9 +129,7 @@ class ParticleStats {
   }
 };
 
-//---------------------------------------------
-
 }  // namespace lib
 }  // namespace lgl
 
-#endif  // LGL_LIB_PARTICLE_STATS_HPP_
+#endif  // LGL_LIB_PARTICLE_STATS_H_

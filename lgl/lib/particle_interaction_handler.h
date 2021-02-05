@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "particle.h"
-#include "particleStats.hpp"
+#include "particle_stats.h"
 #include "types.h"
 
 namespace lgl {

@@ -28,7 +28,7 @@
 #include "grid.h"
 #include "particle.h"
 #include "particle_interaction_handler.h"
-#include "thread_pool.hpp"
+#include "thread_pool.h"
 #include "voxel.h"
 #include "voxel_interaction_handler.h"
 
