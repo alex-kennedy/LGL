@@ -7,7 +7,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "graph.hpp"
+#include "graph.h"
 #include "types.h"
 
 namespace lgl {

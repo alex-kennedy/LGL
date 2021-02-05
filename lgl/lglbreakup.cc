@@ -30,7 +30,7 @@
 #include <vector>
 
 #include "lgl/lib/configs.h"
-#include "lgl/lib/graph.hpp"
+#include "lgl/lib/graph.h"
 #include "lgl/lib/io.h"
 
 using namespace std;

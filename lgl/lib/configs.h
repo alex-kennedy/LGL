@@ -8,7 +8,7 @@
 #include <set>
 #include <vector>
 
-#include "graph.hpp"
+#include "graph.h"
 #include "grid.h"
 #include "grid_schedule.h"
 #include "particle.h"
