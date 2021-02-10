@@ -49,9 +49,9 @@ typedef VoxelInteractionHandler<n_dimensions> VoxelHandler;
 typedef GridSchedule_MTS<Grid_t> GridSchedule_t;
 typedef ParticleStats<Node> ParticleStats_t;
 typedef Graph<FloatType> Graph_t;
-typedef vector<unsigned> LevelMap;
-typedef vector<unsigned> ParentMap;
-typedef vector<bool> PlacementStatus;
+typedef std::vector<unsigned> LevelMap;
+typedef std::vector<unsigned> ParentMap;
+typedef std::vector<bool> PlacementStatus;
 
 //------------------------------------------------------
 

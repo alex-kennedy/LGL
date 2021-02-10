@@ -39,8 +39,6 @@
 #include "lgl/lib/voxel.h"
 #include "lgl/lib/voxel_interaction_handler.h"
 
-using namespace std;
-using namespace boost;
 using namespace lgl::lib;
 
 void displayUsage(char **argv);
@@ -171,22 +169,22 @@ int main(int argc, char **argv) try {
         disregardDisconnectedNodes = true;
         break;
       default:
-        cerr << "Bad option -\t" << (char)optch << '\n';
+        std::cerr << "Bad option -\t" << (char)optch << '\n';
         exit(EXIT_FAILURE);
     }
   }
 
-  cout << "Reading in Graph from " << argv[optind] << "..." << flush;
+  std::cout << "Reading in Graph from " << argv[optind] << "..." << std::flush;
   Graph_t G;
   readLGL(G, argv[optind]);
-  cout << "\nVertex Count: " << G.vertexCount() << '\n'
-       << "Edge Count: " << G.edgeCount() << endl;
+  std::cout << "\nVertex Count: " << G.vertexCount() << '\n'
+            << "Edge Count: " << G.edgeCount() << std::endl;
 
   // Simple check to see if we are going to use
   // non-existent weights
   if (useOriginalWeights && !G.hasWeights()) {
-    cerr << "\nYou want to use weights but none\n"
-         << "are provided. Exiting...\n";
+    std::cerr << "\nYou want to use weights but none\n"
+              << "are provided. Exiting...\n";
     exit(EXIT_FAILURE);
   }
 
@@ -205,14 +203,14 @@ int main(int argc, char **argv) try {
     } else if (DIMENSION == 3) {
       outerRadius = (prec_t)pow((double)nodes.size(), .33333);
     } else {
-      cerr << "Only 2 or 3 dimensions\n";
+      std::cerr << "Only 2 or 3 dimensions\n";
       exit(EXIT_FAILURE);
     }
-    cerr << "Outer radius is set to " << outerRadius << endl;
+    std::cerr << "Outer radius is set to " << outerRadius << std::endl;
   }
 
-  cout << "Initializing " << nodes.size() << " particles...";
-  cout.flush();
+  std::cout << "Initializing " << nodes.size() << " particles...";
+  std::cout.flush();
   PCChaperone chaperone(nodes);
   if (initPosFile != 0) {
     chaperone.initPos(initPosFile);
@@ -234,16 +232,16 @@ int main(int argc, char **argv) try {
         disregardDisconnectedNodes);  // without this call the_internet's
                                       // results become unacceptably stretched
                                       // and ugly
-  cout << "Done." << endl;
+  std::cout << "Done." << std::endl;
 
-  cout << "Initializing grid and placing particles..." << flush;
+  std::cout << "Initializing grid and placing particles..." << std::flush;
   Grid_t grid;
   prec_t voxelLength = nbhdRadius;
   gridPrepAndInit(nodes, grid, voxelLength);
-  cout << "Done." << endl;
+  std::cout << "Done." << std::endl;
 
-  cout << "Initializing handlers...";
-  cout.flush();
+  std::cout << "Initializing handlers...";
+  std::cout.flush();
   VoxelHandler vh;
   NodeInteractionHandler nh;
   nh.timeStep(timer.time_step());
@@ -255,7 +253,7 @@ int main(int argc, char **argv) try {
     acceptable = schedule.threads(--threadCount);
   }
   schedule.generateVoxelList_MT();
-  cout << "Done." << endl;
+  std::cout << "Done." << std::endl;
 
   // First generate the tree to guide the layout
   unsigned int totalLevels = 1;
@@ -268,23 +266,23 @@ int main(int argc, char **argv) try {
   mst.weights(G.weights());
   Graph_t::vertex_descriptor root = 0;
   if (!initPosFile) {
-    cout
+    std::cout
         << "Generating Tree and checking for root.\nChecking for root node ... "
-        << flush;
+        << std::flush;
     if (rootNode) {
       // Use the provided root node
-      string r(rootNode);
+      std::string r(rootNode);
       root = G.indexFromId(r);
-      tie(root, totalLevels) = generateLevelsFromGraph(
+      std::tie(root, totalLevels) = generateLevelsFromGraph(
           G, levels, parents, &root, mst, useOriginalWeights);
     } else {
       // Try to find the root node
-      tie(root, totalLevels) = generateLevelsFromGraph(
+      std::tie(root, totalLevels) = generateLevelsFromGraph(
           G, levels, parents, (Graph_t::vertex_descriptor *)0, mst,
           useOriginalWeights);
     }
-    cout << "Root Node: " << G.idFromIndex(root) << "\n"
-         << "There are " << totalLevels << " levels." << endl;
+    std::cout << "Root Node: " << G.idFromIndex(root) << "\n"
+              << "There are " << totalLevels << " levels." << std::endl;
     // Place root in graph
     shift_particle(nodes[root], grid);
     for (NodeContainer::size_type ii = 0; ii < nodes.size(); ++ii) {
@@ -297,7 +295,7 @@ int main(int argc, char **argv) try {
       }
     }
   } else {
-    cout << "Coords provided, skipping Tree Generation.\n";
+    std::cout << "Coords provided, skipping Tree Generation.\n";
     lG = G;  // Give the full graph, counting all interactions
   }
 
@@ -306,21 +304,21 @@ int main(int argc, char **argv) try {
     G.clear();
     G = mst;
     // placeLeafsClose = true;
-    tie(root, totalLevels) = generateLevelsFromGraph(G, levels, parents, &root,
-                                                     mst, useOriginalWeights);
+    std::tie(root, totalLevels) = generateLevelsFromGraph(
+        G, levels, parents, &root, mst, useOriginalWeights);
   }
 
   // This levelmap outputs which 'level' each edge is on. The
   // level is determined as the hop number from the root node.
   if (doesWriteEdgeLevels) {
-    string levelfile(outfile);
+    std::string levelfile(outfile);
     levelfile += ".edge_levels";
     writeLevelMap2File(G, levels, levelfile.c_str());
   }
 
   // This will output the tree used to guide the layout
   if (doesWritemstfile) {
-    string mstfile(outfile);
+    std::string mstfile(outfile);
     mstfile += ".mst.lgl";
     writeLGL(mst, mstfile.c_str());
   }
@@ -329,18 +327,18 @@ int main(int argc, char **argv) try {
   mst.clear();
 
   // Print the root node used to a file
-  string rootfile(outfile);
+  std::string rootfile(outfile);
   rootfile += ".root";
-  ofstream rroot(rootfile.c_str());
+  std::ofstream rroot(rootfile.c_str());
   if (!rroot) {
-    cerr << "Open of " << rootfile << " failed\n";
+    std::cerr << "Open of " << rootfile << " failed\n";
     exit(EXIT_FAILURE);
   }
   rroot << G.idFromIndex(root) << '\n';
   rroot.close();
 
-  cout << "Initializing " << threadCount << " thread(s)...";
-  cout.flush();
+  std::cout << "Initializing " << threadCount << " thread(s)...";
+  std::cout.flush();
   ThreadContainer threads(threadCount);
   threads.defaultThread.scope(PTHREAD_SCOPE_SYSTEM);
   threads.applyAttributes();
@@ -376,7 +374,7 @@ int main(int argc, char **argv) try {
     current.levels = &levels;
     current.parents = &parents;
   }
-  cout << "Done." << endl;
+  std::cout << "Done." << std::endl;
 
   bool givenCoords = false;
   if (initPosFile != 0) {
@@ -391,7 +389,7 @@ int main(int argc, char **argv) try {
                   placeLeafsClose, isSilent);
   // Final settle
   cutOffPrecision *= .1;
-  cerr << "\nFinal Settle\n";
+  std::cerr << "\nFinal Settle\n";
   beginSimulation(threads, cutOffPrecision, timer, threadArgs, chaperone,
                   totalLevels, true, placementDistance, placementRadius,
                   placeLeafsClose, isSilent);
@@ -402,11 +400,11 @@ int main(int argc, char **argv) try {
   // This will output the most important parameters in order to
   // make this layout more reproducible
   if (doesWriteLogFile) {
-    string logfile(outfile);
+    std::string logfile(outfile);
     logfile += ".log";
-    ofstream log(logfile.c_str());
+    std::ofstream log(logfile.c_str());
     if (!log) {
-      cerr << "Open of logfile " << logfile << " failed.\n";
+      std::cerr << "Open of logfile " << logfile << " failed.\n";
       exit(EXIT_FAILURE);
     }
     // The command line argument that called this program:
@@ -448,7 +446,7 @@ int main(int argc, char **argv) try {
     log << "Place Leafs Close: " << placeLeafsClose << '\n' << '\n';
   }
 
-  cout << "\n - Done - " << endl;
+  std::cout << "\n - Done - " << std::endl;
 
   return EXIT_SUCCESS;
 } catch (std::exception const &e) {
@@ -459,43 +457,46 @@ int main(int argc, char **argv) try {
 //----------------------------------------------------------
 
 void displayUsage(char **argv) {
-  cerr << "\nUsage: " << argv[0] << " [-x InitPositionFile] [-a AnchorsFile]"
-       << "\n\t[-t ThreadCount] [-m InitMassFile] [-i IterationMax] "
-       << "\n\t[-s] [-r nbhdRadius] [-T timeStep] [-S nodeSizeRadius]\n"
-       << "\t[-k casualSpringConstant] [-s specialSpringConstant]\n"
-       << "\t[-e] [-l] [-y] [-q EQ Distance] [-u placementDistance]\n"
-       << "\t[-E ellipseFactors] [-v placementRadius] [-L] nodeFile.lgl\n\n";
-  cerr << "\n\t-[mx]\t A file that has the node id followed by\n"
-       << "\t\tthe initial values.\n";
-  cerr << "\n\t-t\tThe number of threads to spawn.\n"
-       << "\t\tThis is capped by the processor count.\n";
-  cerr << "\n\t-i\tThe maximum number of iterations.\n";
-  cerr << "\n\t-r\tThe neighborhood radius for each particle. It\n"
-       << "\t\tdefines the interaction range for casual (generally\n"
-       << "\t\trepulsive) interactions\n";
-  cerr << "\n\t-T\tThe time step for each iteration\n";
-  cerr << "\n\t-S\tThe 'radius' of each node.\n";
-  cerr << "\n\t-M\tThe 'mass' of each node.\n";
-  cerr << "\n\t-R\tThe radius of the outer perim.\n";
-  cerr << "\n\t-W\tThe write interval.\n";
-  cerr << "\n\t-z\tRoot node you want to use.\n";
-  cerr << "\n\t-l\tWrite out the edge level map.\n";
-  cerr << "\n\t-e\tOutput the mst used.\n";
-  cerr << "\n\t-O\tUse original weights.\n";
-  cerr << "\n\t-y\tLayout the tree only.\n";
-  cerr << "\n\t-I\tDon't show layout progress, be quiet (kinda)\n";
-  cerr << "\n\t-q\tEquilibrium distance.\n";
-  cerr << "\n\t-E\tEllipse factors.\n";
-  cerr << "\n\t-u\tPlacement distance is the distance you want\n"
-       << "\t\tthe next level to be placed with respect to\n"
-       << "\t\tthe previous level. If this float value is not\n"
-       << "\t\tgiven a formula calculates the placement distance.\n";
-  cerr << "\n\t-v\tPlacement radius is a measure of the placement density\n";
-  cerr << "\n\t-L\tPlace the leafs close by. This applies to trees more than\n"
-       << "\t\tgraphs. Setting this option will place the child vertices very\n"
-       << "\t\tnear the parent vertex if all of its children have none "
-          "themselves.\n";
-  cerr << "\n";
+  std::cerr
+      << "\nUsage: " << argv[0] << " [-x InitPositionFile] [-a AnchorsFile]"
+      << "\n\t[-t ThreadCount] [-m InitMassFile] [-i IterationMax] "
+      << "\n\t[-s] [-r nbhdRadius] [-T timeStep] [-S nodeSizeRadius]\n"
+      << "\t[-k casualSpringConstant] [-s specialSpringConstant]\n"
+      << "\t[-e] [-l] [-y] [-q EQ Distance] [-u placementDistance]\n"
+      << "\t[-E ellipseFactors] [-v placementRadius] [-L] nodeFile.lgl\n\n";
+  std::cerr << "\n\t-[mx]\t A file that has the node id followed by\n"
+            << "\t\tthe initial values.\n";
+  std::cerr << "\n\t-t\tThe number of threads to spawn.\n"
+            << "\t\tThis is capped by the processor count.\n";
+  std::cerr << "\n\t-i\tThe maximum number of iterations.\n";
+  std::cerr << "\n\t-r\tThe neighborhood radius for each particle. It\n"
+            << "\t\tdefines the interaction range for casual (generally\n"
+            << "\t\trepulsive) interactions\n";
+  std::cerr << "\n\t-T\tThe time step for each iteration\n";
+  std::cerr << "\n\t-S\tThe 'radius' of each node.\n";
+  std::cerr << "\n\t-M\tThe 'mass' of each node.\n";
+  std::cerr << "\n\t-R\tThe radius of the outer perim.\n";
+  std::cerr << "\n\t-W\tThe write interval.\n";
+  std::cerr << "\n\t-z\tRoot node you want to use.\n";
+  std::cerr << "\n\t-l\tWrite out the edge level map.\n";
+  std::cerr << "\n\t-e\tOutput the mst used.\n";
+  std::cerr << "\n\t-O\tUse original weights.\n";
+  std::cerr << "\n\t-y\tLayout the tree only.\n";
+  std::cerr << "\n\t-I\tDon't show layout progress, be quiet (kinda)\n";
+  std::cerr << "\n\t-q\tEquilibrium distance.\n";
+  std::cerr << "\n\t-E\tEllipse factors.\n";
+  std::cerr << "\n\t-u\tPlacement distance is the distance you want\n"
+            << "\t\tthe next level to be placed with respect to\n"
+            << "\t\tthe previous level. If this float value is not\n"
+            << "\t\tgiven a formula calculates the placement distance.\n";
+  std::cerr
+      << "\n\t-v\tPlacement radius is a measure of the placement density\n";
+  std::cerr
+      << "\n\t-L\tPlace the leafs close by. This applies to trees more than\n"
+      << "\t\tgraphs. Setting this option will place the child vertices very\n"
+      << "\t\tnear the parent vertex if all of its children have none "
+         "themselves.\n";
+  std::cerr << "\n";
   exit(EXIT_FAILURE);
 }
 

@@ -30,7 +30,7 @@
 #include "voxel.h"
 #include "voxel_interaction_handler.h"
 
-using namespace boost;
+using std::tie;
 
 namespace lgl {
 namespace lib {
@@ -354,7 +354,7 @@ void layerNPlacement(NodeContainer& nodes, Grid_t& grid, out_graph& g,
     Node& parentNode = nodes[*v];
     Node& parentParentNode = nodes[parents[*v]];
     Vec spot(parentNode.X().begin(), parentNode.X().end());
-    vector<Vec> x;
+    std::vector<Vec> x;
 
     if (currentLevel == 1) {
       S s(spot);
@@ -473,9 +473,9 @@ prec_t placementFormula(prec_t placementDistance, int vertices2place,
   if (placementDistance >= 0)  // Independent of dimension
     return placementDistance;
   else if (dimension == 2)
-    return min<prec_t>(.25 * sqrt((double)vertices2place), 10);
+    return std::min<prec_t>(.25 * sqrt((double)vertices2place), 10);
   else  // ( dimension == 3 )
-    return min<prec_t>(.25 * pow((double)vertices2place, .34), 10);
+    return std::min<prec_t>(.25 * pow((double)vertices2place, .34), 10);
 }
 
 //----------------------------------------------------------
@@ -519,7 +519,7 @@ FixedVec_p calcCenterOfMass(Graph_t& g, NodeContainer& nodes, LevelMap& levels,
 
 static int iteration__ = 0;
 
-void printOutput(long i, prec_t d, long la, ostream& o) {
+void printOutput(long i, prec_t d, long la, std::ostream& o) {
   const char* im = "Iteration: ";
   const char* dx = " Dx: ";
   const char* l = " Level: ";
@@ -529,9 +529,9 @@ void printOutput(long i, prec_t d, long la, ostream& o) {
       o << '\b';
     }
   }
-  o << im << setw(6) << i;
-  o << dx << setw(10) << d;
-  o << l << setw(4) << la << flush;
+  o << im << std::setw(6) << i;
+  o << dx << std::setw(10) << d;
+  o << l << std::setw(4) << la << std::flush;
   ++iteration__;
 }
 
@@ -632,33 +632,35 @@ void interpolateUninitializedPositions(PCChaperone& chaperone,
 			}
 #endif
     }
-    cout << "\nOut of " << num_uninitialized_positions_before
-         << " uninitialized positions that had remained, "
-         << num_uninitialized_positions_before -
-                num_uninitialized_positions_still
-         << " have just been interpolated";
+    std::cout << "\nOut of " << num_uninitialized_positions_before
+              << " uninitialized positions that had remained, "
+              << num_uninitialized_positions_before -
+                     num_uninitialized_positions_still
+              << " have just been interpolated";
     // until either finished or there is no more progress being made
   } while (num_uninitialized_positions_still > 0 &&
            num_uninitialized_positions_still <
                num_uninitialized_positions_before);
 
   if (num_uninitialized_positions_still) {
-    cout << "\nThere are " << num_uninitialized_positions_still
-         << " nodes that are DISCONNECTED from any nodes which had their "
-            "positions initialized!\nTHOSE NODES ARE:\n";
+    std::cout << "\nThere are " << num_uninitialized_positions_still
+              << " nodes that are DISCONNECTED from any nodes which had their "
+                 "positions initialized!\nTHOSE NODES ARE:\n";
     for (std::size_t ii = 0; ii < chaperone.pc_.size(); ++ii)
       if (!chaperone.pc_[ii].isPositionInitialized())
-        cout << '\t' << chaperone.pc_[ii].id() << '\n';
+        std::cout << '\t' << chaperone.pc_[ii].id() << '\n';
     if (remove_disconnected_nodes) {
-      cout << "Removing them from the graph before further processing...\n";
+      std::cout
+          << "Removing them from the graph before further processing...\n";
       for (std::size_t ii = chaperone.pc_.size(); ii > 0; --ii)
         if (!chaperone.pc_[ii - 1].isPositionInitialized())
           chaperone.pc_.erase(ii - 1);
     }
-    cout << std::endl;
+    std::cout << std::endl;
   } else
-    cout << "\nInterpolation of uninitialized positions completed successfully."
-         << std::endl;
+    std::cout
+        << "\nInterpolation of uninitialized positions completed successfully."
+        << std::endl;
 }
 
 }  // namespace lib

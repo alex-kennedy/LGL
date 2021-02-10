@@ -84,7 +84,7 @@ class Particle {
 
   const std::string& id() const { return id_; }
 
-  void id(const string& i) { id_ = i; }
+  void id(const std::string& i) { id_ = i; }
 
   bool isAnchor() const { return isAnchor_; }
 

@@ -50,8 +50,6 @@ typedef Mol::size_type size_type;
 typedef EDLookupTable<particle> EDTable;
 typedef std::vector<prec_t> EllipseFactors;
 
-using namespace std;
-
 ///////////////////////////////////////////////////////////
 
 prec_t defaultradius = 1.0;
@@ -114,7 +112,7 @@ int main(int argc, char** argv) {
         ellipseFactors = parseEllipseFactors(optarg);
         break;
       default:
-        cerr << "Bad Option. Exiting.";
+        std::cerr << "Bad Option. Exiting.";
         exit(EXIT_FAILURE);
     }
   }
@@ -152,12 +150,13 @@ int main(int argc, char** argv) {
   EDTable table(growth.dimension());
   addMoleculeToTable(growth, table);
   vec_type empty_vec(molecules[0].dimension(), 0);
-  particle step_sphere(string("Step Sphere"), empty_vec, stepSize);
+  particle step_sphere(std::string("Step Sphere"), empty_vec, stepSize);
 
   int ctr = 1;
-  cerr << "Total Total Connected Sets : " << setw(8) << molecules.size()
-       << '\n';
-  cerr << "Current Connected Set      : " << setw(8) << ctr << flush;
+  std::cerr << "Total Total Connected Sets : " << std::setw(8)
+            << molecules.size() << '\n';
+  std::cerr << "Current Connected Set      : " << std::setw(8) << ctr
+            << std::flush;
 
   Molecules::reverse_iterator diff_mol = molecules.rbegin();
   while (diff_mol != molecules.rend()) {
@@ -165,10 +164,10 @@ int main(int argc, char** argv) {
     vec_type origin = simpleAverageMoleculePosition(growth);
 
     // Set seed sphere ( DLA starting point )
-    particle seed(string("Seed Sphere"), origin);
+    particle seed(std::string("Seed Sphere"), origin);
 
     // Set kill sphere ( outer limit for diffusion )
-    particle limit(string("Kill Sphere"), origin);
+    particle limit(std::string("Kill Sphere"), origin);
 
     // Set the radius of the set sphere. Must
     // check to see it is big enough for the growth
@@ -213,7 +212,7 @@ int main(int argc, char** argv) {
       if (growth.inRange(*diff_mol) &&
           checkMoleculeAgainstTable(*diff_mol, table)) {
         stillDiffusing = false;
-        cerr << "\b\b\b\b\b\b\b\b" << setw(8) << ctr++ << flush;
+        std::cerr << "\b\b\b\b\b\b\b\b" << std::setw(8) << ctr++ << std::flush;
       } else {
         // cout << "STILL GOING" << endl;
       }
@@ -241,12 +240,12 @@ int main(int argc, char** argv) {
 ///////////////////////////////////////////////////////////
 
 void displayUsage(char** args) {
-  cerr << "\nUsage: " << args[0] << " [-r radius] [-o outfile] "
-       << "[-s stepsize] [-c filelist]\n\t[-e ellipsefactors] [-S] [-d] "
-          "coordsfile1 coordsfile2 ...\n\n"
-       << "\tDefault outfile  : " << defaultoutfile << '\n'
-       << "\tDefault radius   : " << defaultradius << '\n'
-       << "\tDefault StepSize : " << defaultstepsize << '\n';
+  std::cerr << "\nUsage: " << args[0] << " [-r radius] [-o outfile] "
+            << "[-s stepsize] [-c filelist]\n\t[-e ellipsefactors] [-S] [-d] "
+               "coordsfile1 coordsfile2 ...\n\n"
+            << "\tDefault outfile  : " << defaultoutfile << '\n'
+            << "\tDefault radius   : " << defaultradius << '\n'
+            << "\tDefault StepSize : " << defaultstepsize << '\n';
   exit(EXIT_FAILURE);
 }
 
@@ -254,9 +253,9 @@ void displayUsage(char** args) {
 
 void writeResults(const Mol& m, const EllipseFactors& ellipseFactors,
                   const char* outfile) {
-  ofstream out(outfile);
+  std::ofstream out(outfile);
   if (!out) {
-    cerr << "writeResults: Open of " << outfile << " failed.\n";
+    std::cerr << "writeResults: Open of " << outfile << " failed.\n";
     exit(EXIT_FAILURE);
   }
   for (size_type jj = 0; jj < m.size(); ++jj) {
@@ -299,12 +298,12 @@ void addMoleculeToTable(Mol& m, EDTable& table) {
 ///////////////////////////////////////////////////////////
 
 void loadFilesFromList(const char* file, Molecules& m, prec_t radius) {
-  ifstream in(file);
+  std::ifstream in(file);
   if (!in) {
-    cerr << "loadFilesFromList: Open of " << file << " failed.\n";
+    std::cerr << "loadFilesFromList: Open of " << file << " failed.\n";
     exit(EXIT_FAILURE);
   }
-  string coordsFile(128, ' ');
+  std::string coordsFile(128, ' ');
   while (in >> coordsFile && !in.eof()) {
     m.push_back(readMoleculeFromCoordFile<Mol>(coordsFile.c_str(), radius));
   }

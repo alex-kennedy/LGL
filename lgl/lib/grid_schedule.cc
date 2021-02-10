@@ -12,7 +12,7 @@ bool GridSchedule_MTS<Grid>::threadCheck() {
   //  long _PROCESSOR_COUNT_ = sysconf(_SC_NPROC_ONLN);
   long threadCount2 =
       (threadCount < _PROCESSOR_COUNT_) ? threadCount : _PROCESSOR_COUNT_;
-  threadCount2 = min<long>(threadCount, grid->voxelsPerEdge(0) / 2);
+  threadCount2 = std::min<long>(threadCount, grid->voxelsPerEdge(0) / 2);
   // LeapCount_=3 guarantees no two interacting voxels are accessed
   // simultaneously
   return threadCount == threadCount2;

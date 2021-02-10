@@ -124,7 +124,6 @@ template class Graph<FloatType>;
 
 template <typename Graph>
 void remap(Graph& g) {
-  using namespace boost;
   const typename Graph::boost_graph& bg = g.boostGraph();
   typename Graph::boost_graph ng;
   typename Graph::vertex_index_map nids;
@@ -325,7 +324,6 @@ std::pair<typename Graph::vertex_descriptor, int> generateLevelsFromGraph(
     const Graph& g, LevelMap& levels, ParentMap& parents,
     typename Graph::vertex_descriptor* rootPtr, Graph& mst,
     bool useOriginalWeights) {
-  using namespace boost;
   Graph newGraph(g);
   // First issue is to weight the nodes if desired
   if (!useOriginalWeights)
@@ -334,7 +332,7 @@ std::pair<typename Graph::vertex_descriptor, int> generateLevelsFromGraph(
   setMSTFromGraph(newGraph, mst);
   // Now to determine the root node
   typename Graph::vertex_iterator v, vend;
-  tie(v, vend) = vertices(mst.boostGraph());
+  std::tie(v, vend) = vertices(mst.boostGraph());
   typename Graph::vertex_descriptor root, v1, v2;
 
   if (!rootPtr) {
@@ -357,7 +355,7 @@ std::pair<typename Graph::vertex_descriptor, int> generateLevelsFromGraph(
 
     for (; p <= q; p++) {
       v1 = queue[p];
-      tie(ee1, ee2) = out_edges(v1, bg);
+      std::tie(ee1, ee2) = out_edges(v1, bg);
       for (; ee1 != ee2; ee1++) {
         v2 = target(*ee1, bg);
         if (d[v2] == -1) queue[++q] = v2, tot += (d[v2] = d[v1] + 1);
@@ -369,7 +367,7 @@ std::pair<typename Graph::vertex_descriptor, int> generateLevelsFromGraph(
 
     for (k = q; k >= 0; k--) {
       v1 = queue[k];
-      tie(ee1, ee2) = out_edges(v1, bg);
+      std::tie(ee1, ee2) = out_edges(v1, bg);
       for (; ee1 != ee2; ee1++) {
         v2 = target(*ee1, bg);
         if (d[v2] > d[v1]) {
@@ -380,7 +378,7 @@ std::pair<typename Graph::vertex_descriptor, int> generateLevelsFromGraph(
 
     for (k = 0; k <= q; k++) {
       v1 = queue[k];
-      tie(ee1, ee2) = out_edges(v1, bg);
+      std::tie(ee1, ee2) = out_edges(v1, bg);
       for (; ee1 != ee2; ee1++) {
         v2 = target(*ee1, bg);
         if (d[v2] > d[v1]) {
@@ -419,17 +417,16 @@ generateLevelsFromGraph(const Graph<FloatType>&, std::vector<unsigned>&,
 template <typename Graph, typename LevelMap>
 void addNextLevelFromMap(Graph& g, const Graph& model, const LevelMap& lm,
                          unsigned int level) {
-  using namespace boost;
   typename Graph::boost_graph& g_bg = g.boostGraph();
   const typename Graph::boost_graph& model_bg = model.boostGraph();
   typename Graph::vertex_iterator v, vend;
   typename Graph::out_edge_iterator ee1, ee2;
   // Go through each vertex of model and look for vertices
   // with the previous level.
-  for (tie(v, vend) = vertices(model_bg); v != vend; ++v) {
+  for (std::tie(v, vend) = vertices(model_bg); v != vend; ++v) {
     if (lm[*v] == level) {
       // cout << "CURRENT: " << model.idFromIndex(*v) << endl;
-      for (tie(ee1, ee2) = out_edges(*v, model_bg); ee1 != ee2; ++ee1) {
+      for (std::tie(ee1, ee2) = out_edges(*v, model_bg); ee1 != ee2; ++ee1) {
         // Add any vertices (making an edge) that are at the current level
         // or below
         if (lm[target(*ee1, model_bg)] <= level) {

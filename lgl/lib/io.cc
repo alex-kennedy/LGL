@@ -25,7 +25,6 @@ struct vertex_id_compare {
 
 template <typename Graph>
 void writeLGL(const Graph& g, const char* file) {
-  using namespace boost;
   const typename Graph::boost_graph& bg = g.boostGraph();
   const typename Graph::vertex_index_map& ids = g.vertexIdMap();
   typedef typename Graph::weight_type W;
@@ -53,7 +52,7 @@ void writeLGL(const Graph& g, const char* file) {
 
   for (unsigned ii = 0; ii < vertices.size(); ++ii) {
     v1 = vertices[ii];
-    tie(ee1, ee2) = out_edges(v1, bg);
+    std::tie(ee1, ee2) = out_edges(v1, bg);
     if (ee1 == ee2) {
       continue;
     }
@@ -80,7 +79,6 @@ template void writeLGL(const Graph<FloatType>& g, const char* file);
 
 template <typename Graph>
 void writeNCOL(const Graph& g, const char* file) {
-  using namespace boost;
   const typename Graph::boost_graph& bg = g.boostGraph();
   const typename Graph::vertex_index_map& ids = g.vertexIdMap();
   typedef typename Graph::weight_type W;
@@ -108,7 +106,7 @@ void writeNCOL(const Graph& g, const char* file) {
 
   for (unsigned ii = 0; ii < vertices.size(); ++ii) {
     v1 = vertices[ii];
-    tie(ee1, ee2) = out_edges(v1, bg);
+    std::tie(ee1, ee2) = out_edges(v1, bg);
     if (ee1 == ee2) {
       continue;
     }
@@ -142,7 +140,6 @@ template void readLGL(Graph<FloatType>& g, const char* file);
 
 template <typename Graph>
 void readLGL(Graph& g, const char* file, typename Graph::weight_type cutoff) {
-  using namespace boost;
   typedef typename Graph::boost_graph BG;
   typedef typename Graph::vertex_index_map VIM;
   typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
@@ -218,7 +215,7 @@ void readLGL(Graph& g, const char* file, typename Graph::weight_type cutoff) {
       typename Graph::edge_descriptor eee;
       bool found = false;
       if (nv > u && nv > v) {
-        tie(eee, found) = edge(u, v, bg);
+        std::tie(eee, found) = edge(u, v, bg);
       }
       if (found) {
         w = std::min(w, get(boost::edge_weight, bg)[eee]);
@@ -313,7 +310,6 @@ template void writeLevelMap2File(const Graph<FloatType>& g,
 template <typename Graph>
 void readLGL_weightMin(Graph& g, const char* file,
                        typename Graph::weight_type cutoff) {
-  using namespace boost;
   typedef typename Graph::boost_graph BG;
   typedef typename Graph::vertex_index_map VIM;
   typedef boost::tokenizer<boost::char_separator<char>> tokenizer;

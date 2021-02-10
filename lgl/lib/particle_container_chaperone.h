@@ -50,9 +50,9 @@ class ParticleContainerChaperone {
   FloatType velRange_;  //   "    "      "       velocities
   bool randomPos_;
   bool randomVel_;
-  ifstream streams_in[3];   // X V M
-  ofstream streams_out[3];  // X V Temprature
-  char* file_out[3];        // X V Temprature ( These are output files )
+  std::ifstream streams_in[3];   // X V M
+  std::ofstream streams_out[3];  // X V Temprature
+  char* file_out[3];             // X V Temprature ( These are output files )
   bool file_out_flag[3];
   int level_;
 
@@ -66,15 +66,15 @@ class ParticleContainerChaperone {
 
   void orderingError(const char* file);
 
-  void writeXout(const Particle<D>& p, const string& id);
+  void writeXout(const Particle<D>& p, const std::string& id);
 
-  bool setXFromFile(Particle<D>& p, const string& id2check);
+  bool setXFromFile(Particle<D>& p, const std::string& id2check);
 
   bool setXFromAnchors(Particle<D>& p, const std::string& id2check) const;
 
   // bool setVFromFile(Particle<D>& p, string id2check = "");
 
-  bool setMFromFile(Particle<D>& p, string id2check = "");
+  bool setMFromFile(Particle<D>& p, std::string id2check = "");
 
   vec_type& randomVec(vec_type& v, FloatType range);
 

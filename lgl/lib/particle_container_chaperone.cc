@@ -1,5 +1,7 @@
 #include "particle_container_chaperone.h"
 
+#include <istream>
+
 #include "particle.h"
 #include "types.h"
 
@@ -12,7 +14,7 @@ void ParticleContainerChaperone<D>::openInFiles() {
     if (file_in[i] != 0) {
       streams_in[i].open(file_in[i]);
       if (!streams_in[i]) {
-        cerr << " Could not open Input File: " << file_in[i] << endl;
+        std::cerr << " Could not open Input File: " << file_in[i] << std::endl;
         std::exit(EXIT_FAILURE);
       }
     }
@@ -25,7 +27,7 @@ void ParticleContainerChaperone<D>::openOutFiles() {
     if (file_out[i] != 0) {
       streams_out[i].open(file_out[i]);
       if (!streams_out[i]) {
-        cerr << " Could not open Out File: " << file_out[i] << endl;
+        std::cerr << " Could not open Out File: " << file_out[i] << std::endl;
         std::exit(EXIT_FAILURE);
       }
     }
@@ -52,13 +54,14 @@ void ParticleContainerChaperone<D>::closeOutFiles() {
 
 template <Dimension D>
 void ParticleContainerChaperone<D>::orderingError(const char* file) {
-  cerr << "The ordering in the initialization file " << file << " is off.\n";
+  std::cerr << "The ordering in the initialization file " << file
+            << " is off.\n";
   std::exit(EXIT_FAILURE);
 }
 
 template <Dimension D>
 void ParticleContainerChaperone<D>::writeXout(const Particle<D>& p,
-                                              const string& id) {
+                                              const std::string& id) {
   streams_out[_X_FILE__] << id << " ";
   p.printXCoords(streams_out[_X_FILE__]);
   streams_out[_X_FILE__] << '\n';
@@ -66,7 +69,7 @@ void ParticleContainerChaperone<D>::writeXout(const Particle<D>& p,
 
 template <Dimension D>
 bool ParticleContainerChaperone<D>::setXFromFile(Particle<D>& p,
-                                                 const string& id2check) {
+                                                 const std::string& id2check) {
   // assuming id2check isn't empty for simplicity of this optimized
   // implementation
   assert(!id2check.empty());
@@ -91,8 +94,8 @@ bool ParticleContainerChaperone<D>::setXFromAnchors(
 
 template <Dimension D>
 bool ParticleContainerChaperone<D>::setMFromFile(Particle<D>& p,
-                                                 string id2check) {
-  string id = "";
+                                                 std::string id2check) {
+  std::string id = "";
   if (!streams_in[_M_FILE__].eof() && streams_in[_M_FILE__] >> id) {
     if (id2check != "" && id2check != id) {
       chaperone_type::orderingError(file_in[_M_FILE__]);
@@ -145,7 +148,7 @@ void ParticleContainerChaperone<D>::initAllParticles() {
   readXin();
   size_type nodeCount = pc_.size();
   for (size_type ii = 0; ii < nodeCount; ++ii) {
-    const string& id = pc_.ids[ii];
+    const std::string& id = pc_.ids[ii];
     if (file_in[_X_FILE__]) {
       chaperone_type::setXFromFile(pc_[ii], id);
     } else if (!chaperone_type::setXFromAnchors(pc_[ii], id)) {
@@ -170,7 +173,7 @@ void ParticleContainerChaperone<D>::writeOutFiles() {
   chaperone_type::openOutFiles();
   size_type nodeCount = pc_.size();
   for (size_type ii = 0; ii < nodeCount; ++ii) {
-    string id = pc_.ids[ii];
+    std::string id = pc_.ids[ii];
     if (file_out_flag[_X_FILE__] != 0) {
       chaperone_type::writeXout(pc_[ii], id);
     }

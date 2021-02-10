@@ -26,7 +26,7 @@ class ParticleContainer {
   FloatType avg_dx = 0;
 
  public:
-  vector<string> ids;  // This will hold the names
+  std::vector<std::string> ids;  // This will hold the names
 
   void initParticles();
 

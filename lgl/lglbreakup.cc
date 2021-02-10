@@ -33,7 +33,6 @@
 #include "lgl/lib/graph.h"
 #include "lgl/lib/io.h"
 
-using namespace std;
 using namespace lgl::lib;
 
 /////////////////////////////////////////////////////////////////////////
@@ -46,7 +45,7 @@ const bool defaultDoesWriteLgl = true;
 /////////////////////////////////////////////////////////////////////////
 
 typedef std::set<Graph_t::vertex_descriptor> ProcessList;
-typedef std::vector<vector<int> > WriteList;
+typedef std::vector<std::vector<int>> WriteList;
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -54,12 +53,12 @@ void displayUsage(char** argv);
 int writeCurrentLGL(Graph_t& g, const char* outfile, int set, WriteList& wl,
                     bool doesWrite, prec_t cut, std::ofstream& log);
 int connected_sets(const Graph_t& g, WriteList& writelist);
-void addAllEdgesFromVertices(const Graph_t& g, vector<int>& components,
+void addAllEdgesFromVertices(const Graph_t& g, std::vector<int>& components,
                              ProcessList& process);
 
 /////////////////////////////////////////////////////////////////////////
 
-bool set_size_sort(const vector<int>& v1, const vector<int>& v2) {
+bool set_size_sort(const std::vector<int>& v1, const std::vector<int>& v2) {
   return v1.size() > v2.size();
 }
 
@@ -104,35 +103,35 @@ int main(int argc, char** argv) {
         useMST = true;
         break;
       default:
-        cerr << "Bad Option. Exiting.";
+        std::cerr << "Bad Option. Exiting.";
         exit(EXIT_FAILURE);
     }
   }
 
   char* infile = strdup(argv[optind]);
 
-  cerr << "Loading " << infile << "..." << flush;
+  std::cerr << "Loading " << infile << "..." << std::flush;
   Graph_t G;
   readLGL(G, infile, cut);
-  cerr << "Done." << endl;
+  std::cerr << "Done." << std::endl;
 
   int vertexCount = G.vertexCount();
   int edgeCount = G.edgeCount();
-  int emin = max<int>((int).5 * edgeCount, 25000);
+  int emin = std::max<int>((int).5 * edgeCount, 25000);
 
-  cerr << vertexCount << " : Total Vertex Count\n"
-       << edgeCount << " : Total Edge Count\n"
-       << "Determining connected sets..." << flush;
+  std::cerr << vertexCount << " : Total Vertex Count\n"
+            << edgeCount << " : Total Edge Count\n"
+            << "Determining connected sets..." << std::flush;
 
   if (vertexCount == 0) {
-    cerr << "None.\n";
+    std::cerr << "None.\n";
     return EXIT_SUCCESS;
   }
 
   if (useMST) {
-    cerr << "Using MSTs..." << flush;
+    std::cerr << "Using MSTs..." << std::flush;
     if (!G.hasWeights()) {
-      cerr << "Tree doesn't have weights. Exiting.\n";
+      std::cerr << "Tree doesn't have weights. Exiting.\n";
       exit(EXIT_FAILURE);
     }
     Graph_t mst;
@@ -147,19 +146,19 @@ int main(int argc, char** argv) {
   // ( Protects stacks from very large graphs )
   WriteList writelist;
   int num = connected_sets(G, writelist);
-  cerr << "\nFound " << num << " connected sets." << endl;
+  std::cerr << "\nFound " << num << " connected sets." << std::endl;
 
   if (writeNewLGL) {
-    string keyfile(outputdir);
+    std::string keyfile(outputdir);
     keyfile += "_new_lgl.lgl";
     writeLGL(G, keyfile.c_str());
   }
 
-  string keyfile(outputdir);
+  std::string keyfile(outputdir);
   keyfile += "_vertex_file_match";
-  ofstream fileSetMatch(keyfile.c_str());
+  std::ofstream fileSetMatch(keyfile.c_str());
   if (!fileSetMatch) {
-    cerr << "Open of " << keyfile << " failed" << endl;
+    std::cerr << "Open of " << keyfile << " failed" << std::endl;
     exit(EXIT_FAILURE);
   }
 
@@ -168,14 +167,14 @@ int main(int argc, char** argv) {
   for (int currentSet = 0; currentSet < num; ++currentSet) {
     char outfile[256];
     sprintf(outfile, "%s/%d.lgl", outputdir, currentSet);
-    cerr << "Writing " << outfile << endl;
+    std::cerr << "Writing " << outfile << std::endl;
     eout += writeCurrentLGL(G, outfile, sets, writelist, doesWrite, cut,
                             fileSetMatch);
     ++sets;
     if (eout > emin) {
-      cerr << "Remapping\n";
+      std::cerr << "Remapping\n";
       remap(G);
-      emin = max<int>((int).5 * (edgeCount - eout), 25000);
+      emin = std::max<int>((int).5 * (edgeCount - eout), 25000);
       edgeCount -= eout;
       eout = 0;
       connected_sets(G, writelist);
@@ -193,18 +192,19 @@ int connected_sets(const Graph_t& g, WriteList& writelist) {
   Graph_t::vertex_iterator v1, v2;
   Graph_t::out_edge_iterator oe, oend;
   ProcessList process;
-  vector<int> components(num_vertices(g.boostGraph()), -1);
+  std::vector<int> components(num_vertices(g.boostGraph()), -1);
 
   int currentComponent = 0;
   // int vertexCounter = 0;
   // cerr << "Vertex: " << std::setw(8) << vertexCounter;
-  for (tie(v1, v2) = vertices(g.boostGraph()); v1 != v2; ++v1) {
+  for (std::tie(v1, v2) = vertices(g.boostGraph()); v1 != v2; ++v1) {
     // cerr << "\b\b\b\b\b\b\b\b" << std::setw(8) <<  ++vertexCounter << flush;
     if (components[*v1] >= 0) {
       continue;
     }
     components[*v1] = currentComponent;
-    for (tie(oe, oend) = out_edges(*v1, g.boostGraph()); oe != oend; ++oe) {
+    for (std::tie(oe, oend) = out_edges(*v1, g.boostGraph()); oe != oend;
+         ++oe) {
       vother = target(*oe, g.boostGraph());
       components[vother] = currentComponent;
       process.insert(vother);
@@ -217,7 +217,7 @@ int connected_sets(const Graph_t& g, WriteList& writelist) {
   // written ahead of time
   writelist.clear();
   writelist.resize(currentComponent);
-  for (vector<int>::size_type ii = 0; ii < components.size(); ++ii) {
+  for (std::vector<int>::size_type ii = 0; ii < components.size(); ++ii) {
     writelist[components[ii]].push_back(ii);
   }
 
@@ -228,7 +228,7 @@ int connected_sets(const Graph_t& g, WriteList& writelist) {
 
 /////////////////////////////////////////////////////////////////////////
 
-void addAllEdgesFromVertices(const Graph_t& g, vector<int>& components,
+void addAllEdgesFromVertices(const Graph_t& g, std::vector<int>& components,
                              ProcessList& process) {
   Graph_t::vertex_descriptor vother;
   Graph_t::out_edge_iterator oe, oend;
@@ -237,7 +237,8 @@ void addAllEdgesFromVertices(const Graph_t& g, vector<int>& components,
   }
   ProcessList process2;
   for (ProcessList::iterator ii = process.begin(); ii != process.end(); ++ii) {
-    for (tie(oe, oend) = out_edges(*ii, g.boostGraph()); oe != oend; ++oe) {
+    for (std::tie(oe, oend) = out_edges(*ii, g.boostGraph()); oe != oend;
+         ++oe) {
       vother = target(*oe, g.boostGraph());
       if (components[vother] >= 0) {
         continue;
@@ -261,12 +262,13 @@ int writeCurrentLGL(Graph_t& g, const char* outfile, int cset,
   Graph_t::weight_type w;
   Graph_t::boost_graph& newg = newG.boostGraph();
   bool madeit = false;
-  vector<Graph_t::edge_descriptor> edges2remove;
-  set<int> already;
+  std::vector<Graph_t::edge_descriptor> edges2remove;
+  std::set<int> already;
 
-  for (vector<int>::iterator ii = writelist[cset].begin();
+  for (std::vector<int>::iterator ii = writelist[cset].begin();
        ii != writelist[cset].end(); ++ii) {
-    for (tie(ei, eend) = out_edges(*ii, g.boostGraph()); ei != eend; ++ei) {
+    for (std::tie(ei, eend) = out_edges(*ii, g.boostGraph()); ei != eend;
+         ++ei) {
       v1 = source(*ei, g.boostGraph());
       v2 = target(*ei, g.boostGraph());
       if (g.idFromIndex(v1) > g.idFromIndex(v2)) {
@@ -299,15 +301,16 @@ int writeCurrentLGL(Graph_t& g, const char* outfile, int cset,
   }
   remap(newG);
   int edgecount = newG.edgeCount();
-  cerr << newG.vertexCount() << " : Vertex Count\n"
-       << edgecount << " : Edge Count" << endl;
+  std::cerr << newG.vertexCount() << " : Vertex Count\n"
+            << edgecount << " : Edge Count" << std::endl;
   if (doesWrite) {
     writeLGL(newG, outfile);
   }
 
   // This is necessary for subsequent calls to writeCurrentLGL with
   // very large graphs.
-  for (vector<Graph_t::edge_descriptor>::iterator ii = edges2remove.begin();
+  for (std::vector<Graph_t::edge_descriptor>::iterator ii =
+           edges2remove.begin();
        ii != edges2remove.end(); ++ii) {
     g.removeEdge(*ii);
   }
@@ -320,14 +323,14 @@ int writeCurrentLGL(Graph_t& g, const char* outfile, int cset,
 /////////////////////////////////////////////////////////////////////////
 
 void displayUsage(char** argv) {
-  cerr << "\nUsage: " << argv[0]
-       << " [-d outputDirectory] [-w doesWriteBool0or1]\n\t"
-       << "[-c cutoff] [-s] graph.lgl\n\n"
-       << "\t-s\tToggle new .lgl file write.\n"
-       << "\n\tDefault output dir: " << doutputdir << '\n'
-       << "\tDefault Write: " << defaultWrite << '\n'
-       << "\tDefault Cutoff: " << cutoff << '\n'
-       << "\tDoes Write New Lgl: " << defaultDoesWriteLgl << endl;
+  std::cerr << "\nUsage: " << argv[0]
+            << " [-d outputDirectory] [-w doesWriteBool0or1]\n\t"
+            << "[-c cutoff] [-s] graph.lgl\n\n"
+            << "\t-s\tToggle new .lgl file write.\n"
+            << "\n\tDefault output dir: " << doutputdir << '\n'
+            << "\tDefault Write: " << defaultWrite << '\n'
+            << "\tDefault Cutoff: " << cutoff << '\n'
+            << "\tDoes Write New Lgl: " << defaultDoesWriteLgl << std::endl;
   exit(EXIT_FAILURE);
 }
 

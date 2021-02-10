@@ -154,7 +154,7 @@ void GridIter<Grid>::initVals() {
   else if (n_dimensions_ == 3)
     iterMax = NbhrVoxelPositions::iterMax3D;
   else {
-    cerr << "!! GridIter Can only handle dimensions 1-3 !!\n";
+    std::cerr << "!! GridIter Can only handle dimensions 1-3 !!\n";
     std::exit(1);
   }
 }

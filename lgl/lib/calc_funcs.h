@@ -29,12 +29,11 @@
 
 //------------------------------------------------
 
-using namespace boost;
-
 namespace lgl {
 namespace lib {
 
-typedef adjacency_list<vecS, vecS, directedS> out_graph;
+typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS>
+    out_graph;
 typedef std::vector<FloatType> EllipseFactors;
 
 //------------------------------------------------
@@ -97,7 +96,7 @@ long activeEdgeCount(Node& n);
 prec_t activateNextLayerOfEdges(NodeContainer& n, unsigned int currentLevel,
                                 ThreadArgs* threadArgs);
 prec_t getBufferDistance(Node& n);
-void printOutput(long i, prec_t d, long ll, ostream& o);
+void printOutput(long i, prec_t d, long ll, std::ostream& o);
 
 void layerNPlacement(NodeContainer& nodes, Grid_t& grid, out_graph& g,
                      FixedVec_p& cm, unsigned int currentLevel,

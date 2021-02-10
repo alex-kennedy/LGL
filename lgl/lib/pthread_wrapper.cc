@@ -74,7 +74,7 @@ void ApthreadContainer::wait() {
     rc = threads_[ii].wait();
     if (rc != 0) {
       std::cerr << "ApthreadContainer: Error on thread wait.\t";
-      std::cerr << rc << endl;
+      std::cerr << rc << std::endl;
       // exit(1);
     }
   }

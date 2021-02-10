@@ -161,9 +161,9 @@ void ParticleInteractionHandler<D>::integrateFirstOrder(Particle<D>& p1,
   for (unsigned int ii = 0; ii < D; ++ii) {
     FloatType finc = p1.f[ii] * t;
     if (finc < 0) {
-      finc = -min<FloatType>((FloatType).05, abs(finc));
+      finc = -std::min<FloatType>((FloatType).05, abs(finc));
     } else {
-      finc = min<FloatType>((FloatType).05, finc);
+      finc = std::min<FloatType>((FloatType).05, finc);
     }
     p1.x[ii] += finc;
   }
