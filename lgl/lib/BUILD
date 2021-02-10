@@ -7,6 +7,7 @@ cc_library(
         "configs.h",
         "cube.cc",
         "ed_lookup_table.cc",
+        "graph.cc",
         "grid.cc",
         "grid_schedule.cc",
         "io.cc",
@@ -15,7 +16,6 @@ cc_library(
         "particle_container.cc",
         "particle_container_chaperone.cc",
         "particle_interaction_handler.cc",
-        "graph.cc",
         "pthread_wrapper.cc",
         "sphere.cc",
         "voxel.cc",
@@ -47,4 +47,11 @@ cc_library(
     ],
     linkopts = ["-pthread"],
     visibility = ["//lgl:__subpackages__"],
+    deps = [
+        "@boost//:algorithm",
+        "@boost//:atomic",
+        "@boost//:graph",
+        "@boost//:random",
+        "@boost//:tokenizer",
+    ],
 )

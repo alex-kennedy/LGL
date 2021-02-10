@@ -1,14 +1,6 @@
 #ifndef LGL_LIB_GRAPH_H_
 #define LGL_LIB_GRAPH_H_
 
-#include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/breadth_first_search.hpp>
-#include <boost/graph/kruskal_min_spanning_tree.hpp>
-#include <boost/graph/visitors.hpp>
-#include <boost/lexical_cast.hpp>
-#include <boost/limits.hpp>
-#include <boost/property_map/property_map.hpp>
-#include <boost/tokenizer.hpp>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -16,6 +8,14 @@
 #include <string>
 #include <vector>
 
+#include "boost/graph/adjacency_list.hpp"
+#include "boost/graph/breadth_first_search.hpp"
+#include "boost/graph/kruskal_min_spanning_tree.hpp"
+#include "boost/graph/visitors.hpp"
+#include "boost/lexical_cast.hpp"
+#include "boost/limits.hpp"
+#include "boost/property_map/property_map.hpp"
+#include "boost/tokenizer.hpp"
 #include "fixed_vec.h"
 #include "mutual_map.h"
 

@@ -21,7 +21,6 @@
 
 #include <unistd.h>
 
-#include <boost/graph/connected_components.hpp>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -29,6 +28,7 @@
 #include <iostream>
 #include <vector>
 
+#include "boost/graph/connected_components.hpp"
 #include "lgl/lib/configs.h"
 #include "lgl/lib/graph.h"
 #include "lgl/lib/io.h"

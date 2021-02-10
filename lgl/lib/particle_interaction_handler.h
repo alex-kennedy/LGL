@@ -1,12 +1,12 @@
 #ifndef LGL_LIB_PARTICLE_INTERACTION_HANDLER_H_
 #define LGL_LIB_PARTICLE_INTERACTION_HANDLER_H_
 
-#include <boost/algorithm/cxx11/all_of.hpp>
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
 
+#include "boost/algorithm/cxx11/all_of.hpp"
 #include "particle.h"
 #include "particle_stats.h"
 #include "types.h"

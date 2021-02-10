@@ -1,18 +1,18 @@
 #ifndef LGL_LIB_MOLECULE_H_
 #define LGL_LIB_MOLECULE_H_
 
-#include <boost/limits.hpp>
-#include <boost/random/uniform_on_sphere.hpp>
-#include <boost/tokenizer.hpp>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <string>
 #include <vector>
 
-#include "types.h"
+#include "boost/limits.hpp"
+#include "boost/random/uniform_on_sphere.hpp"
+#include "boost/tokenizer.hpp"
 #include "fixed_vec.h"
 #include "sphere.h"
+#include "types.h"
 
 namespace lgl {
 namespace lib {

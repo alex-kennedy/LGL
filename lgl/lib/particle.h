@@ -22,10 +22,10 @@
 #define LGL_LIB_PARTICLE_H_
 
 #include <algorithm>
-#include <boost/atomic.hpp>
 #include <iostream>
 #include <string>
 
+#include "boost/atomic.hpp"
 #include "fixed_vec.h"
 #include "pthread_wrapper.h"
 #include "types.h"

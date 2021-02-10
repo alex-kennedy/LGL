@@ -7,6 +7,7 @@ cc_binary(
     ],
     deps = [
         "//lgl/lib",
+        "@boost//:graph",
     ],
 )
 

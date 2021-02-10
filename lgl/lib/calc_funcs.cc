@@ -20,11 +20,9 @@
 
 #include "calc_funcs.h"
 
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/split.hpp>
-#include <boost/foreach.hpp>
-#include <boost/lexical_cast.hpp>
-
+#include "boost/algorithm/string/classification.hpp"
+#include "boost/algorithm/string/split.hpp"
+#include "boost/foreach.hpp"
 #include "grid.h"
 #include "particle.h"
 #include "particle_interaction_handler.h"
