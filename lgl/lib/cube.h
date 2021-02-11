@@ -7,10 +7,10 @@
 namespace lgl {
 namespace lib {
 
-template <Dimension NDimensions>
+template <Dimension D>
 class Cube {
  private:
-  using VectorType = FixedVec<FloatType, NDimensions>;
+  using VectorType = FixedVec<FloatType, D>;
 
  protected:
   VectorType origin_;
@@ -21,7 +21,7 @@ class Cube {
 
   Cube(const VectorType& p, FloatType r);
 
-  Cube(const Cube<NDimensions>& c);
+  Cube(const Cube<D>& c);
 
   FloatType radius() const;
 
@@ -31,7 +31,7 @@ class Cube {
 
   void origin(const VectorType& p);
 
-  void copy(const Cube<NDimensions>& c);
+  void copy(const Cube<D>& c);
 
   bool check_inclusion(const VectorType& p) const;
 
@@ -39,11 +39,11 @@ class Cube {
 
   void print(std::ostream& o = std::cout) const;
 
-  Cube<NDimensions>& operator=(const Cube<NDimensions>& c);
+  Cube<D>& operator=(const Cube<D>& c);
 
-  bool operator==(const Cube<NDimensions>& c) const;
+  bool operator==(const Cube<D>& c) const;
 
-  bool operator!=(const Cube<NDimensions>& c) const;
+  bool operator!=(const Cube<D>& c) const;
 };
 
 }  // namespace lib

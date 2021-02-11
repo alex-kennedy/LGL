@@ -175,7 +175,7 @@ int main(int argc, char **argv) try {
   }
 
   std::cout << "Reading in Graph from " << argv[optind] << "..." << std::flush;
-  Graph_t G;
+  Graph<FloatType> G;
   readLGL(G, argv[optind]);
   std::cout << "\nVertex Count: " << G.vertexCount() << '\n'
             << "Edge Count: " << G.edgeCount() << std::endl;
@@ -259,12 +259,12 @@ int main(int argc, char **argv) try {
   unsigned int totalLevels = 1;
   LevelMap levels(nodes.size(), 1);
   ParentMap parents(nodes.size(), 0);
-  Graph_t lG;  // The graph that is currently being treated
+  Graph<FloatType> lG;  // The graph that is currently being treated
   lG.vertexIdMap(G.vertexIdMap());
-  Graph_t mst;  // The tree generated to guide the layout
+  Graph<FloatType> mst;  // The tree generated to guide the layout
   mst.vertexIdMap(G.vertexIdMap());
   mst.weights(G.weights());
-  Graph_t::vertex_descriptor root = 0;
+  Graph<FloatType>::vertex_descriptor root = 0;
   if (!initPosFile) {
     std::cout
         << "Generating Tree and checking for root.\nChecking for root node ... "
@@ -278,7 +278,7 @@ int main(int argc, char **argv) try {
     } else {
       // Try to find the root node
       std::tie(root, totalLevels) = generateLevelsFromGraph(
-          G, levels, parents, (Graph_t::vertex_descriptor *)0, mst,
+          G, levels, parents, (Graph<FloatType>::vertex_descriptor *)0, mst,
           useOriginalWeights);
     }
     std::cout << "Root Node: " << G.idFromIndex(root) << "\n"

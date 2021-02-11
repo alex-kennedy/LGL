@@ -33,20 +33,20 @@
 namespace lgl {
 namespace lib {
 
-template <Dimension NDimensions>
+template <Dimension D>
 class Particle {
  private:
   unsigned int index_;  // Index of particle in array
 
  public:
-  static const Dimension n_dimensions_ = NDimensions;
+  static const Dimension n_dimensions_ = D;
   typedef FloatType precision;
-  typedef FixedVec<FloatType, NDimensions> vec_type;
+  typedef FixedVec<FloatType, D> vec_type;
 
   // using boost::atomic instead of std::atomic because the latter doesn't have
   // op+= or fetch_add et al. for floating-point specializations until C++20
   // TODO C++20: std::atomic
-  typedef FixedVec<boost::atomic<FloatType>, NDimensions> atomic_vec_type;
+  typedef FixedVec<boost::atomic<FloatType>, D> atomic_vec_type;
 
  protected:
   // This is the number of the container the particle resides in.
@@ -68,17 +68,17 @@ class Particle {
 
  public:
   // Position of the particle in x,y(,z), depending on the dimensions.
-  FixedVec<FloatType, NDimensions> x;
+  FixedVec<FloatType, D> x;
 
   // Force in x,y(,z)
   atomic_vec_type f;
 
  public:
-  Particle(const Particle<NDimensions>& p) { Particle<NDimensions>::copy(p); }
+  Particle(const Particle<D>& p) { Particle<D>::copy(p); }
 
-  Particle() { Particle<NDimensions>::reset_values(); }
+  Particle() { Particle<D>::reset_values(); }
 
-  const FixedVec<FloatType, NDimensions>& X() const { return x; }
+  const FixedVec<FloatType, D>& X() const { return x; }
 
   const atomic_vec_type& F() const { return f; }
 
@@ -105,46 +105,42 @@ class Particle {
   void radius(FloatType r) { radius_ = r; }
   FloatType radius() const { return radius_; }
 
-  void add2F(const FixedVec<FloatType, NDimensions>& f_) { f += f_; }
+  void add2F(const FixedVec<FloatType, D>& f_) { f += f_; }
 
-  void X(const FixedVec<FloatType, NDimensions>& x_) { x = x_; }
+  void X(const FixedVec<FloatType, D>& x_) { x = x_; }
 
   template <typename InputIterator>
   void X(InputIterator begin, InputIterator end) {
     std::copy(begin, end, x.begin());
   }
 
-  void F(const FixedVec<FloatType, NDimensions>& f_) { f = f_; }
+  void F(const FixedVec<FloatType, D>& f_) { f = f_; }
 
   FloatType dx() const { return dx_; }
   void dx(FloatType d) { dx_ = d; }
 
-  Particle<NDimensions>& operator=(const Particle<NDimensions>& p) {
-    Particle<NDimensions>::copy(p);
+  Particle<D>& operator=(const Particle<D>& p) {
+    Particle<D>::copy(p);
     return *this;
   }
 
   // TODO: Equality by index seems dangerous. Should consider checking by
   // address.
-  bool operator==(const Particle<NDimensions>& p) const {
-    return index_ == p.index_;
-  }
+  bool operator==(const Particle<D>& p) const { return index_ == p.index_; }
 
-  bool operator!=(const Particle<NDimensions>& p) const {
-    return index_ != p.index_;
-  }
+  bool operator!=(const Particle<D>& p) const { return index_ != p.index_; }
 
-  bool collisionCheck(const Particle<NDimensions>& vp) const;
+  bool collisionCheck(const Particle<D>& vp) const;
 
   bool isPositionInitialized() const noexcept;
 
   void reset_values();
 
-  void copy(const Particle<NDimensions>& p);
+  void copy(const Particle<D>& p);
 
-  FloatType separation2(const Particle<NDimensions>& p) const;
+  FloatType separation2(const Particle<D>& p) const;
 
-  FloatType separation(const Particle<NDimensions>& p) const;
+  FloatType separation(const Particle<D>& p) const;
 
   // Print specific particle info.
   void printParticle(std::ostream& o = std::cout) const;
@@ -153,7 +149,7 @@ class Particle {
   void printX(std::ostream& o = std::cout) const;
   void printF(std::ostream& o = std::cout) const;
   void print(std::ostream& o = std::cout) const {
-    Particle<NDimensions>::printParticle(o);
+    Particle<D>::printParticle(o);
   }
 };
 

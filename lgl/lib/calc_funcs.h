@@ -24,10 +24,9 @@
 #include "particle_container.h"
 #include "particle_container_chaperone.h"
 #include "sphere.h"
+#include "types.h"
 #include "voxel.h"
 #include "voxel_interaction_handler.h"
-
-//------------------------------------------------
 
 namespace lgl {
 namespace lib {
@@ -35,8 +34,6 @@ namespace lib {
 typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS>
     out_graph;
 typedef std::vector<FloatType> EllipseFactors;
-
-//------------------------------------------------
 
 struct ThreadArgs {
   NodeContainer* nodes;
@@ -46,71 +43,68 @@ struct ThreadArgs {
   ParticleStats_t* stats;
   long voxelListSize;
   Grid_t* grid;
-  prec_t eqDistance;
+  FloatType eqDistance;
   EllipseFactors ellipseFactors;
   GridIterator* gridIterator;
   long threadCount;
   long whichThread;
-  prec_t nbhdRadius;
-  prec_t casualSpringConstant;
-  prec_t specialSpringConstant;
-  Graph_t* full_graph;
-  Graph_t* layout_graph;
+  FloatType nbhdRadius;
+  FloatType casualSpringConstant;
+  FloatType specialSpringConstant;
+  Graph<FloatType>* full_graph;
+  Graph<FloatType>* layout_graph;
   LevelMap* levels;
   ParentMap* parents;
   unsigned int currentLevel;
 };
-
-//------------------------------------------------
 
 void* calcInteractions(void* arg);
 void* integrateParticles(void* arg);
 void* onlyEdgeInteractions(void* arg);
 void* collectEdgeStats(void* arg);
 
-//------------------------------------------------
-
 int generateMSTFromNodes(NodeContainer& nodes, ThreadArgs* args, long p);
 
-prec_t collectOutput(ThreadArgs* args, PCChaperone& chaperone);
-void beginSimulation(ThreadContainer& threads, prec_t cutOffPrecision,
+FloatType collectOutput(ThreadArgs* args, PCChaperone& chaperone);
+void beginSimulation(ThreadContainer& threads, FloatType cutOffPrecision,
                      TimeKeeper& timer, ThreadArgs* threadArgs,
                      PCChaperone& chaperone, unsigned int totalLevels, bool b,
-                     prec_t placementDistance, prec_t placementRadius,
+                     FloatType placementDistance, FloatType placementRadius,
                      bool placeLeafsClose, bool silentOutput);
 
 void adjustWeightsBasedOnChildrenCount(NodeContainer& nodes);
 void solidifyLargeEdges(NodeContainer& nodes);
 
-FixedVec_p calcCenterOfMass(Graph_t& g, NodeContainer& nodes, LevelMap& levels,
-                            unsigned int currentLevel);
+FixedVec_p calcCenterOfMass(Graph<FloatType>& g, NodeContainer& nodes,
+                            LevelMap& levels, unsigned int currentLevel);
 
-void initializeCurrentLayer(Graph_t& g, NodeContainer& nodes, LevelMap& levels,
-                            ParentMap& p, Grid_t& grid,
-                            unsigned int currentLevel, Graph_t& full,
-                            prec_t placementDistance, prec_t placementRadius,
-                            bool placeLeafsClose);
+void initializeCurrentLayer(Graph<FloatType>& g, NodeContainer& nodes,
+                            LevelMap& levels, ParentMap& p, Grid_t& grid,
+                            unsigned int currentLevel, Graph<FloatType>& full,
+                            FloatType placementDistance,
+                            FloatType placementRadius, bool placeLeafsClose);
 
 long activeEdgeCount(Node& n);
 
-prec_t activateNextLayerOfEdges(NodeContainer& n, unsigned int currentLevel,
-                                ThreadArgs* threadArgs);
-prec_t getBufferDistance(Node& n);
-void printOutput(long i, prec_t d, long ll, std::ostream& o);
+FloatType activateNextLayerOfEdges(NodeContainer& n, unsigned int currentLevel,
+                                   ThreadArgs* threadArgs);
+FloatType getBufferDistance(Node& n);
+void printOutput(long i, FloatType d, long ll, std::ostream& o);
 
 void layerNPlacement(NodeContainer& nodes, Grid_t& grid, out_graph& g,
                      FixedVec_p& cm, unsigned int currentLevel,
-                     ParentMap& parents, Graph_t& full, LevelMap& lm,
-                     prec_t placementDistance, prec_t placementRadius,
+                     ParentMap& parents, Graph<FloatType>& full, LevelMap& lm,
+                     FloatType placementDistance, FloatType placementRadius,
                      bool placeLeafsClose);
 void generatePlacementVector(FixedVec_p& d, const FixedVec_p& parentNode,
                              const FixedVec_p& parentParentNode,
                              const FixedVec_p& cm);
-prec_t placementFormula(prec_t placementDistance, int vertices2place,
-                        int dimension);
+FloatType placementFormula(FloatType placementDistance, int vertices2place,
+                           int dimension);
 
-void gridPrepAndInit(NodeContainer& nc, Grid_t& g, prec_t voxelLength);
-bool doesVertexHaveAnyChildren(Graph_t& G, Graph_t::vertex_descriptor v,
+void gridPrepAndInit(NodeContainer& nc, Grid_t& g, FloatType voxelLength);
+bool doesVertexHaveAnyChildren(Graph<FloatType>& G,
+                               Graph<FloatType>::vertex_descriptor v,
                                out_graph& g, ParentMap& parents);
 
 EllipseFactors parseEllipseFactors(const std::string& optionStr);
@@ -124,10 +118,8 @@ EllipseFactors parseEllipseFactors(const std::string& optionStr);
 // to isolated and totally uninitialized islands). Also, the progress of the
 // stages and the final accomplishment is printed to stdout.
 void interpolateUninitializedPositions(PCChaperone& chaperone,
-                                       const Graph_t::boost_graph& g,
+                                       const Graph<FloatType>::boost_graph& g,
                                        bool remove_disconnected_nodes);
-
-//------------------------------------------------
 
 }  // namespace lib
 }  // namespace lgl

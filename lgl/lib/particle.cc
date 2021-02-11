@@ -5,8 +5,8 @@
 namespace lgl {
 namespace lib {
 
-template <Dimension NDimensions>
-void Particle<NDimensions>::reset_values() {
+template <Dimension D>
+void Particle<D>::reset_values() {
   x = 0;
   f = 0;
   container_ = -1;
@@ -15,20 +15,19 @@ void Particle<NDimensions>::reset_values() {
   isAnchor_ = false;
 }
 
-template <Dimension NDimensions>
-bool Particle<NDimensions>::isPositionInitialized() const noexcept {
+template <Dimension D>
+bool Particle<D>::isPositionInitialized() const noexcept {
   // TODO 'initialize' and compare against a big number instead of 0?
   return !std::all_of(X().begin(), X().end(), [](float x) { return x == 0.f; });
 }
 
-template <Dimension NDimensions>
-bool Particle<NDimensions>::collisionCheck(
-    const Particle<NDimensions>& vp) const {
+template <Dimension D>
+bool Particle<D>::collisionCheck(const Particle<D>& vp) const {
   return x.distanceSquared(vp.x) <= sqr(radius() + vp.radius());
 }
 
-template <Dimension NDimensions>
-void Particle<NDimensions>::copy(const Particle<NDimensions>& p) {
+template <Dimension D>
+void Particle<D>::copy(const Particle<D>& p) {
   if (*this == p) {
     return;
   }
@@ -41,59 +40,57 @@ void Particle<NDimensions>::copy(const Particle<NDimensions>& p) {
   isAnchor_ = p.isAnchor_;
 }
 
-template <Dimension NDimensions>
-FloatType Particle<NDimensions>::separation2(
-    const Particle<NDimensions>& p) const {
+template <Dimension D>
+FloatType Particle<D>::separation2(const Particle<D>& p) const {
   return x.distanceSquared(p.x);
 }
 
-template <Dimension NDimensions>
-FloatType Particle<NDimensions>::separation(
-    const Particle<NDimensions>& p) const {
+template <Dimension D>
+FloatType Particle<D>::separation(const Particle<D>& p) const {
   return x.distance(p.x);
 }
 
-template <Dimension NDimensions>
-void Particle<NDimensions>::printParticle(std::ostream& o) const {
+template <Dimension D>
+void Particle<D>::printParticle(std::ostream& o) const {
   o << "Index: " << index_ << "\tId: " << id_ << '\t' << "M: " << mass_ << '\t'
     << "R: " << radius_ << "\tCont: " << container_ << '\n';
   o << "\tX: ";
-  Particle<NDimensions>::printXCoords(o);
+  Particle<D>::printXCoords(o);
   o << '\n';
   o << "\tF: ";
-  Particle<NDimensions>::printFCoords(o);
+  Particle<D>::printFCoords(o);
   o << '\n';
 }
 
-template <Dimension NDimensions>
-void Particle<NDimensions>::printXCoords(std::ostream& o) const {
+template <Dimension D>
+void Particle<D>::printXCoords(std::ostream& o) const {
   o << x[0];
-  for (unsigned int ii = 1; ii < NDimensions; ++ii) {
+  for (unsigned int ii = 1; ii < D; ++ii) {
     o << " " << x[ii];
   }
 }
 
-template <Dimension NDimensions>
-void Particle<NDimensions>::printFCoords(std::ostream& o) const {
+template <Dimension D>
+void Particle<D>::printFCoords(std::ostream& o) const {
   o << f[0];
-  for (unsigned int ii = 1; ii < NDimensions; ++ii) {
+  for (unsigned int ii = 1; ii < D; ++ii) {
     o << " " << f[ii];
   }
 }
 
-template <Dimension NDimensions>
-void Particle<NDimensions>::printX(std::ostream& o) const {
+template <Dimension D>
+void Particle<D>::printX(std::ostream& o) const {
   o << index_;
-  for (unsigned int ii = 0; ii < NDimensions; ++ii) {
+  for (unsigned int ii = 0; ii < D; ++ii) {
     o << " " << x[ii];
   }
   o << '\n';
 }
 
-template <Dimension NDimensions>
-void Particle<NDimensions>::printF(std::ostream& o) const {
+template <Dimension D>
+void Particle<D>::printF(std::ostream& o) const {
   o << id_;
-  for (unsigned int ii = 0; ii < NDimensions; ++ii) {
+  for (unsigned int ii = 0; ii < D; ++ii) {
     o << '\t' << f[ii];
   }
   o << '\n';

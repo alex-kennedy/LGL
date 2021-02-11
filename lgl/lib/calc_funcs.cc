@@ -23,10 +23,12 @@
 #include "boost/algorithm/string/classification.hpp"
 #include "boost/algorithm/string/split.hpp"
 #include "boost/foreach.hpp"
+#include "configs.h"
 #include "grid.h"
 #include "particle.h"
 #include "particle_interaction_handler.h"
 #include "thread_pool.h"
+#include "types.h"
 #include "voxel.h"
 #include "voxel_interaction_handler.h"
 
@@ -43,7 +45,7 @@ void* calcInteractions(void* arg_) {
   GridIterator& grid_i = *(args->gridIterator);
   VoxelHandler& vh = *(args->voxelHandler);
   args->nodeHandler->springConstant(args->casualSpringConstant);
-  // const Graph_t& layout_graph = *(args->layout_graph);
+  // const Graph<FloatType>& layout_graph = *(args->layout_graph);
   // layout_graph.print();
   for (long ii = 0; ii < args->voxelListSize; ++ii) {
     grid_i.current(args->voxelList[ii]);
@@ -65,7 +67,7 @@ void* calcInteractions(void* arg_) {
 //---------------------------------------------------------------
 
 void* integrateParticles(void* arg_) {
-  typedef Graph_t::vertex_iterator Vi;
+  typedef Graph<FloatType>::vertex_iterator Vi;
   // cout << "integrateParticles" << endl;
   ThreadArgs& args = *(static_cast<ThreadArgs*>(arg_));
   long whichThread = args.whichThread;
@@ -73,7 +75,7 @@ void* integrateParticles(void* arg_) {
   NodeContainer& nodes = *(args.nodes);
   Grid_t& grid = *(args.grid);
   NodeInteractionHandler& nih = *(args.nodeHandler);
-  const Graph_t& layout_graph = *(args.layout_graph);
+  const Graph<FloatType>& layout_graph = *(args.layout_graph);
   const LevelMap& levels = *(args.levels);
   unsigned int currentLevel = args.currentLevel;
   Vi v, vend;
@@ -111,18 +113,18 @@ void* integrateParticles(void* arg_) {
 
 void* collectEdgeStats(void* arg_) {
   // cout << "collectingStats" << endl;
-  typedef Graph_t::edge_iterator Ei;
-  typedef Graph_t::vertex_descriptor vertex_descriptor;
+  typedef Graph<FloatType>::edge_iterator Ei;
+  typedef Graph<FloatType>::vertex_descriptor vertex_descriptor;
   ThreadArgs& args = *(static_cast<ThreadArgs*>(arg_));
   const unsigned int currentLevel = args.currentLevel;
   const LevelMap& levels = *(args.levels);
   NodeContainer& nodes = *(args.nodes);
   long whichThread = args.whichThread;
   long threadCount = args.threadCount;
-  const Graph_t& layout_graph = *(args.layout_graph);
+  const Graph<FloatType>& layout_graph = *(args.layout_graph);
   int edgeCount = num_edges(layout_graph.boostGraph());
   int ctr = 0;
-  prec_t dx = 0;
+  FloatType dx = 0;
   Ei ei, eend;
   tie(ei, eend) = edges(layout_graph.boostGraph());
   if (whichThread != 0) {
@@ -150,14 +152,14 @@ void* collectEdgeStats(void* arg_) {
 
 void* onlyEdgeInteractions(void* arg_) {
   // cout << "onlyEdgeInteractions" << endl;
-  typedef Graph_t::edge_iterator Ei;
+  typedef Graph<FloatType>::edge_iterator Ei;
   ThreadArgs& args = *(static_cast<ThreadArgs*>(arg_));
   NodeContainer& nodes = *(args.nodes);
   long whichThread = args.whichThread;
   long threadCount = args.threadCount;
   NodeInteractionHandler& nih = *(args.nodeHandler);
   nih.springConstant(args.specialSpringConstant);
-  const Graph_t& layout_graph = *(args.layout_graph);
+  const Graph<FloatType>& layout_graph = *(args.layout_graph);
   int edgeCount = num_edges(layout_graph.boostGraph());
   Ei ei, eend;
   tie(ei, eend) = edges(layout_graph.boostGraph());
@@ -170,7 +172,8 @@ void* onlyEdgeInteractions(void* arg_) {
     }
     Node& n1 = nodes[source(*ei, layout_graph.boostGraph())];
     Node& n2 = nodes[target(*ei, layout_graph.boostGraph())];
-    prec_t d = euclideanDistance(n1.X().begin(), n1.X().end(), n2.X().begin());
+    FloatType d =
+        euclideanDistance(n1.X().begin(), n1.X().end(), n2.X().begin());
     if (d > nih.eqDistance()) {
       nih.springRepulsiveInteraction(n1, n2);
     }
@@ -180,14 +183,14 @@ void* onlyEdgeInteractions(void* arg_) {
 
 //--------------------------------------------------------------
 
-void beginSimulation(ThreadContainer& threads, prec_t cutOffPrecision,
+void beginSimulation(ThreadContainer& threads, FloatType cutOffPrecision,
                      TimeKeeper& timer, ThreadArgs* threadArgs,
                      PCChaperone& chaperone, unsigned int totalLevels,
-                     bool givenCoords, prec_t placementDistance,
-                     prec_t placementRadius, bool placeLeafsClose,
+                     bool givenCoords, FloatType placementDistance,
+                     FloatType placementRadius, bool placeLeafsClose,
                      bool silentOutput) {
-  Graph_t& current_layout = *(threadArgs->layout_graph);
-  Graph_t& full_graph = *(threadArgs->full_graph);
+  Graph<FloatType>& current_layout = *(threadArgs->layout_graph);
+  Graph<FloatType>& full_graph = *(threadArgs->full_graph);
   LevelMap& levels = *(threadArgs->levels);
   ParentMap& parents = *(threadArgs->parents);
   NodeContainer& nodes = *(threadArgs->nodes);
@@ -215,8 +218,8 @@ void beginSimulation(ThreadContainer& threads, prec_t cutOffPrecision,
       currentLevel = totalLevels;
     }
 
-    prec_t avgPrevious = 0.0;
-    prec_t dx = 10000000.;
+    FloatType avgPrevious = 0.0;
+    FloatType dx = 10000000.;
     int iterationCtr = 0;
 
     do {
@@ -255,13 +258,13 @@ void beginSimulation(ThreadContainer& threads, prec_t cutOffPrecision,
       }
       wait_for_futures();
 
-      prec_t dxNew = collectOutput(&threadArgs[0], chaperone);
+      FloatType dxNew = collectOutput(&threadArgs[0], chaperone);
       if (!silentOutput) {
         printOutput(timer.iteration(), dxNew, currentLevel, std::cerr);
       }
       chaperone.level(currentLevel);
 
-      prec_t avg = (dxNew + dx) * .5;
+      FloatType avg = (dxNew + dx) * .5;
       if (abs(dxNew - dx) / dxNew < cutOffPrecision || iterationCtr > 150 ||
           abs(avgPrevious - avg) / avg < .1 * cutOffPrecision) {
         ++timer;
@@ -291,12 +294,14 @@ void beginSimulation(ThreadContainer& threads, prec_t cutOffPrecision,
 
 //----------------------------------------------------------
 
-void initializeCurrentLayer(Graph_t& layout_graph, NodeContainer& nodes,
-                            LevelMap& levels, ParentMap& parents, Grid_t& grid,
-                            unsigned int currentLevel, Graph_t& actualG,
-                            prec_t placementDistance, prec_t placementRadius,
-                            bool placeLeafsClose) {
-  Graph_t::vertex_iterator v, vend;
+void initializeCurrentLayer(Graph<FloatType>& layout_graph,
+                            NodeContainer& nodes, LevelMap& levels,
+                            ParentMap& parents, Grid_t& grid,
+                            unsigned int currentLevel,
+                            Graph<FloatType>& actualG,
+                            FloatType placementDistance,
+                            FloatType placementRadius, bool placeLeafsClose) {
+  Graph<FloatType>::vertex_iterator v, vend;
   out_graph edges2add;
   FixedVec_p cm;
   // Get the center of mass for the current level
@@ -327,9 +332,9 @@ void initializeCurrentLayer(Graph_t& layout_graph, NodeContainer& nodes,
 
 void layerNPlacement(NodeContainer& nodes, Grid_t& grid, out_graph& g,
                      FixedVec_p& cm, unsigned int currentLevel,
-                     ParentMap& parents, Graph_t& actualG, LevelMap& lm,
-                     prec_t placementDistance, prec_t placementRadius,
-                     bool placeLeafsClose) {
+                     ParentMap& parents, Graph<FloatType>& actualG,
+                     LevelMap& lm, FloatType placementDistance,
+                     FloatType placementRadius, bool placeLeafsClose) {
   typedef Sphere S;
   typedef S::vec_type Vec;
   typedef out_graph::out_edge_iterator oei;
@@ -364,7 +369,7 @@ void layerNPlacement(NodeContainer& nodes, Grid_t& grid, out_graph& g,
     } else {
       FixedVec_p d;
       generatePlacementVector(d, parentNode.X(), parentParentNode.X(), cm);
-      prec_t m = magnitude(d.begin(), d.end());
+      FloatType m = magnitude(d.begin(), d.end());
 
       // Determine if any of these children are parents
       tie(e, eend) = out_edges(*v, g);
@@ -381,8 +386,8 @@ void layerNPlacement(NodeContainer& nodes, Grid_t& grid, out_graph& g,
 
       // The real placement distance is a function of the number of vertices
       // to place, if the graph is not a tree
-      prec_t scalef = placementFormula(placementDistance, vertices2place,
-                                       NodeContainer::n_dimensions_);
+      FloatType scalef = placementFormula(placementDistance, vertices2place,
+                                          NodeContainer::n_dimensions_);
 
       // Put placement distance at 0
       if (!hasChildren && placeLeafsClose) {
@@ -414,7 +419,8 @@ void layerNPlacement(NodeContainer& nodes, Grid_t& grid, out_graph& g,
 
 static std::set<long> areParents;
 
-bool doesVertexHaveAnyChildren(Graph_t& G, Graph_t::vertex_descriptor v,
+bool doesVertexHaveAnyChildren(Graph<FloatType>& G,
+                               Graph<FloatType>::vertex_descriptor v,
                                out_graph& g, ParentMap& parents) {
   if (areParents.empty()) {
     // Generate list for the first time
@@ -431,7 +437,7 @@ bool doesVertexHaveAnyChildren(Graph_t& G, Graph_t::vertex_descriptor v,
   // Go through all child vertices to see if they
   // have any of their own.
   for (; e != eend; ++e) {
-    Graph_t::vertex_descriptor other = target(*e, g);
+    Graph<FloatType>::vertex_descriptor other = target(*e, g);
     if (areParents.find(other) != areParents.end()) {
       return true;
     }
@@ -450,13 +456,13 @@ void generatePlacementVector(FixedVec_p& d, const FixedVec_p& parentNode,
   d = parentNode;
   d -= cm;
   // Make it a unit vector
-  prec_t m = 1.0 / magnitude(d.begin(), d.end());
+  FloatType m = 1.0 / magnitude(d.begin(), d.end());
   scale(d.begin(), d.end(), 1.0 / m);
   // Find the position of the parent with respect to its parent
   FixedVec_p d2(parentNode);
   d2 -= parentParentNode;
   // Make it a unit vector
-  prec_t mag = magnitude(d2.begin(), d2.end());
+  FloatType mag = magnitude(d2.begin(), d2.end());
   if (mag > 0) {
     m = 1.0 / mag;
     scale(d2.begin(), d2.end(), 1.0 / m);
@@ -468,26 +474,26 @@ void generatePlacementVector(FixedVec_p& d, const FixedVec_p& parentNode,
 
 //----------------------------------------------------------
 
-prec_t placementFormula(prec_t placementDistance, int vertices2place,
-                        int dimension) {
+FloatType placementFormula(FloatType placementDistance, int vertices2place,
+                           int dimension) {
   if (placementDistance >= 0)  // Independent of dimension
     return placementDistance;
   else if (dimension == 2)
-    return std::min<prec_t>(.25 * sqrt((double)vertices2place), 10);
+    return std::min<FloatType>(.25 * sqrt((double)vertices2place), 10);
   else  // ( dimension == 3 )
-    return std::min<prec_t>(.25 * pow((double)vertices2place, .34), 10);
+    return std::min<FloatType>(.25 * pow((double)vertices2place, .34), 10);
 }
 
 //----------------------------------------------------------
 
-prec_t collectOutput(ThreadArgs* args, PCChaperone& chaperone) {
+FloatType collectOutput(ThreadArgs* args, PCChaperone& chaperone) {
   for (long ii = 1; ii < args[0].threadCount; ++ii) {
     args[0].stats->integrateWithOther(*(args[ii].stats));
     args[ii].stats->reset();
   }
   // average the stats and get the average
   args[0].stats->avg();
-  prec_t dx = args[0].stats->dist();
+  FloatType dx = args[0].stats->dist();
   // This clears the stats for the next runs
   args[0].stats->reset();
   // Return the avg dx
@@ -496,11 +502,11 @@ prec_t collectOutput(ThreadArgs* args, PCChaperone& chaperone) {
 
 //----------------------------------------------------------
 
-FixedVec_p calcCenterOfMass(Graph_t& g, NodeContainer& nodes, LevelMap& levels,
-                            unsigned int currentLevel) {
+FixedVec_p calcCenterOfMass(Graph<FloatType>& g, NodeContainer& nodes,
+                            LevelMap& levels, unsigned int currentLevel) {
   FixedVec_p center(0);
-  prec_t totalMass = 0;
-  Graph_t::vertex_iterator vi, vend;
+  FloatType totalMass = 0;
+  Graph<FloatType>::vertex_iterator vi, vend;
   for (tie(vi, vend) = vertices(g.boostGraph()); vi != vend; ++vi) {
     if (levels[*vi] >= currentLevel) {
       continue;
@@ -519,7 +525,7 @@ FixedVec_p calcCenterOfMass(Graph_t& g, NodeContainer& nodes, LevelMap& levels,
 
 static int iteration__ = 0;
 
-void printOutput(long i, prec_t d, long la, std::ostream& o) {
+void printOutput(long i, FloatType d, long la, std::ostream& o) {
   const char* im = "Iteration: ";
   const char* dx = " Dx: ";
   const char* l = " Level: ";
@@ -541,7 +547,7 @@ void printOutput(long i, prec_t d, long la, std::ostream& o) {
 // particle positions be set already.
 //----------------------------------------------------------
 
-void gridPrepAndInit(NodeContainer& nc, Grid_t& nw, prec_t voxelLength) {
+void gridPrepAndInit(NodeContainer& nc, Grid_t& nw, FloatType voxelLength) {
   typedef NodeContainer::size_type size_type;
   FixedVec_p mins;
   FixedVec_p maxs;
@@ -562,7 +568,7 @@ void gridPrepAndInit(NodeContainer& nc, Grid_t& nw, prec_t voxelLength) {
 
   // Just adding some pad onto the grid.
   for (size_type jj = 0; jj < mins.size(); ++jj) {
-    prec_t span = 1.00 * (maxs[jj] - mins[jj]);
+    FloatType span = 1.00 * (maxs[jj] - mins[jj]);
     mins[jj] -= span;
     maxs[jj] += span;
   }
@@ -580,14 +586,14 @@ EllipseFactors parseEllipseFactors(const std::string& optionStr) {
   std::vector<std::string> factors;
   boost::algorithm::split(factors, optionStr, boost::algorithm::is_any_of("x"));
   BOOST_FOREACH (const std::string& f, factors)
-    ret.push_back(boost::lexical_cast<prec_t>(f));
+    ret.push_back(boost::lexical_cast<FloatType>(f));
   return ret;
 }
 
 //----------------------------------------------------------
 
 void interpolateUninitializedPositions(PCChaperone& chaperone,
-                                       const Graph_t::boost_graph& g,
+                                       const Graph<FloatType>::boost_graph& g,
                                        bool remove_disconnected_nodes) {
   std::size_t num_uninitialized_positions_still,
       num_uninitialized_positions_before;
@@ -600,7 +606,7 @@ void interpolateUninitializedPositions(PCChaperone& chaperone,
       if (!chaperone.pc_[ii].isPositionInitialized()) {
         ++num_uninitialized_positions_before;
         std::size_t count_initialized_neighbors = 0;
-        Graph_t::out_edge_iterator eb, ee;
+        Graph<FloatType>::out_edge_iterator eb, ee;
         for (tie(eb, ee) = out_edges(ii, g); eb != ee; ++eb) {
           const auto src = source(*eb, g), tgt = target(*eb, g);
           assert(src == ii || tgt == ii);

@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 #include "boost/graph/breadth_first_search.hpp"
 #include "boost/graph/visitors.hpp"
@@ -402,6 +403,74 @@ void readLGL_weightMin(Graph& g, const char* file,
 }
 template void readLGL_weightMin(Graph<FloatType>& g, const char* file,
                                 typename Graph<FloatType>::weight_type cutoff);
+
+int writeCurrentLGL(Graph<FloatType>& g, const char* outfile, int cset,
+                    WriteList& writelist, bool doesWrite, FloatType cut,
+                    std::ofstream& log) {
+  // Create a new graph of just the selected edges
+  Graph<FloatType>::out_edge_iterator ei, eend;
+  Graph<FloatType>::vertex_descriptor v1, v2;
+  Graph<FloatType> newG;
+  Graph<FloatType>::weight_type w;
+  Graph<FloatType>::boost_graph& newg = newG.boostGraph();
+  bool madeit = false;
+  std::vector<Graph<FloatType>::edge_descriptor> edges2remove;
+  std::set<int> already;
+
+  for (std::vector<int>::iterator ii = writelist[cset].begin();
+       ii != writelist[cset].end(); ++ii) {
+    for (std::tie(ei, eend) = out_edges(*ii, g.boostGraph()); ei != eend;
+         ++ei) {
+      v1 = source(*ei, g.boostGraph());
+      v2 = target(*ei, g.boostGraph());
+      if (g.idFromIndex(v1) > g.idFromIndex(v2)) {
+        continue;
+      }
+      if (already.find(v1) == already.end()) {
+        log << g.idFromIndex(v1) << " " << outfile << '\n';
+        already.insert(v1);
+      }
+      if (already.find(v2) == already.end()) {
+        log << g.idFromIndex(v2) << " " << outfile << '\n';
+        already.insert(v2);
+      }
+      if (!g.hasWeights()) {
+        add_edge(v1, v2, newg);
+      } else {
+        w = g.getWeight(*ei);
+        if (w <= cut) {
+          add_edge(v1, v2, w, newg);
+          madeit = true;
+        }
+      }
+      edges2remove.push_back(*ei);
+    }
+  }
+
+  newG.vertexIdMap(g.vertexIdMap());
+  if (g.hasWeights() && madeit) {
+    newG.hasWeights(true);
+  }
+  remap(newG);
+  int edgecount = newG.edgeCount();
+  std::cerr << newG.vertexCount() << " : Vertex Count\n"
+            << edgecount << " : Edge Count" << std::endl;
+  if (doesWrite) {
+    writeLGL(newG, outfile);
+  }
+
+  // This is necessary for subsequent calls to writeCurrentLGL with
+  // very large graphs.
+  for (std::vector<Graph<FloatType>::edge_descriptor>::iterator ii =
+           edges2remove.begin();
+       ii != edges2remove.end(); ++ii) {
+    g.removeEdge(*ii);
+  }
+
+  writelist[cset].clear();
+
+  return edgecount;
+}
 
 }  // namespace lib
 }  // namespace lgl

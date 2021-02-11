@@ -44,16 +44,14 @@ const bool defaultDoesWriteLgl = true;
 
 /////////////////////////////////////////////////////////////////////////
 
-typedef std::set<Graph_t::vertex_descriptor> ProcessList;
-typedef std::vector<std::vector<int>> WriteList;
+typedef std::set<Graph<FloatType>::vertex_descriptor> ProcessList;
 
 /////////////////////////////////////////////////////////////////////////
 
 void displayUsage(char** argv);
-int writeCurrentLGL(Graph_t& g, const char* outfile, int set, WriteList& wl,
-                    bool doesWrite, prec_t cut, std::ofstream& log);
-int connected_sets(const Graph_t& g, WriteList& writelist);
-void addAllEdgesFromVertices(const Graph_t& g, std::vector<int>& components,
+int connected_sets(const Graph<FloatType>& g, WriteList& writelist);
+void addAllEdgesFromVertices(const Graph<FloatType>& g,
+                             std::vector<int>& components,
                              ProcessList& process);
 
 /////////////////////////////////////////////////////////////////////////
@@ -111,7 +109,7 @@ int main(int argc, char** argv) {
   char* infile = strdup(argv[optind]);
 
   std::cerr << "Loading " << infile << "..." << std::flush;
-  Graph_t G;
+  Graph<FloatType> G;
   readLGL(G, infile, cut);
   std::cerr << "Done." << std::endl;
 
@@ -134,7 +132,7 @@ int main(int argc, char** argv) {
       std::cerr << "Tree doesn't have weights. Exiting.\n";
       exit(EXIT_FAILURE);
     }
-    Graph_t mst;
+    Graph<FloatType> mst;
     setMSTFromGraph(G, mst);
     G.clear();
     G = mst;
@@ -187,10 +185,10 @@ int main(int argc, char** argv) {
 
 /////////////////////////////////////////////////////////////////////////
 
-int connected_sets(const Graph_t& g, WriteList& writelist) {
-  Graph_t::vertex_descriptor vother;
-  Graph_t::vertex_iterator v1, v2;
-  Graph_t::out_edge_iterator oe, oend;
+int connected_sets(const Graph<FloatType>& g, WriteList& writelist) {
+  Graph<FloatType>::vertex_descriptor vother;
+  Graph<FloatType>::vertex_iterator v1, v2;
+  Graph<FloatType>::out_edge_iterator oe, oend;
   ProcessList process;
   std::vector<int> components(num_vertices(g.boostGraph()), -1);
 
@@ -228,10 +226,11 @@ int connected_sets(const Graph_t& g, WriteList& writelist) {
 
 /////////////////////////////////////////////////////////////////////////
 
-void addAllEdgesFromVertices(const Graph_t& g, std::vector<int>& components,
+void addAllEdgesFromVertices(const Graph<FloatType>& g,
+                             std::vector<int>& components,
                              ProcessList& process) {
-  Graph_t::vertex_descriptor vother;
-  Graph_t::out_edge_iterator oe, oend;
+  Graph<FloatType>::vertex_descriptor vother;
+  Graph<FloatType>::out_edge_iterator oe, oend;
   if (process.empty()) {
     return;
   }
@@ -250,78 +249,6 @@ void addAllEdgesFromVertices(const Graph_t& g, std::vector<int>& components,
   process = process2;
 }
 
-/////////////////////////////////////////////////////////////////////////
-
-int writeCurrentLGL(Graph_t& g, const char* outfile, int cset,
-                    WriteList& writelist, bool doesWrite, prec_t cut,
-                    std::ofstream& log) {
-  // Create a new graph of just the selected edges
-  Graph_t::out_edge_iterator ei, eend;
-  Graph_t::vertex_descriptor v1, v2;
-  Graph_t newG;
-  Graph_t::weight_type w;
-  Graph_t::boost_graph& newg = newG.boostGraph();
-  bool madeit = false;
-  std::vector<Graph_t::edge_descriptor> edges2remove;
-  std::set<int> already;
-
-  for (std::vector<int>::iterator ii = writelist[cset].begin();
-       ii != writelist[cset].end(); ++ii) {
-    for (std::tie(ei, eend) = out_edges(*ii, g.boostGraph()); ei != eend;
-         ++ei) {
-      v1 = source(*ei, g.boostGraph());
-      v2 = target(*ei, g.boostGraph());
-      if (g.idFromIndex(v1) > g.idFromIndex(v2)) {
-        continue;
-      }
-      if (already.find(v1) == already.end()) {
-        log << g.idFromIndex(v1) << " " << outfile << '\n';
-        already.insert(v1);
-      }
-      if (already.find(v2) == already.end()) {
-        log << g.idFromIndex(v2) << " " << outfile << '\n';
-        already.insert(v2);
-      }
-      if (!g.hasWeights()) {
-        add_edge(v1, v2, newg);
-      } else {
-        w = g.getWeight(*ei);
-        if (w <= cut) {
-          add_edge(v1, v2, w, newg);
-          madeit = true;
-        }
-      }
-      edges2remove.push_back(*ei);
-    }
-  }
-
-  newG.vertexIdMap(g.vertexIdMap());
-  if (g.hasWeights() && madeit) {
-    newG.hasWeights(true);
-  }
-  remap(newG);
-  int edgecount = newG.edgeCount();
-  std::cerr << newG.vertexCount() << " : Vertex Count\n"
-            << edgecount << " : Edge Count" << std::endl;
-  if (doesWrite) {
-    writeLGL(newG, outfile);
-  }
-
-  // This is necessary for subsequent calls to writeCurrentLGL with
-  // very large graphs.
-  for (std::vector<Graph_t::edge_descriptor>::iterator ii =
-           edges2remove.begin();
-       ii != edges2remove.end(); ++ii) {
-    g.removeEdge(*ii);
-  }
-
-  writelist[cset].clear();
-
-  return edgecount;
-}
-
-/////////////////////////////////////////////////////////////////////////
-
 void displayUsage(char** argv) {
   std::cerr << "\nUsage: " << argv[0]
             << " [-d outputDirectory] [-w doesWriteBool0or1]\n\t"
@@ -333,5 +260,3 @@ void displayUsage(char** argv) {
             << "\tDoes Write New Lgl: " << defaultDoesWriteLgl << std::endl;
   exit(EXIT_FAILURE);
 }
-
-/////////////////////////////////////////////////////////////////////////
