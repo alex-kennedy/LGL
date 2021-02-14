@@ -1,5 +1,7 @@
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# Boost support
 git_repository(
     name = "com_github_nelhage_rules_boost",
     commit = "1e3a69bf2d5cd10c34b74f066054cd335d033d71",
@@ -10,3 +12,19 @@ git_repository(
 load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
 
 boost_deps()
+
+# googletest support
+git_repository(
+    name = "gtest",
+    commit = "703bd9caab50b139428cea1aaff9974ebee5742e",  # v1.10.x
+    remote = "https://github.com/google/googletest",
+    shallow_since = "1570114335 -0400",
+)
+
+# Abseil support
+http_archive(
+    name = "com_google_absl",
+    sha256 = "38f5fc5399a8b88538b55b81c6d22b4622a41b7c1f568d0d883aaa63fb5d49c5",
+    strip_prefix = "abseil-cpp-b343ac3a649f5713380cdbeee79d2ee6f94ddd93",
+    urls = ["https://github.com/abseil/abseil-cpp/archive/b343ac3a649f5713380cdbeee79d2ee6f94ddd93.zip"],
+)
