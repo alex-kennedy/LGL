@@ -28,7 +28,6 @@ RUN curl -fSsL -o /tmp/bazel-installer.sh https://github.com/bazelbuild/bazel/re
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \ 
-    libboost-all-dev git make build-essential golang \ 
+    git build-essential golang \ 
     && go get github.com/bazelbuild/buildtools/buildifier \
     && cp ~/go/bin/buildifier /usr/bin
-
