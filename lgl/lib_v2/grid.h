@@ -32,6 +32,8 @@ class Grid {
   std::array<int, D> voxel_side_length_;
 
  public:
+  Grid(){};
+
   // First, the positions of the particles are initialised, either from a file,
   // or randomly. The voxels are constructed based on those locations, and the
   // particles are assigned to their correct voxels.
@@ -39,6 +41,13 @@ class Grid {
 
   // Gets the key for the voxel which contains the given position.
   std::array<int, D> VoxelAtPosition(std::array<float, D> position);
+
+  // Moves all particles to their correct voxel.
+  void UpdateVoxels();
+
+  // Rehashes all the voxel sets. This might help keep memory costs if voxels
+  // become much less crowded.
+  void RehashVoxels();
 };
 
 }  // namespace lib_v2
