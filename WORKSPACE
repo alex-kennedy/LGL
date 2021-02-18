@@ -1,4 +1,4 @@
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # Boost support
@@ -27,4 +27,13 @@ http_archive(
     sha256 = "38f5fc5399a8b88538b55b81c6d22b4622a41b7c1f568d0d883aaa63fb5d49c5",
     strip_prefix = "abseil-cpp-b343ac3a649f5713380cdbeee79d2ee6f94ddd93",
     urls = ["https://github.com/abseil/abseil-cpp/archive/b343ac3a649f5713380cdbeee79d2ee6f94ddd93.zip"],
+)
+
+# Fast C++ CSV Parser
+new_git_repository(
+    name = "fast_cpp_csv_parser",
+    build_file = "@//third_party/fast_cpp_csv_parser:BUILD.bazel",
+    commit = "75600d0b77448e6c410893830df0aec1dbacf8e3",
+    remote = "https://github.com/ben-strasser/fast-cpp-csv-parser.git",
+    shallow_since = "1609681465 +0100",
 )
