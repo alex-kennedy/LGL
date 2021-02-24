@@ -597,9 +597,6 @@ void interpolateUninitializedPositions(PCChaperone& chaperone,
                                        bool remove_disconnected_nodes) {
   std::size_t num_uninitialized_positions_still,
       num_uninitialized_positions_before;
-#if 0
-	std::ofstream interpolation_log( "interpolation.log" );
-#endif
   do {
     num_uninitialized_positions_before = num_uninitialized_positions_still = 0;
     for (std::size_t ii = 0; ii < chaperone.pc_.size(); ++ii) {
@@ -620,23 +617,10 @@ void interpolateUninitializedPositions(PCChaperone& chaperone,
         if (count_initialized_neighbors)
           for (float& coord : chaperone.pc_[ii].x)
             coord /= count_initialized_neighbors;
-        else
+        else {
           ++num_uninitialized_positions_still;
-#if 0
-				interpolation_log << chaperone.pc_[ii].id() << " was uninitialized, now coords are";
-				for ( float coord : chaperone.pc_[ii].X() )
-					interpolation_log << ' ' << coord;
-				interpolation_log << '\n';
-#endif
+        }
       }
-#if 0
-			else {
-				interpolation_log << chaperone.pc_[ii].id() << " was already initialized with coords";
-				for ( float coord : chaperone.pc_[ii].X() )
-					interpolation_log << ' ' << coord;
-				interpolation_log << '\n';
-			}
-#endif
     }
     std::cout << "\nOut of " << num_uninitialized_positions_before
               << " uninitialized positions that had remained, "
