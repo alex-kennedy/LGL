@@ -4,5 +4,6 @@ cc_library(
     name = "fast_cpp_csv_parser",
     hdrs = ["csv.h"],
     include_prefix = "third_party/fast_cpp_csv_parser",
+    linkopts = ["-lpthread"],
     visibility = ["//visibility:public"],
 )
