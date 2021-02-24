@@ -41,17 +41,25 @@ cc_library(
         "sphere.h",
         "thread_pool.h",
         "time_keeper.h",
-        "types.h",
         "voxel.h",
         "voxel_interaction_handler.h",
     ],
     linkopts = ["-pthread"],
     visibility = ["//lgl:__subpackages__"],
     deps = [
+        ":types",
         "@boost//:algorithm",
         "@boost//:atomic",
         "@boost//:graph",
         "@boost//:random",
         "@boost//:tokenizer",
     ],
+)
+
+cc_library(
+    name = "types",
+    hdrs = [
+        "types.h",
+    ],
+    visibility = ["//lgl:__subpackages__"],
 )
