@@ -34,3 +34,15 @@ cc_binary(
         "//lgl/lib",
     ],
 )
+
+cc_binary(
+    name = "layout",
+    srcs = ["layout.cc"],
+    deps = [
+        "//lgl/lib_v2",
+        "@com_github_google_glog//:glog",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/flags:parse",
+        "@com_google_absl//absl/strings",
+    ],
+)

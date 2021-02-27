@@ -1,6 +1,17 @@
 load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
 
 cc_library(
+    name = "lib_v2",
+    visibility = ["//lgl:__subpackages__"],
+    deps = [
+        ":grid",
+        ":io",
+        ":large_graph",
+        ":particle",
+    ],
+)
+
+cc_library(
     name = "large_graph",
     srcs = ["large_graph.cc"],
     hdrs = ["large_graph.h"],
