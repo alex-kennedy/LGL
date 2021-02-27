@@ -1,17 +1,15 @@
 #include "particle.h"
 
-#include <array>
-
+#include "absl/container/fixed_array.h"
 #include "gtest/gtest.h"
-#include "lgl/lib/types.h"
 
 namespace lgl {
 namespace lib_v2 {
 namespace {
 
 TEST(ParticleTest, PositionAndForceInitialiseToZero) {
-  const lgl::lib::Dimension n_dimensions = lgl::lib::k2Dimensions;
-  Particle<n_dimensions> p;
+  int n_dimensions = 3;
+  Particle p(n_dimensions);
   auto position = p.Position();
   auto force = p.Force();
   for (int i = 0; i < n_dimensions; i++) {
@@ -21,11 +19,11 @@ TEST(ParticleTest, PositionAndForceInitialiseToZero) {
 }
 
 TEST(ParticleTest, ForceAppliesCorrectly) {
-  const lgl::lib::Dimension n_dimensions = lgl::lib::k3Dimensions;
-  Particle<n_dimensions> p;
+  int n_dimensions = 3;
+  Particle p(n_dimensions);
 
-  std::array<float, n_dimensions> f1 = {1.0, 2.0, 0.0};
-  std::array<float, n_dimensions> f2 = {4.0, -6.0, 1.0};
+  absl::FixedArray<float> f1 = {1.0, 2.0, 0.0};
+  absl::FixedArray<float> f2 = {4.0, -6.0, 1.0};
   p.ApplyForce(f1);
   p.ApplyForce(f2);
 

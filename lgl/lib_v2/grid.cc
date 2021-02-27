@@ -1,14 +1,13 @@
 #include "grid.h"
 
-#include "lgl/lib/types.h"
+#include "absl/container/fixed_array.h"
 
 namespace lgl {
 namespace lib_v2 {
 
-template <Dimension D>
-void Grid<D>::InitGrid(LargeGraph& graph) {
-  particles_ = std::vector<Particle<D>>(graph.NodeCount());
-  std::vector<bool> is_initialised(graph.NodeCount(), 0);
+void Grid::InitGrid(LargeGraph& graph) {
+  particles_ = std::vector<Particle>(graph.NodeCount(), Particle(dimensions_));
+  // std::vector<bool> is_initialised(graph.NodeCount(), 0);
 
   // TODO(alex-kennedy): Initialise particle positions randomly, or from a file
 
@@ -16,21 +15,19 @@ void Grid<D>::InitGrid(LargeGraph& graph) {
   // appropriate spot.
 }
 
-template <Dimension D>
-std::array<int, D> Grid<D>::VoxelAtPosition(std::array<float, D> position) {
-  std::array<int, D> voxel;
-  for (int i = 0; i < D; i++) {
+absl::FixedArray<int> Grid::VoxelAtPosition(absl::FixedArray<float> position) {
+  absl::FixedArray<int> voxel(dimensions_);
+  for (unsigned int i = 0; i < dimensions_; i++) {
     voxel[i] = position[i] / voxel_side_length_[i];
   }
   return voxel;
 };
 
-template <Dimension D>
-void Grid<D>::UpdateVoxels() {
+void Grid::UpdateVoxels() {
   for (auto it = voxel_map_.begin(); it != voxel_map_.end(); it++) {
-    const std::array<int, D>& old_voxel = it->first;
+    const absl::FixedArray<int>& old_voxel = it->first;
     for (const auto particle : it->second) {
-      const std::array<int, D>& new_voxel =
+      const absl::FixedArray<int>& new_voxel =
           VoxelAtPosition(particle->Position());
       if (new_voxel != old_voxel) {
         voxel_map_[old_voxel].erase(particle);
@@ -40,15 +37,11 @@ void Grid<D>::UpdateVoxels() {
   }
 }
 
-template <Dimension D>
-void Grid<D>::RehashVoxels() {
+void Grid::RehashVoxels() {
   for (auto& voxel : voxel_map_) {
     voxel.second.rehash(0);
   }
 }
-
-template class Grid<lgl::lib::k2Dimensions>;
-template class Grid<lgl::lib::k3Dimensions>;
 
 }  // namespace lib_v2
 }  // namespace lgl

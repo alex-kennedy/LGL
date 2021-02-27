@@ -40,6 +40,7 @@ cc_test(
     srcs = ["grid_test.cc"],
     deps = [
         ":grid",
+        "@com_google_absl//absl/memory",
         "@gtest//:gtest_main",
     ],
 )
@@ -49,7 +50,7 @@ cc_library(
     srcs = ["particle.cc"],
     hdrs = ["particle.h"],
     deps = [
-        "//lgl/lib",
+        "@com_google_absl//absl/container:fixed_array",
         "@com_google_absl//absl/synchronization",
     ],
 )

@@ -16,9 +16,7 @@ class LargeGraph {
   // Maintains a mapping a of id, used internally, to the name of the node, used
   // in the input data file.
   std::vector<std::string> node_id_to_node_name_;
-  absl::flat_hash_map<absl::string_view, int> node_name_to_node_id_;
-
-  absl::flat_hash_set<std::vector<int>> works_question_mark;
+  absl::flat_hash_map<std::string, int> node_name_to_node_id_;
 
   // A bi-directional adjacency matrix which encodes the edges of the graph.
   std::vector<absl::flat_hash_set<int>> graph_;
