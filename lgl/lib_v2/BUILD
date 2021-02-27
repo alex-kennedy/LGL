@@ -29,7 +29,6 @@ cc_library(
     deps = [
         ":large_graph",
         ":particle",
-        "//lgl/lib",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/container:flat_hash_set",
     ],
@@ -60,6 +59,29 @@ cc_test(
     srcs = ["particle_test.cc"],
     deps = [
         ":particle",
+        "@gtest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "io",
+    srcs = ["io.cc"],
+    hdrs = ["io.h"],
+    deps = [
+        ":large_graph",
+        "@com_github_google_glog//:glog",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/status:statusor",
+        "@com_google_absl//absl/strings",
+        "@fast_cpp_csv_parser",
+    ],
+)
+
+cc_test(
+    name = "io_test",
+    srcs = ["io_test.cc"],
+    deps = [
+        ":io",
         "@gtest//:gtest_main",
     ],
 )
