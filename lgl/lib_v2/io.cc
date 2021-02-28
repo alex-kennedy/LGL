@@ -1,6 +1,7 @@
 #include "io.h"
 
 #include <memory>
+#include <string>
 
 #include "absl/status/statusor.h"
 #include "glog/logging.h"
@@ -51,6 +52,9 @@ StatusOr<unique_ptr<LargeGraph>> ReadGraphLGL(string_view file_name) {
         graph->AddEdge(source, line);
       }
 
+      LOG_EVERY_N(INFO, 1e6)
+          << "Reading LGL: " << google::COUNTER << " lines read";
+
       if (source.empty()) {
         return absl::InvalidArgumentError(
             "target node found before a source node");
@@ -72,6 +76,8 @@ StatusOr<unique_ptr<LargeGraph>> ReadGraphNCOL(string_view file_name) {
     string target;
     while (reader.read_row(source, target)) {
       graph->AddEdge(source, target);
+      LOG_EVERY_N(INFO, 1e6)
+          << "Reading NCOL: " << google::COUNTER << " lines read";
     }
     return graph;
   } catch (io::error::base& e) {

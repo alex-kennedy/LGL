@@ -34,8 +34,8 @@ absl::StatusOr<std::unique_ptr<LargeGraph>> ReadGraphLGL(
 absl::StatusOr<std::unique_ptr<LargeGraph>> ReadGraphNCOL(
     absl::string_view file_name);
 
-// TODO
-absl::Status WriteLGL(LargeGraph& graph);
+// TODO(alex-kennedy): Write
+absl::Status WriteLGL(const LargeGraph& graph);
 
 }  // namespace lib_v2
 }  // namespace lgl

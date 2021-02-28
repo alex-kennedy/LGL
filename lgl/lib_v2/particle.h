@@ -23,11 +23,11 @@ class Particle {
  public:
   // A particle is initialised only with the number of dimensions. Force and
   // position are initialised to 0.0.
-  Particle(int dimensions)
+  explicit Particle(int dimensions)
       : force_(absl::FixedArray<float>(dimensions, 0.0)),
-        position_(absl::FixedArray<float>(dimensions, 0.0)){};
+        position_(absl::FixedArray<float>(dimensions, 0.0)) {}
 
-  Particle(const Particle& p) : force_(p.force_), position_(p.position_){};
+  Particle(const Particle& p) : force_(p.force_), position_(p.position_) {}
 
   // Returns the position of the particle.
   absl::FixedArray<float> Position();
@@ -37,7 +37,7 @@ class Particle {
 
   // Applies the given force to the particle, which will be accounted for the
   // next time Integrate is called.
-  void ApplyForce(absl::FixedArray<float>& force_to_apply);
+  void ApplyForce(const absl::FixedArray<float>& force_to_apply);
 };
 
 }  // namespace lib_v2

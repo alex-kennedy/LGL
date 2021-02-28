@@ -1,6 +1,7 @@
 #ifndef LGL_LIB_V2_LARGE_GRAPH_H_
 #define LGL_LIB_V2_LARGE_GRAPH_H_
 
+#include <string>
 #include <vector>
 
 #include "absl/container/flat_hash_map.h"
@@ -26,7 +27,7 @@ class LargeGraph {
   int AddNode(absl::string_view name);
 
  public:
-  LargeGraph(){};
+  LargeGraph() {}
 
   // Possibly shrinks the vector data members.
   void shrink_to_fit();
@@ -42,7 +43,7 @@ class LargeGraph {
   void AddEdge(absl::string_view source, absl::string_view target);
 
   // Returns the number of nodes in the graph.
-  int NodeCount();
+  int NodeCount() const;
 };
 
 }  // namespace lib_v2

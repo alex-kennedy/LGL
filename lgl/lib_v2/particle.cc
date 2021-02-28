@@ -16,7 +16,7 @@ absl::FixedArray<float> Particle::Force() {
   return force_;
 }
 
-void Particle::ApplyForce(absl::FixedArray<float>& force_to_apply) {
+void Particle::ApplyForce(const absl::FixedArray<float>& force_to_apply) {
   absl::MutexLock l(&mutex_);
   for (unsigned int i = 0; i < force_.size(); i++) {
     force_[i] += force_to_apply[i];

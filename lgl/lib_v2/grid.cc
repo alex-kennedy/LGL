@@ -5,9 +5,9 @@
 namespace lgl {
 namespace lib_v2 {
 
-void Grid::InitGrid(LargeGraph& graph) {
+void Grid::InitGrid(const LargeGraph& graph) {
   particles_ = std::vector<Particle>(graph.NodeCount(), Particle(dimensions_));
-  // std::vector<bool> is_initialised(graph.NodeCount(), 0);
+  auto is_initialised = std::vector<bool>(graph.NodeCount(), 0);
 
   // TODO(alex-kennedy): Initialise particle positions randomly, or from a file
 
@@ -21,7 +21,7 @@ absl::FixedArray<int> Grid::VoxelAtPosition(absl::FixedArray<float> position) {
     voxel[i] = position[i] / voxel_side_length_[i];
   }
   return voxel;
-};
+}
 
 void Grid::UpdateVoxels() {
   for (auto it = voxel_map_.begin(); it != voxel_map_.end(); it++) {

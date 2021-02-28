@@ -1,5 +1,7 @@
 #include "large_graph.h"
 
+#include <string>
+
 #include "absl/status/statusor.h"
 #include "absl/strings/str_cat.h"
 #include "absl/strings/string_view.h"
@@ -49,7 +51,7 @@ void LargeGraph::AddEdge(absl::string_view source, absl::string_view target) {
   graph_[target_id].emplace(source_id);
 }
 
-int LargeGraph::NodeCount() { return node_id_to_node_name_.size(); }
+int LargeGraph::NodeCount() const { return node_id_to_node_name_.size(); }
 
 }  // namespace lib_v2
 }  // namespace lgl

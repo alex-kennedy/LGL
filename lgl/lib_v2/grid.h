@@ -2,12 +2,13 @@
 #define LGL_LIB_V2_GRID_H_
 
 #include <array>
+#include <vector>
 
 #include "absl/container/fixed_array.h"
 #include "absl/container/flat_hash_map.h"
 #include "absl/container/flat_hash_set.h"
-#include "large_graph.h"
-#include "particle.h"
+#include "lgl/lib_v2/large_graph.h"
+#include "lgl/lib_v2/particle.h"
 
 namespace lgl {
 namespace lib_v2 {
@@ -32,15 +33,15 @@ class Grid {
       voxel_map_;
 
  public:
-  Grid(unsigned int dimensions)
+  explicit Grid(unsigned int dimensions)
       : dimensions_(dimensions),
         voxel_count_(absl::FixedArray<int>(dimensions)),
-        voxel_side_length_(absl::FixedArray<int>(dimensions)){};
+        voxel_side_length_(absl::FixedArray<int>(dimensions)) {}
 
   // First, the positions of the particles are initialised, either from a file,
   // or randomly. The voxels are constructed based on those locations, and the
   // particles are assigned to their correct voxels.
-  void InitGrid(LargeGraph& graph);
+  void InitGrid(const LargeGraph& graph);
 
   // Gets the key for the voxel which contains the given position.
   absl::FixedArray<int> VoxelAtPosition(absl::FixedArray<float> position);
@@ -48,8 +49,8 @@ class Grid {
   // Moves all particles to their correct voxel.
   void UpdateVoxels();
 
-  // Rehashes all the voxel sets. This might help keep memory costs if voxels
-  // become much less crowded.
+  // Rehashes all the voxel sets. This might help keep memory costs if some
+  // voxels become less less crowded.
   void RehashVoxels();
 };
 
