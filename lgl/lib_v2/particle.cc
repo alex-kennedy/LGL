@@ -1,10 +1,14 @@
-#include "particle.h"
+#include "lgl/lib_v2/particle.h"
 
 #include "absl/container/fixed_array.h"
 #include "absl/synchronization/mutex.h"
 
 namespace lgl {
 namespace lib_v2 {
+
+Particle::Particle(unsigned int dimensions)
+    : force_(absl::FixedArray<float>(dimensions, 0.0)),
+      position_(absl::FixedArray<float>(dimensions, 0.0)) {}
 
 absl::FixedArray<float> Particle::Position() {
   absl::MutexLock l(&mutex_);

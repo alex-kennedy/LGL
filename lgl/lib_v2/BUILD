@@ -4,11 +4,18 @@ cc_library(
     name = "lib_v2",
     visibility = ["//lgl:__subpackages__"],
     deps = [
+        "config",
         ":grid",
         ":io",
         ":large_graph",
+        ":layout_runner",
         ":particle",
     ],
+)
+
+cc_library(
+    name = "config",
+    hdrs = ["config.h"],
 )
 
 cc_library(
@@ -30,6 +37,17 @@ cc_test(
     deps = [
         ":large_graph",
         "@gtest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "layout_runner",
+    srcs = ["layout_runner.cc"],
+    hdrs = ["layout_runner.h"],
+    deps = [
+        ":large_graph",
+        ":config",
+        ":grid",
     ],
 )
 

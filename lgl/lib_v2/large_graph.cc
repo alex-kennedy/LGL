@@ -1,4 +1,4 @@
-#include "large_graph.h"
+#include "lgl/lib_v2/large_graph.h"
 
 #include <string>
 
@@ -10,8 +10,9 @@ namespace lgl {
 namespace lib_v2 {
 
 int LargeGraph::AddNode(absl::string_view name) {
-  if (node_name_to_node_id_.contains(name)) {
-    return node_name_to_node_id_[name];
+  auto result = node_name_to_node_id_.find(name);
+  if (result != node_name_to_node_id_.end()) {
+    return result->second;
   } else {
     node_id_to_node_name_.emplace_back(name);
     graph_.emplace_back();
@@ -47,8 +48,8 @@ void LargeGraph::AddEdge(absl::string_view source, absl::string_view target) {
   if (source_id == target_id) {
     return;
   }
-  graph_[source_id].emplace(target_id);
-  graph_[target_id].emplace(source_id);
+  graph_[source_id].insert(target_id);
+  graph_[target_id].insert(source_id);
 }
 
 int LargeGraph::NodeCount() const { return node_id_to_node_name_.size(); }

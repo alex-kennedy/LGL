@@ -8,24 +8,10 @@ namespace lgl {
 namespace lib_v2 {
 
 class Particle {
- private:
-  // D-dimensional vector representing the force on the particle in the current
-  // iteration.
-  absl::FixedArray<float> force_;
-
-  // D-dimensional vector representing the current position of the particle.
-  absl::FixedArray<float> position_;
-
-  // Particle force and position calculations are parallelised, necessitating a
-  // mutex.
-  absl::Mutex mutex_;
-
  public:
   // A particle is initialised only with the number of dimensions. Force and
   // position are initialised to 0.0.
-  explicit Particle(int dimensions)
-      : force_(absl::FixedArray<float>(dimensions, 0.0)),
-        position_(absl::FixedArray<float>(dimensions, 0.0)) {}
+  explicit Particle(unsigned int dimensions);
 
   Particle(const Particle& p) : force_(p.force_), position_(p.position_) {}
 
@@ -38,6 +24,18 @@ class Particle {
   // Applies the given force to the particle, which will be accounted for the
   // next time Integrate is called.
   void ApplyForce(const absl::FixedArray<float>& force_to_apply);
+
+ private:
+  // D-dimensional vector representing the force on the particle in the current
+  // iteration.
+  absl::FixedArray<float> force_;
+
+  // D-dimensional vector representing the current position of the particle.
+  absl::FixedArray<float> position_;
+
+  // Particle force and position calculations are parallelised, necessitating a
+  // mutex.
+  absl::Mutex mutex_;
 };
 
 }  // namespace lib_v2

@@ -1,4 +1,4 @@
-#include "io.h"
+#include "lgl/lib_v2/io.h"
 
 #include <memory>
 
@@ -13,7 +13,8 @@ namespace lib_v2 {
 
 TEST(IOTest, ReadGraphLGL) {
   absl::StatusOr<std::unique_ptr<LargeGraph>> graph_or =
-      ReadGraphLGL("/workspaces/LGL/test_output/1613031985_new_lgl.lgl");
+      // ReadGraphLGL("/workspaces/LGL/test_output/1613031985_new_lgl.lgl");
+  ReadGraphLGL("/workspaces/LGL/test_output/1611191021_new_lgl.lgl");
   EXPECT_TRUE(graph_or.ok());
   LOG(INFO) << "graph loaded with " << graph_or.value()->NodeCount()
             << " nodes";
@@ -23,9 +24,8 @@ TEST(IOTest, ReadGraphNCOL) {
   absl::StatusOr<std::unique_ptr<LargeGraph>> graph_or =
       ReadGraphNCOL("/workspaces/LGL/lgl/t/edges.ncol");
   if (!graph_or.ok()) {
-    LOG(ERROR) << graph_or.status();
+    FAIL() << graph_or.status();
   }
-  EXPECT_TRUE(graph_or.ok());
 }
 
 }  // namespace lib_v2

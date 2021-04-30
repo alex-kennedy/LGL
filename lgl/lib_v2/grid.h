@@ -14,6 +14,24 @@ namespace lgl {
 namespace lib_v2 {
 
 class Grid {
+ public:
+  explicit Grid(unsigned int dimensions);
+
+  // First, the positions of the particles are initialised, either from a file,
+  // or randomly. The voxels are constructed based on those locations, and the
+  // particles are assigned to their correct voxels.
+  void InitGrid(const LargeGraph& graph);
+
+  // Gets the key for the voxel which contains the given position.
+  absl::FixedArray<int> VoxelAtPosition(absl::FixedArray<float> position);
+
+  // Moves all particles to their correct voxel.
+  void UpdateVoxels();
+
+  // Rehashes all the voxel sets. This might help keep memory costs if some
+  // voxels become less less crowded.
+  void RehashVoxels();
+
  private:
   // Number of dimensions of the grid.
   unsigned int dimensions_;
@@ -31,27 +49,6 @@ class Grid {
   // particles present within it at any time.
   absl::flat_hash_map<absl::FixedArray<int>, absl::flat_hash_set<Particle*>>
       voxel_map_;
-
- public:
-  explicit Grid(unsigned int dimensions)
-      : dimensions_(dimensions),
-        voxel_count_(absl::FixedArray<int>(dimensions)),
-        voxel_side_length_(absl::FixedArray<int>(dimensions)) {}
-
-  // First, the positions of the particles are initialised, either from a file,
-  // or randomly. The voxels are constructed based on those locations, and the
-  // particles are assigned to their correct voxels.
-  void InitGrid(const LargeGraph& graph);
-
-  // Gets the key for the voxel which contains the given position.
-  absl::FixedArray<int> VoxelAtPosition(absl::FixedArray<float> position);
-
-  // Moves all particles to their correct voxel.
-  void UpdateVoxels();
-
-  // Rehashes all the voxel sets. This might help keep memory costs if some
-  // voxels become less less crowded.
-  void RehashVoxels();
 };
 
 }  // namespace lib_v2
