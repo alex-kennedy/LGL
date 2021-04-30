@@ -222,16 +222,18 @@ int main(int argc, char **argv) try {
   } else {
     chaperone.initMass(mass);
   }
-  if (!anchorsFile.empty()) chaperone.initAnchors(anchorsFile);
+  if (!anchorsFile.empty()) {
+    chaperone.initAnchors(anchorsFile);
+  }
   chaperone.initRadius(nodeSizeRadius);
   chaperone.posOutFile(outfile);
   chaperone.initAllParticles();
-  if (initPosFile)
-    interpolateUninitializedPositions(
-        chaperone, G.boostGraph(),
-        disregardDisconnectedNodes);  // without this call the_internet's
-                                      // results become unacceptably stretched
-                                      // and ugly
+  if (initPosFile) {
+    // without this call the_internet's results become unacceptably stretched
+    // and ugly
+    interpolateUninitializedPositions(chaperone, G.boostGraph(),
+                                      disregardDisconnectedNodes);
+  }
   std::cout << "Done." << std::endl;
 
   std::cout << "Initializing grid and placing particles..." << std::flush;

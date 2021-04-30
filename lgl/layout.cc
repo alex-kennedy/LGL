@@ -4,9 +4,20 @@
 #include "absl/flags/parse.h"
 #include "absl/strings/string_view.h"
 #include "glog/logging.h"
+#include "lgl/lib_v2/config.h"
+#include "lgl/lib_v2/layout_runner.h"
+
+// TODO(alex-kennedy): There is no doubt in my mind that there are too many
+// flags. Work to simplify them.
+
+ABSL_FLAG(std::string, graph_path, "", "Path to graph file.");
+
+ABSL_FLAG(int, d, 2,
+          "Number of dimensions in which to layout the graph. Defaults to a 2D "
+          "(planar) layout.");
 
 ABSL_FLAG(
-    std::string, positions, "",
+    std::string, positions_file, "",
     "Path to a CSV file specifying initial positions of each node. Each line "
     "should be other form 'node,x,y[,z], depending on the dimensionality.");
 
@@ -76,8 +87,8 @@ ABSL_FLAG(int, log_threshold, 1,
           "WARNING, ERROR, and FATAL are 0, 1, 2, and 3, respectively. "
           "Defaults to 1, which is WARNING");
 
-int main(int argc, char* argv[]) {
-  std::vector<char*> positional_args = absl::ParseCommandLine(argc, argv);
+int main(int argc, char *argv[]) {
+  std::vector<char *> positional_args = absl::ParseCommandLine(argc, argv);
 
   google::InitGoogleLogging(argv[0]);
   google::SetStderrLogging(absl::GetFlag(FLAGS_log_threshold));
@@ -93,7 +104,32 @@ int main(int argc, char* argv[]) {
   } else {
     graph_file = positional_args[1];
   }
-  LOG(INFO) << "Laying out graph: " << graph_file;
+
+  // TODO(alex-kennedy): Add more config as it's required, or remove it
+  const lgl::lib_v2::LGLConfig &config = {
+      .graph_path = absl::GetFlag(FLAGS_graph_path),
+      .dimensions = absl::GetFlag(FLAGS_d),
+      .mass = absl::GetFlag(FLAGS_mass),
+      .threads = absl::GetFlag(FLAGS_threads),
+      .max_iter = absl::GetFlag(FLAGS_max_iter),
+      .interaction_radius = absl::GetFlag(FLAGS_interaction_radius),
+      .node_radius = absl::GetFlag(FLAGS_node_radius),
+      .outer_radius = absl::GetFlag(FLAGS_outer_radius),
+      .write_interval = absl::GetFlag(FLAGS_write_interval),
+      .root_node = absl::GetFlag(FLAGS_root_node),
+  };
+
+  lgl::lib_v2::LayoutRunner layout_runner(config);
+  absl::Status init_status = layout_runner.Init();
+  if (!init_status.ok()) LOG(FATAL) << init_status;
+  LOG(INFO) << "Layout runner initialised";
+
+  absl::Status run_status = layout_runner.Run();
+  if (!run_status.ok()) LOG(FATAL) << run_status;
+  LOG(INFO) << "Layout complete";
+
+  absl::Status write_status = layout_runner.Write();
+  if (!write_status.ok()) LOG(FATAL) << write_status;
 
   google::ShutdownGoogleLogging();
 }
