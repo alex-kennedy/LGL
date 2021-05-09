@@ -15,7 +15,7 @@ boost_deps()
 
 # googletest support
 git_repository(
-    name = "gtest",
+    name = "com_google_googletest",
     commit = "703bd9caab50b139428cea1aaff9974ebee5742e",  # v1.10.x
     remote = "https://github.com/google/googletest",
     shallow_since = "1570114335 -0400",
@@ -24,9 +24,9 @@ git_repository(
 # Abseil support
 http_archive(
     name = "com_google_absl",
-    sha256 = "38f5fc5399a8b88538b55b81c6d22b4622a41b7c1f568d0d883aaa63fb5d49c5",
-    strip_prefix = "abseil-cpp-b343ac3a649f5713380cdbeee79d2ee6f94ddd93",
-    urls = ["https://github.com/abseil/abseil-cpp/archive/b343ac3a649f5713380cdbeee79d2ee6f94ddd93.zip"],
+    sha256 = "441db7c09a0565376ecacf0085b2d4c2bbedde6115d7773551bc116212c2a8d6",
+    strip_prefix = "abseil-cpp-20210324.1",
+    urls = ["https://github.com/abseil/abseil-cpp/archive/refs/tags/20210324.1.tar.gz"],
 )
 
 # Fast C++ CSV Parser
@@ -46,8 +46,8 @@ http_archive(
 licenses(['notice'])
 load(':bazel/glog.bzl', 'glog_library')
 glog_library(with_gflags = 0)
-        """,
-    sha256 = "62efeb57ff70db9ea2129a16d0f908941e355d09d6d83c9f7b18557c0a7ab59e",
-    strip_prefix = "glog-d516278b1cd33cd148e8989aec488b6049a4ca0b",
-    urls = ["https://github.com/google/glog/archive/d516278b1cd33cd148e8989aec488b6049a4ca0b.zip"],
+""",
+    sha256 = "f28359aeba12f30d73d9e4711ef356dc842886968112162bc73002645139c39c",
+    strip_prefix = "glog-0.4.0",
+    urls = ["https://github.com/google/glog/archive/refs/tags/v0.4.0.tar.gz"],
 )
