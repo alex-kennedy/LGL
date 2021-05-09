@@ -36,7 +36,7 @@ cc_test(
     srcs = ["large_graph_test.cc"],
     deps = [
         ":large_graph",
-        "@gtest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -45,9 +45,11 @@ cc_library(
     srcs = ["layout_runner.cc"],
     hdrs = ["layout_runner.h"],
     deps = [
-        ":large_graph",
         ":config",
         ":grid",
+        ":io",
+        ":large_graph",
+        "@com_github_google_glog//:glog",
     ],
 )
 
@@ -69,7 +71,7 @@ cc_test(
     deps = [
         ":grid",
         "@com_google_absl//absl/memory",
-        "@gtest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -88,7 +90,7 @@ cc_test(
     srcs = ["particle_test.cc"],
     deps = [
         ":particle",
-        "@gtest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -111,6 +113,7 @@ cc_test(
     srcs = ["io_test.cc"],
     deps = [
         ":io",
-        "@gtest//:gtest_main",
+        "@com_github_google_glog//:glog",
+        "@com_google_googletest//:gtest_main",
     ],
 )

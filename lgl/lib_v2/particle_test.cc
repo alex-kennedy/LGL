@@ -1,6 +1,6 @@
 #include "lgl/lib_v2/particle.h"
 
-#include "absl/container/fixed_array.h"
+#include "external/com_google_absl/absl/container/fixed_array.h"
 #include "gtest/gtest.h"
 
 namespace lgl {

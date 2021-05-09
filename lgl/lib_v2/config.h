@@ -7,6 +7,12 @@ namespace lgl {
 namespace lib_v2 {
 
 struct LGLConfig {
+  // Files paths for running the simulation.
+  std::string graph_path;
+  std::string positions_path;
+  std::string mass_path;
+  std::string anchors_path;
+
   int dimensions;
   float mass;
   int threads;

@@ -4,9 +4,9 @@
 #include <array>
 #include <vector>
 
-#include "absl/container/fixed_array.h"
-#include "absl/container/flat_hash_map.h"
-#include "absl/container/flat_hash_set.h"
+#include "external/com_google_absl/absl/container/fixed_array.h"
+#include "external/com_google_absl/absl/container/flat_hash_map.h"
+#include "external/com_google_absl/absl/container/flat_hash_set.h"
 #include "lgl/lib_v2/large_graph.h"
 #include "lgl/lib_v2/particle.h"
 
@@ -20,7 +20,7 @@ class Grid {
   // First, the positions of the particles are initialised, either from a file,
   // or randomly. The voxels are constructed based on those locations, and the
   // particles are assigned to their correct voxels.
-  void InitGrid(const LargeGraph& graph);
+  void Init(const LargeGraph& graph);
 
   // Gets the key for the voxel which contains the given position.
   absl::FixedArray<int> VoxelAtPosition(absl::FixedArray<float> position);

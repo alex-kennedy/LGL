@@ -1,8 +1,8 @@
 #ifndef LGL_LIB_V2_PARTICLE_H_
 #define LGL_LIB_V2_PARTICLE_H_
 
-#include "absl/container/fixed_array.h"
-#include "absl/synchronization/mutex.h"
+#include "external/com_google_absl/absl/container/fixed_array.h"
+#include "external/com_google_absl/absl/synchronization/mutex.h"
 
 namespace lgl {
 namespace lib_v2 {

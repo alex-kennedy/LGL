@@ -3,9 +3,9 @@
 
 #include <memory>
 
-#include "absl/status/status.h"
-#include "absl/status/statusor.h"
-#include "absl/strings/string_view.h"
+#include "external/com_google_absl/absl/status/status.h"
+#include "external/com_google_absl/absl/status/statusor.h"
+#include "external/com_google_absl/absl/strings/string_view.h"
 #include "lgl/lib_v2/large_graph.h"
 
 namespace lgl {

@@ -3,8 +3,8 @@
 #include <memory>
 #include <string>
 
-#include "absl/status/statusor.h"
 #include "glog/logging.h"
+#include "external/com_google_absl/absl/status/statusor.h"
 #include "third_party/fast_cpp_csv_parser/csv.h"
 
 using absl::StatusOr;

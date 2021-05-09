@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#include "absl/algorithm/algorithm.h"
-#include "absl/memory/memory.h"
+#include "external/com_google_absl/absl/algorithm/algorithm.h"
+#include "external/com_google_absl/absl/memory/memory.h"
 #include "gtest/gtest.h"
 
 namespace lgl {

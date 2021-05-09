@@ -1,7 +1,7 @@
 #include "lgl/lib_v2/particle.h"
 
-#include "absl/container/fixed_array.h"
-#include "absl/synchronization/mutex.h"
+#include "external/com_google_absl/absl/container/fixed_array.h"
+#include "external/com_google_absl/absl/synchronization/mutex.h"
 
 namespace lgl {
 namespace lib_v2 {

@@ -1,6 +1,6 @@
 #include "lgl/lib_v2/grid.h"
 
-#include "absl/container/fixed_array.h"
+#include "external/com_google_absl/absl/container/fixed_array.h"
 
 namespace lgl {
 namespace lib_v2 {
@@ -10,7 +10,7 @@ Grid::Grid(unsigned int dimensions)
       voxel_count_(absl::FixedArray<int>(dimensions)),
       voxel_side_length_(absl::FixedArray<int>(dimensions)) {}
 
-void Grid::InitGrid(const LargeGraph& graph) {
+void Grid::Init(const LargeGraph& graph) {
   particles_ = std::vector<Particle>(graph.NodeCount(), Particle(dimensions_));
   auto is_initialised = std::vector<bool>(graph.NodeCount(), 0);
 

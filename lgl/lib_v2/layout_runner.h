@@ -3,9 +3,11 @@
 
 #include <memory>
 
+#include "glog/logging.h"
 #include "lgl/lib_v2/config.h"
-#include "lgl/lib_v2/large_graph.h"
 #include "lgl/lib_v2/grid.h"
+#include "lgl/lib_v2/io.h"
+#include "lgl/lib_v2/large_graph.h"
 
 namespace lgl {
 namespace lib_v2 {
@@ -14,19 +16,19 @@ class LayoutRunner {
  public:
   explicit LayoutRunner(const LGLConfig &config) : config_(config) {}
 
-  absl::Status Init();
-
   absl::Status Run();
-
-  absl::Status Write();
 
  private:
   const LGLConfig config_;
 
-  LargeGraph graph_;
+  std::unique_ptr<LargeGraph> graph_;
   std::unique_ptr<Grid> grid_;
 
-  absl::Status ConfigIsValid();
+  absl::Status CheckConfig();
+
+  absl::Status Init();
+
+  absl::Status Write();
 };
 
 }  // namespace lib_v2
